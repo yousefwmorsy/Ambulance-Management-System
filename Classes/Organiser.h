@@ -10,5 +10,10 @@ private:
 	LinkedQueue<Car> OutCars;
 	LinkedQueue<Car> BackCars;
 	LinkedQueue<Request> FinishList;
+public:
+	Organiser();
+	int getTime();
+	void incTime();
+	~Organiser();
 };
 
