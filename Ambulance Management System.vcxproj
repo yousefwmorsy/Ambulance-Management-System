@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Classes\Car.h" />
     <ClInclude Include="Data Structures\PriQueue\priNode.h" />
     <ClInclude Include="Data Structures\PriQueue\priQueue.h" />
     <ClInclude Include="Data Structures\Queue\LinkedQueue.h" />
@@ -135,9 +136,12 @@
     <ClInclude Include="Data Structures\Stack\ArrayStack.h" />
     <ClInclude Include="Data Structures\Stack\StackADT.h" />
     <ClInclude Include="Classes\Organiser.h" />
+    <ClInclude Include="Classes\Request.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Classes\Car.cpp" />
     <ClCompile Include="Classes\Organiser.cpp" />
+    <ClCompile Include="Classes\Request.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
