@@ -134,6 +134,10 @@
     <ClInclude Include="Data Structures\Queue\QueueADT.h" />
     <ClInclude Include="Data Structures\Stack\ArrayStack.h" />
     <ClInclude Include="Data Structures\Stack\StackADT.h" />
+    <ClInclude Include="Classes\Organiser.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Classes\Organiser.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

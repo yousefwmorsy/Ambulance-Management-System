@@ -48,5 +48,13 @@
     <ClInclude Include="Data Structures\PriQueue\priNode.h">
       <Filter>Data Structures\PriQueue</Filter>
     </ClInclude>
+    <ClInclude Include="Classes\Organiser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Classes\Organiser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
