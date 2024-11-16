@@ -1,12 +1,11 @@
-#pragma once
+#include "..//Classes/Organiser.h"
 #include <iostream>
 #include <fstream>
 #include <string>
-#include "..//Classes//Organiser.h"
 
 using namespace std;
-
-int ReadFile(int &HospitalCount, LinkedQueue<Request> &AllRequests) {
+void Organiser::readFile()
+{
 	//Reading input file
 	fstream inputFile;
 
@@ -14,7 +13,6 @@ int ReadFile(int &HospitalCount, LinkedQueue<Request> &AllRequests) {
 	//If there exist a problem when reading the file 
 	if (inputFile.fail()) {
 		cout << "Can't read the file........";
-		return 1;
 	}
 
 	//Variables where the data will be stored
@@ -81,5 +79,5 @@ int ReadFile(int &HospitalCount, LinkedQueue<Request> &AllRequests) {
 	}
 
 	HospitalCount = NumberOfHospitals;
-	return 1;
+
 }

@@ -1,7 +1,7 @@
 #pragma once
 #include "Organiser.h"
 #include <iostream>
-#include "..//Functions//ReadFile.cpp"
+
 using namespace std;
 
 Organiser::Organiser()
@@ -12,10 +12,7 @@ Organiser::Organiser()
 	cout << "Hospital List Created (" << HospitalCount << ") Hospitals";
 }
 
-void Organiser::readFile()
-{
-	ReadFile(HospitalCount, AllRequests);
-}
+
 
 int Organiser::getTime()
 {
