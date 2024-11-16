@@ -142,6 +142,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Classes\Car.cpp" />
+    <ClCompile Include="Classes\ReadFile.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Classes\Organiser.cpp" />
     <ClCompile Include="Classes\Request.cpp" />
