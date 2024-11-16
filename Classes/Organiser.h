@@ -14,7 +14,8 @@ private:
 	LinkedQueue<Car> BackCars;
 	LinkedQueue<Request> FinishList;*/
 public:
-	Organiser(int);
+	Organiser();
+	void readFile(); //reads file contents
 	int getTime();
 	void incTime();
 	~Organiser();

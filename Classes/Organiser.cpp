@@ -2,12 +2,12 @@
 #include <iostream>
 using namespace std;
 
-Organiser::Organiser(int Count)
+Organiser::Organiser()
 {
+	readFile();
 	timestep = 0;
-	HospitalList = new Hospital[Count];
-	HospitalCount = Count;
-	cout << "Hospital List Created";
+	HospitalList = new Hospital[HospitalCount];
+	cout << "Hospital List Created (" << HospitalCount << ") Hospitals";
 }
 
 int Organiser::getTime()

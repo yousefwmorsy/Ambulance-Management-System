@@ -3,7 +3,7 @@
 using namespace std;
 
 int main() {
-	Organiser* pOrg = new Organiser(4);
+	Organiser* pOrg = new Organiser();
 	cout << endl << pOrg->getTime() << endl;
 	pOrg->incTime(); pOrg->incTime();
 	cout << pOrg->getTime() << endl;
