@@ -1,13 +1,16 @@
+#pragma once
 #include <iostream>
 #include <fstream>
 #include <string>
+#include "..//Classes//Organiser.h"
+
 using namespace std;
 
-int ReadFile() {
+int ReadFile(int &HospitalCount, LinkedQueue<Request> &AllRequests) {
 	//Reading input file
 	fstream inputFile;
 
-	inputFile.open("./Requests.txt");
+	inputFile.open("..//InputFile.txt");
 	//If there exist a problem when reading the file 
 	if (inputFile.fail()) {
 		cout << "Can't read the file........";
@@ -29,7 +32,7 @@ int ReadFile() {
 	};
 	//Hospital-->
 	int NumberOfHospitals = 0, NCSpeed = 0, SCSpeed = 0, distance = 0, NumOfRequests = 0, NumOfReqCancellation = 0;
-	
+
 
 	//Reading number of hospitals and speed of normal and special cars.
 	inputFile >> NumberOfHospitals;
@@ -75,4 +78,8 @@ int ReadFile() {
 	for (int i = 0; i < NumOfReqCancellation; i++) {
 		CancelReq CR;
 		inputFile >> CR.TimeStep >> CR.PatientID;
+	}
+
+	HospitalCount = NumberOfHospitals;
+	return 1;
 }

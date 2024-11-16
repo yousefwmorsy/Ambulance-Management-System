@@ -1,14 +1,20 @@
+#pragma once
 #include "Organiser.h"
 #include <iostream>
-#include "ReadFile.cpp"
+#include "..//Functions//ReadFile.cpp"
 using namespace std;
 
 Organiser::Organiser()
 {
-	int i = ReadFile();
+	readFile();
 	timestep = 0;
 	HospitalList = new Hospital[HospitalCount];
 	cout << "Hospital List Created (" << HospitalCount << ") Hospitals";
+}
+
+void Organiser::readFile()
+{
+	ReadFile(HospitalCount, AllRequests);
 }
 
 int Organiser::getTime()
