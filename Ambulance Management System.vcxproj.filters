@@ -63,6 +63,9 @@
     <ClInclude Include="Classes\UI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Functions\ReadInput.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Classes\Organiser.cpp">
@@ -83,7 +86,7 @@
     <ClCompile Include="Classes\UI.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Classes\ReadFile.cpp">
+    <ClCompile Include="Functions\ReadFile.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

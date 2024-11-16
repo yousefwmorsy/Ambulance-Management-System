@@ -14,7 +14,7 @@ private:
 	priQueue<Car> OutCars;
 	priQueue<Car> BackCars;
 	LinkedQueue<Request> FinishList;
-	//LinkedQueue<Request> AllRequests;
+	LinkedQueue<Request> AllRequests;
 public:
 	Organiser();
 	void readFile(); //reads file contents
