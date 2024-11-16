@@ -138,6 +138,7 @@
     <ClInclude Include="Classes\Organiser.h" />
     <ClInclude Include="Classes\Request.h" />
     <ClInclude Include="Classes\Hospital.h" />
+    <ClInclude Include="Classes\UI.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Classes\Car.cpp" />
@@ -145,6 +146,7 @@
     <ClCompile Include="Classes\Organiser.cpp" />
     <ClCompile Include="Classes\Request.cpp" />
     <ClCompile Include="Classes\Hospital.cpp" />
+    <ClCompile Include="Classes\UI.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
