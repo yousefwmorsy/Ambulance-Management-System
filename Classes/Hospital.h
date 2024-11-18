@@ -21,6 +21,8 @@ public:
 			Car* temp = new Car(hID,i+1,false);
 			carN.enqueue(*temp);
 		}
+		numScars=SpecialCarCount;
+		numNcars=NormalCarCount;
 	}
 };
 
