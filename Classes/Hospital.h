@@ -14,12 +14,12 @@ public:
 		for (int i = 0; i < SpecialCarCount; i++)
 		{
 			Car* temp = new Car(hID,i+1,true);
-			carS.enqueue(temp);
+			carS->enqueue(*temp);
 		}
 		for (int i = 0; i < NormalCarCount; i++)
 		{
 			Car* temp = new Car(hID,i+1,false);
-			carN.enqueue(temp);
+			carN->enqueue(*temp);
 		}
 		numScars=SpecialCarCount;
 		numNcars=NormalCarCount;
