@@ -66,6 +66,7 @@
 
     <ClInclude Include="Functions\ReadInput.h">
       <Filter>Header Files</Filter>
+	</ClInclude>
 
     <ClInclude Include="Data Structures\LeavablePriQueue\LeavablePriQueue.h">
       <Filter>Header Files</Filter>
