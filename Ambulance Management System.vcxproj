@@ -143,7 +143,6 @@
     <ClInclude Include="Functions\ReadInput.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Classes\Car.cpp" />
 
     <ClInclude Include="Data Structures\LeavablePriQueue\LeavablePriQueue.h" />
   </ItemGroup>
