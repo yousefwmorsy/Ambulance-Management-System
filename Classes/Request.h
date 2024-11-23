@@ -8,6 +8,6 @@ private:
 	int Pid;
 	int nearestHid;
 	int distance;
-	Car* PickUpcar;
+	Car* PickUpcar; //not needed, car would point to patient not the other way around
 };
 

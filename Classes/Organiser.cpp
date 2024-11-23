@@ -1,14 +1,29 @@
 #include "Organiser.h"
 #include <iostream>
-#include "ReadFile.cpp"
 using namespace std;
 
 Organiser::Organiser()
 {
-	int i = ReadFile();
+	readFile();
 	timestep = 0;
 	HospitalList = new Hospital[HospitalCount];
 	cout << "Hospital List Created (" << HospitalCount << ") Hospitals";
+}
+
+void Organiser::readFile()
+{
+	//add function here
+}
+
+void Organiser::addCar(bool isSpecial, int HospitalID)
+{
+	//creates car given whether it is special or not
+	//assigns car to hospital
+}
+
+void Organiser::addHospital(int HospitalID)
+{
+	//creates hospital object
 }
 
 int Organiser::getTime()
