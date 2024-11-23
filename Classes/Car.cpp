@@ -17,3 +17,16 @@ Car::Car(int hid, int cid, bool isS) {
 	carID = cid;
 	isSpecial = isS;
 }
+
+ostream& operator<<(ostream& out, const Car& c)
+{
+	string type = "Normal";
+	if (c.isSpecial) {
+		type = "Special";
+	}
+	out << "Car " << c.carID << "info :\n"
+		<< "Hospital ID: " << c.hospitalID << endl
+		<< "Type: " << type << endl
+		<< "Patient ID: " << c.patient_ID;
+	return out;
+}

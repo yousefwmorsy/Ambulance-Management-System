@@ -11,5 +11,6 @@ class Hospital
 public:
 	Hospital();
 	Hospital(int hID, int SpecialCarCount, int NormalCarCount);
+	friend ostream& operator << (ostream& out, const Hospital& h);
 };
 

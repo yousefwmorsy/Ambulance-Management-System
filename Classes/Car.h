@@ -1,4 +1,7 @@
 #pragma once
+#include <iostream>
+using namespace std;
+
 class Car
 {
 private:
@@ -14,5 +17,5 @@ public:
 	static void setSpeed(int speed_special, int speed_normal);
 	void setPID(int ID);
 	int getPID();       //I don't think we will use it but I am leaving it incase it was needed for debugging
+	friend ostream& operator << (ostream& out, const Car& c);
 };
-
