@@ -1,35 +1,48 @@
+#pragma once
+#include "..//Classes/Organiser.h"
 #include <iostream>
 #include <fstream>
 #include <string>
+#include "..//Classes//Organiser.h"
+#include "..//Data Structures/Queue/LinkedQueue.h"
+#include "..//Classes//Request.h"
+#include "..//Classes//Car.h"
+#include "..//Classes//Hospital.h"
+
+
+
 using namespace std;
 
-int ReadFile() {
+void ReadFile(int& H/*, LinkedQueue<Request> &Re, LinkedQueue<Car> &ca, LinkedQueue<Hospital> &Ho*/) {
 	//Reading input file
 	fstream inputFile;
 
-	inputFile.open("./Requests.txt");
+	inputFile.open("InputFile.txt");
 	//If there exist a problem when reading the file 
 	if (inputFile.fail()) {
 		cout << "Can't read the file........";
-		return 1;
+		return;
 	}
 
 	//Variables where the data will be stored
-	struct Request { // Dummy
-		string type = "";
-		int TimeStep = 0;
-		int PatientID = 0;
-		int HospitalID = 0;
-		int DistanceFromHospital = 0;
-	};
+	//struct Request { // Dummy
+	//	string type = "";
+	//	int TimeStep = 0;
+	//	int PatientID = 0;
+	//	int HospitalID = 0;
+	//	int DistanceFromHospital = 0;
 
-	struct CancelReq { // Dummy
-		int PatientID = 0;
-		int TimeStep = 0;
-	};
+	//};
+
+	//struct CancelReq { // Dummy
+	//	int PatientID = 0;
+	//	int TimeStep = 0;
+	//};
 	//Hospital-->
 	int NumberOfHospitals = 0, NCSpeed = 0, SCSpeed = 0, distance = 0, NumOfRequests = 0, NumOfReqCancellation = 0;
-	
+	Request R;
+	Car C;
+
 
 	//Reading number of hospitals and speed of normal and special cars.
 	inputFile >> NumberOfHospitals;
@@ -66,13 +79,16 @@ int ReadFile() {
 
 
 	for (int i = 0; i < NumOfRequests; i++) {
-		Request R;
-		inputFile >> R.type >> R.TimeStep >> R.PatientID >> R.HospitalID >> R.DistanceFromHospital;
+
+		//inputFile >> R.type >> R.TimeStep >> R.PatientID >> R.HospitalID >> R.DistanceFromHospital;
 	}
 
 	inputFile >> NumOfReqCancellation;
 
 	for (int i = 0; i < NumOfReqCancellation; i++) {
-		CancelReq CR;
-		inputFile >> CR.TimeStep >> CR.PatientID;
-}
+		//inputFile >> CR.TimeStep >> CR.PatientID;
+	}
+
+	H = NumberOfHospitals;
+	inputFile.close();
+};

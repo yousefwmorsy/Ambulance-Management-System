@@ -139,12 +139,19 @@
     <ClInclude Include="Classes\Request.h" />
     <ClInclude Include="Classes\Hospital.h" />
     <ClInclude Include="Classes\UI.h" />
+
+    <ClInclude Include="Functions\ReadInput.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Classes\Car.cpp" />
+
     <ClInclude Include="Data Structures\LeavablePriQueue\LeavablePriQueue.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Classes\Car.cpp" />
     <ClCompile Include="Classes\ReadFile.cpp" />
     <ClCompile Include="Data Structures\LeavablePriQueue\LeavablePriQueue.cpp" />
+
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Classes\Organiser.cpp" />
     <ClCompile Include="Classes\Request.cpp" />
