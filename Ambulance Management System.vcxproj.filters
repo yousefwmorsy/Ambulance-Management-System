@@ -25,6 +25,9 @@
     <Filter Include="Data Structures\PriQueue">
       <UniqueIdentifier>{62995d0c-6ef2-4493-aba6-7b05faa016c5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Data Structures\LeavablePriQueue">
+      <UniqueIdentifier>{1a412f04-78ea-4fea-95c6-24b485077bf6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Data Structures\Stack\StackADT.h">
@@ -63,8 +66,13 @@
     <ClInclude Include="Classes\UI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+
     <ClInclude Include="Functions\ReadInput.h">
       <Filter>Header Files</Filter>
+
+    <ClInclude Include="Data Structures\LeavablePriQueue\LeavablePriQueue.h">
+      <Filter>Data Structures\LeavablePriQueue</Filter>
+
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -88,6 +96,9 @@
     </ClCompile>
     <ClCompile Include="Functions\ReadFile.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Data Structures\LeavablePriQueue\LeavablePriQueue.cpp">
+      <Filter>Data Structures\LeavablePriQueue</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
