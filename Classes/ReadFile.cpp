@@ -29,7 +29,7 @@ int ReadFile() {
 	};
 	//Hospital-->
 	int NumberOfHospitals = 0, NCSpeed = 0, SCSpeed = 0, distance = 0, NumOfRequests = 0, NumOfReqCancellation = 0;
-	
+
 
 	//Reading number of hospitals and speed of normal and special cars.
 	inputFile >> NumberOfHospitals;
@@ -75,4 +75,5 @@ int ReadFile() {
 	for (int i = 0; i < NumOfReqCancellation; i++) {
 		CancelReq CR;
 		inputFile >> CR.TimeStep >> CR.PatientID;
+	}
 }
