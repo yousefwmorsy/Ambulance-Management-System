@@ -13,6 +13,7 @@ private:
 	Car* PickUpcar; //not needed, car would point to patient not the other way around
 public:
 	Request(bool t , int q, int p, int hi, int d);
+	int getQT();
 	friend ostream& operator << (ostream& out, const Request& r);
 	//Make operator (=) overloading
 };

@@ -3,9 +3,9 @@
 #include "..//..//Classes//Car.h"
 
 class LeavablePriQueue :
-    public priQueue<Car>
+    public priQueue<Car*>
 {
 public:
-    void LeaveQueue(int x, int PID);
+    void LeaveQueue(Car*& Removed, int PID);
 };
 
