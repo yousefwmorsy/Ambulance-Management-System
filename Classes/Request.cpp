@@ -27,3 +27,8 @@ int Request::getQT()
 {
 	return QT;
 }
+
+int Request::getpid()
+{
+	return Pid;
+}
