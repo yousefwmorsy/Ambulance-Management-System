@@ -14,7 +14,6 @@ protected:
 public:
 	Request(bool t , int q, int p, int hi, int d);
 	int getQT();
-	int getpid();
 	friend ostream& operator << (ostream& out, const Request& r);
 	//Make operator (=) overloading
 };
