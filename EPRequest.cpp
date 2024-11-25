@@ -6,3 +6,8 @@ EPRequest::EPRequest(int q, int p, int hi, int d, int s) : Request(false, q, p, 
 {
 	Severity = s;
 }
+
+int EPRequest::getSeverity()
+{
+	return Severity;
+}
