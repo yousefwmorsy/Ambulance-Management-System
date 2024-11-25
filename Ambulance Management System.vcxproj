@@ -128,6 +128,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Classes\Car.h" />
+    <ClInclude Include="Classes\EPRequest.h" />
     <ClInclude Include="Classes\ReadInput.h" />
     <ClInclude Include="Data Structures\PriQueue\priQueue.h" />
     <ClInclude Include="Data Structures\Queue\LinkedQueue.h" />
@@ -143,6 +144,7 @@
     <ClCompile Include="Classes\Car.cpp" />
     <ClCompile Include="Classes\ReadFile.cpp" />
     <ClCompile Include="Data Structures\LeavablePriQueue\LeavablePriQueue.cpp" />
+    <ClCompile Include="EPRequest.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Classes\Organiser.cpp" />
     <ClCompile Include="Classes\Request.cpp" />
