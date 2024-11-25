@@ -63,9 +63,6 @@
     <ClInclude Include="Classes\ReadInput.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Classes\EPRequest.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Classes\Organiser.cpp">
@@ -91,9 +88,6 @@
     </ClCompile>
     <ClCompile Include="Data Structures\LeavablePriQueue\LeavablePriQueue.cpp">
       <Filter>Data Structures\LeavablePriQueue</Filter>
-    </ClCompile>
-    <ClCompile Include="EPRequest.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
