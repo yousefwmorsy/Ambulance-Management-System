@@ -13,3 +13,8 @@ ostream& operator<<(ostream& out, const Request& r)
 		<< "Distane: " << r.distance;
 	return out;
 }
+
+int Request::getQT()
+{
+	return QT;
+}

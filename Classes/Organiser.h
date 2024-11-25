@@ -15,17 +15,18 @@ private:
 	int timestep;
 	int HospitalCount;
 	Hospital* HospitalList;
-	LinkedQueue<Request> AllRequests;
-	LinkedQueue<Car> OutCars;
-	LinkedQueue<Car> BackCars;
-	LinkedQueue<Request> FinishList;
-	LinkedQueue<CancelRequest> CancellationRequests;
+	LinkedQueue<Request*> AllRequests;
+	LinkedQueue<Car*> OutCars;
+	LinkedQueue<Car*> BackCars;
+	LinkedQueue<Request*> FinishList;
+	LinkedQueue<CancelRequest*> CancellationRequests;
 public:
 	Organiser();
 	void readFile(); //reads file contents
 	bool notEnd(); //checks that the program did not end
 	void addCar(bool isSpecial, int HospitalID); //creates car object and assigns to hospital
 	void addHospital(int HospitalID); //creates hospital object
+	void serveRequests();
 	void addNPRequest(); //creates NP request object and assigns to hospital
 	void addSPRequest(); //creates SP request object and assigns to hospital
 	void addEPRequest(); //creates EP request object and assigns to hospital

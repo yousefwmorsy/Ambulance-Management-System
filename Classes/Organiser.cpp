@@ -7,9 +7,7 @@ Organiser::Organiser()
 	readFile();
 	timestep = 0;
 	HospitalList = new Hospital[HospitalCount];
-	Request x;
-	AllRequests.enqueue(x);
-	cout << "Hospital List Created (" << HospitalCount << ") Hospitals";
+	cout << "Hospital List Created (" << HospitalCount << ") Hospitals" << endl;
 }
 
 void Organiser::readFile()
@@ -31,6 +29,24 @@ void Organiser::addCar(bool isSpecial, int HospitalID)
 void Organiser::addHospital(int HospitalID)
 {
 	//creates hospital object
+}
+
+void Organiser::serveRequests()
+{
+	bool x = 1;
+	while (x && notEnd())
+	{
+		Request* Top;
+		AllRequests.peek(Top);
+		if (Top->getQT() == timestep) {
+			AllRequests.dequeue(Top);
+			//send top to suitable hospital
+		}
+		else
+		{
+			x = 0;
+		}
+	}
 }
 
 int Organiser::getTime()

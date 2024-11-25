@@ -12,6 +12,8 @@ private:
 	int distance;
 	Car* PickUpcar; //not needed, car would point to patient not the other way around
 public:
+	int getQT();
 	friend ostream& operator << (ostream& out, const Request& r);
+
 };
 
