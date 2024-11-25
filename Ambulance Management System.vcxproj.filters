@@ -36,19 +36,10 @@
     <ClInclude Include="Data Structures\Stack\ArrayStack.h">
       <Filter>Data Structures\Stack</Filter>
     </ClInclude>
-    <ClInclude Include="Data Structures\Queue\Node.h">
-      <Filter>Data Structures\Queue</Filter>
-    </ClInclude>
     <ClInclude Include="Data Structures\Queue\LinkedQueue.h">
       <Filter>Data Structures\Queue</Filter>
     </ClInclude>
-    <ClInclude Include="Data Structures\Queue\QueueADT.h">
-      <Filter>Data Structures\Queue</Filter>
-    </ClInclude>
     <ClInclude Include="Data Structures\PriQueue\priQueue.h">
-      <Filter>Data Structures\PriQueue</Filter>
-    </ClInclude>
-    <ClInclude Include="Data Structures\PriQueue\priNode.h">
       <Filter>Data Structures\PriQueue</Filter>
     </ClInclude>
     <ClInclude Include="Classes\Organiser.h">
@@ -68,6 +59,9 @@
     </ClInclude>
     <ClInclude Include="Data Structures\LeavablePriQueue\LeavablePriQueue.h">
       <Filter>Data Structures\LeavablePriQueue</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\ReadInput.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

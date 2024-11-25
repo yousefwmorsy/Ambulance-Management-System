@@ -128,6 +128,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Classes\Car.h" />
+    <ClInclude Include="Classes\ReadInput.h" />
     <ClInclude Include="Data Structures\PriQueue\priQueue.h" />
     <ClInclude Include="Data Structures\Queue\LinkedQueue.h" />
     <ClInclude Include="Data Structures\Stack\ArrayStack.h" />

@@ -14,6 +14,15 @@ ostream& operator<<(ostream& out, const Request& r)
 	return out;
 }
 
+Request::Request(bool t, int q, int p, int hi, int d)
+{
+	isSpecial = t;
+	QT = q;
+	Pid = p;
+	nearestHid = hi;
+	distance = d;
+}
+
 int Request::getQT()
 {
 	return QT;

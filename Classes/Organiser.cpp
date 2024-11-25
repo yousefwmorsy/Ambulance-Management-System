@@ -4,16 +4,12 @@ using namespace std;
 
 Organiser::Organiser()
 {
-	readFile();
+	ReadInputFile();
 	timestep = 0;
 	HospitalList = new Hospital[HospitalCount];
 	cout << "Hospital List Created (" << HospitalCount << ") Hospitals" << endl;
 }
 
-void Organiser::readFile()
-{
-	//add function here
-}
 
 bool Organiser::notEnd()
 {
@@ -59,9 +55,16 @@ void Organiser::incTime()
 	timestep++;
 }
 
+void Organiser::SetNormlCarSpeed(int Ns){
+	
+}
+
+void Organiser::SetSpecialCarSpeed(int Ss){
+}
+
 Organiser::~Organiser()
 {
-	delete[] HospitalList;
+	delete[] HospitalList, HospitalsDistances, Cars, CancelRequist;
 	cout << "Hospital List Destroyed";
 }
 
