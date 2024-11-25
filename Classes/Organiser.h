@@ -17,12 +17,8 @@ private:
 	int HospitalCount;
 	int** HospitalsDistances; //Matrix Hospital Distances
 	int** Cars; //Matrix Number of cars of each hospital.
-	int** CancelRequist; //
+	int** CancelRequist; //to be removed
 	Hospital* HospitalList;
-	LinkedQueue<Car> OutCars;
-	LinkedQueue<Car> BackCars;
-	LinkedQueue<Request> Requests;
-	LinkedQueue<Request> FinishList;
 	LinkedQueue<Request*> AllRequests;
 	LinkedQueue<Car*> OutCars;
 	LinkedQueue<Car*> BackCars;
@@ -33,7 +29,7 @@ public:
 	Organiser();
 	void readFile(); //reads file contents
 	bool notEnd(); //checks that the program did not end
-	void  ReadInputFile(); //reads file contents
+	void ReadInputFile(); //reads file contents
 	void addCar(bool isSpecial, int HospitalID); //creates car object and assigns to hospital
 	void addHospital(int HospitalID); //creates hospital object
 	void serveRequests();
