@@ -34,4 +34,5 @@ ostream& operator<<(ostream& out, const Hospital& h)
 		h.carS->peek(c);
 		out << c << endl;
 	}
+	return out;
 }

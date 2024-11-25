@@ -7,12 +7,19 @@ Organiser::Organiser()
 	readFile();
 	timestep = 0;
 	HospitalList = new Hospital[HospitalCount];
+	Request x;
+	AllRequests.enqueue(x);
 	cout << "Hospital List Created (" << HospitalCount << ") Hospitals";
 }
 
 void Organiser::readFile()
 {
 	//add function here
+}
+
+bool Organiser::notEnd()
+{
+	return AllRequests.isEmpty() ? 0 : 1;
 }
 
 void Organiser::addCar(bool isSpecial, int HospitalID)

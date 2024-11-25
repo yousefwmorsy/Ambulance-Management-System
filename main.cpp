@@ -3,9 +3,11 @@
 using namespace std;
 
 int main() {
-	Organiser* pOrg = new Organiser();
-	cout << endl << pOrg->getTime() << endl;
-	pOrg->incTime(); pOrg->incTime();
-	cout << pOrg->getTime() << endl;
+	Organiser* pOrg = new Organiser(); 
+
+	while (pOrg->notEnd()) {
+		//code to run while program is active
+	}
+
 	delete pOrg;
 }
