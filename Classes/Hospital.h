@@ -1,6 +1,8 @@
 #pragma once
 #include "Car.h"
 #include"..//Data Structures/Queue/LinkedQueue.h"
+#include "Organiser.h"
+#include "..//Data Structures/PriQueue/priQueue.h"
 class Hospital
 {private:
 	int numNcars;

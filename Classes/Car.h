@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include "Request.h"
 using namespace std;
 
 class Car
@@ -17,5 +18,6 @@ public:
 	static void setSpeed(int speed_special, int speed_normal);
 	void setPatient(Request *);
 	Request* getPatient();
+	bool checkSpecial();
 	friend ostream& operator << (ostream& out, const Car& c);
 };
