@@ -2,19 +2,34 @@
 
 Hospital::Hospital(){}
 
-Hospital::Hospital(int hID, int SpecialCarCount, int NormalCarCount) {
-		for (int i = 0; i < SpecialCarCount; i++)
-		{
-			Car* temp = new Car(hID, i + 1, true);
-			carS->enqueue(*temp);
-		}
-		for (int i = 0; i < NormalCarCount; i++)
-		{
-			Car* temp = new Car(hID, i + 1, false);
-			carN->enqueue(*temp);
-		}
+Hospital::Hospital(int SpecialCarCount, int NormalCarCount,Organiser *orga) {
 		numScars = SpecialCarCount;
 		numNcars = NormalCarCount;
+		org = orga;
+}
+
+void Hospital::addCar(Car* ptr)
+{
+	if (ptr->checkSpecial()) {
+		carS->enqueue(ptr);
+	}
+	else
+	{
+		carN->enqueue(ptr);
+	}
+	return;
+}
+
+void Hospital::setRequest(Request* rq)
+{
+	/*if (rq->isSpecial()) { // the function need to implemented in request file
+		specialRequest->enqueue(rq);
+	}
+	else
+	{
+		normalRequest->enqueue(rq);
+	}*/
+	return;
 }
 
 ostream& operator<<(ostream& out, const Hospital& h)
