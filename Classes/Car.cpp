@@ -6,11 +6,18 @@ void Car::setSpeed(int s,int n){
 	speedS = s;
 	return;
 }
-void Car::setPID(int id) {
-	patient_ID = id;
+void Car::setPatient(Request* pt)
+{
+	ptr = pt;
+	return;
 }
-int Car::getPID() {
-	return patient_ID;
+Request* Car::getPatient()
+{
+	return ptr;
+}
+bool Car::checkSpecial()
+{
+	return isSpecial;
 }
 Car::Car(int hid, int cid, bool isS) {
 	hospitalID = hid;
