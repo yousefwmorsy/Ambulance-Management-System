@@ -20,6 +20,15 @@ public:
 	Hospital(int SpecialCarCount, int NormalCarCount);
 	void addCar(Car* ptr); //send a pointer of car normal or Special and it add it to the list
 	void setRequest(Request*); //for normal and special
+	void setRequest(EPRequest*, int); //for emergency
+	Car* serveEP();
+	Car* serveSP();
+	Car* serveNP();
+	bool hasEPRequests();
+	bool hasNPRequests();
+	bool hasSPRequests();
+	bool hasSCars();
+	bool hasNCars();
 	//friend ostream& operator << (ostream& out, const Hospital& h);
 };
 

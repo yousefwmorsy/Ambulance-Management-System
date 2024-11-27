@@ -12,11 +12,14 @@ void Car::setPatient(Request* pt)
 	ptr = pt;
 	return;
 }
-void Car::dropPatient()
+
+Request* Car::dropPatient()
 {
-	if (getPatient())
+	if (ptr)
 	{
+		Request* x = ptr;
 		ptr = nullptr;
+		return x;
 	}
 }
 Request* Car::getPatient()

@@ -18,7 +18,7 @@ public:
 	Car(int hospitalID,int carID,bool isSpecial);
 	static void setSpeed(int speed_special, int speed_normal);
 	void setPatient(Request *);
-	void dropPatient();
+	Request* dropPatient();
 	Request* getPatient();
 	bool checkSpecial();
 	friend ostream& operator << (ostream& out, const Car& c);

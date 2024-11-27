@@ -14,6 +14,7 @@ public:
 	Request(char t , int q, int p, int hi, int d);
 	int getQT();
 	int getpid();
+	int gethid();
 	char getType();
 	friend ostream& operator << (ostream& out, const Request& r);
 	//Make operator (=) overloading

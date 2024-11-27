@@ -30,6 +30,39 @@ void Hospital::setRequest(Request* rq)
 	return;
 }
 
+void Hospital::setRequest(EPRequest* rq, int s)
+{
+	emergencyRequest.enqueue(rq, s);
+}
+
+void Hospital::serveEP()
+{
+	int x; Request* rq;
+	if (emergencyRequest.peek(rq, x))
+	{
+
+	}
+}
+
+bool Hospital::hasEPRequests()
+{
+	Request* x;
+	int t;
+	return emergencyRequest.peek(x,t);
+}
+
+bool Hospital::hasSPRequests()
+{
+	Request* x;
+	return specialRequest.peek(x);
+}
+
+bool Hospital::hasNPRequests()
+{
+	Request* x;
+	return normalRequest.peek(x);
+}
+
 //ostream& operator<<(ostream& out, const Hospital& h)
 //{
 //	out << "Hospital " << h.hospitalID << "Info "
