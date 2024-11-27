@@ -1,6 +1,7 @@
 #include "Car.h"
 int Car::speedN;
 int Car::speedS;
+
 void Car::setSpeed(int s,int n){
 	speedN = n;
 	speedS = s;
@@ -10,6 +11,13 @@ void Car::setPatient(Request* pt)
 {
 	ptr = pt;
 	return;
+}
+void Car::dropPatient()
+{
+	if (getPatient())
+	{
+		ptr = nullptr;
+	}
 }
 Request* Car::getPatient()
 {
@@ -23,6 +31,7 @@ Car::Car(int hid, int cid, bool isS) {
 	hospitalID = hid;
 	carID = cid;
 	isSpecial = isS;
+	ptr = nullptr;
 }
 
 ostream& operator<<(ostream& out, const Car& c)
@@ -34,6 +43,6 @@ ostream& operator<<(ostream& out, const Car& c)
 	out << "Car " << c.carID << "info :\n"
 		<< "Hospital ID: " << c.hospitalID << endl
 		<< "Type: " << type << endl
-		<< "Patient ID: " << c.patient_ID;
+		<< "Patient ID: " << c.ptr;
 	return out;
 }

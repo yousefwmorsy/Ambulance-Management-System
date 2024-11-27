@@ -75,8 +75,8 @@ void Organiser::ReadInputFile() {
 		if (type =="SP") {
 			t = true;
 		}
-		Request R(t, TimeStep, PatientID, HospitalID ,DistanceFromHospital);
-		Requests.enqueue(R);
+		Request *R = new Request(t, TimeStep, PatientID, HospitalID ,DistanceFromHospital);
+		AllRequests.enqueue(R);
 		
 	}
 

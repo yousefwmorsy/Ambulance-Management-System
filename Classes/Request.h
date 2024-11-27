@@ -1,20 +1,20 @@
 #pragma once
-#include "Car.h"
 #include <iostream>
 using namespace std;
 class Request
 {
 protected:
-	bool isSpecial;
+	char type;
 	int QT;
 	int Pid;
 	int nearestHid;
 	int distance;
-	Car* PickUpcar; //not needed, car would point to patient not the other way around
 public:
-	Request(bool t , int q, int p, int hi, int d);
+	Request() {}
+	Request(char t , int q, int p, int hi, int d);
 	int getQT();
 	int getpid();
+	char getType();
 	friend ostream& operator << (ostream& out, const Request& r);
 	//Make operator (=) overloading
 };

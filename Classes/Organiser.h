@@ -25,20 +25,14 @@ private:
 	LinkedQueue<Request*> FinishList;
 	LinkedQueue<CancelRequest*> CancellationRequests;
 public:
-
 	Organiser();
-	void readFile(); //reads file contents
 	bool notEnd(); //checks that the program did not end
 	void ReadInputFile(); //reads file contents
 	void addCar(bool isSpecial, int HospitalID); //creates car object and assigns to hospital
 	void addHospital(int HospitalID); //creates hospital object
 	void serveRequests();
-	void addNPRequest(); //creates NP request object and assigns to hospital
-	void addSPRequest(); //creates SP request object and assigns to hospital
-	void addEPRequest(); //creates EP request object and assigns to hospital
 	int getTime(); //returns current timestep
 	void incTime(); //increments timestep
-
 	void SetNormlCarSpeed(int Ns); //Set the speed of the normal car.
 	void SetSpecialCarSpeed(int Ss);
 	~Organiser();
