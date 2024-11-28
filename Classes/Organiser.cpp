@@ -8,13 +8,15 @@ using namespace std;
 Organiser::Organiser()
 {
 	timestep = 0;
+	FinishedRequestsCount = 0;
+	TotalRequestsCount = 0;
 	//cout << "Hospital List Created (" << HospitalCount << ") Hospitals" << endl;
 }
 
 
 bool Organiser::notEnd()
 {
-	return !AllRequests.isEmpty() && FinishList.isEmpty() ? 0 : 1;
+	return (FinishedRequestsCount == TotalRequestsCount);
 }
 
 
@@ -87,12 +89,15 @@ void Organiser::Simulation(){
 			int randomtime = rand() % 100 + 1;
 			if (randomtime >=10 && randomtime < 20) { //If  10 <= number < 20, Move one SP patient to the Finish list.
 				FinishList.enqueue(HospitalList[i].FinishRequest("SP"));
+				FinishedRequestsCount++;
 			}
 			else if (randomtime >= 20 && randomtime < 25) { //If  20 <= number < 25, Move one EP patient to the Finish list.
 				FinishList.enqueue(HospitalList[i].FinishRequest("EP"));
+				FinishedRequestsCount++;
 			}
 			else if (randomtime >= 30 && randomtime < 40) { //If  30 <= number < 40, Move one NP patient to the Finish list.
 				FinishList.enqueue(HospitalList[i].FinishRequest("NP"));
+				FinishedRequestsCount++;
 			}
 			else if (randomtime >= 40 && randomtime < 45) { //if  40 <= number < 45, Move one Scar from free to out list.
 				OutCars.enqueue(HospitalList[i].SendCarOut("SC"),timestep);

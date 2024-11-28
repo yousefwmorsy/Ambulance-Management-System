@@ -71,10 +71,12 @@ void Organiser::ReadInputFile() {
 			inputFile >> TimeStep >> PatientID >> HospitalID >> DistanceFromHospital >> Severty;
 			EPRequest* EPR = new EPRequest(TimeStep, PatientID, HospitalID, DistanceFromHospital, Severty);
 			AllRequests.enqueue(EPR);
+			TotalRequestsCount++;
 		}
 		inputFile >> TimeStep >> PatientID >> HospitalID >> DistanceFromHospital;
 		Request *R = new Request(type, TimeStep, PatientID, HospitalID ,DistanceFromHospital);
 		AllRequests.enqueue(R);
+		TotalRequestsCount++;
 	}
 
 	
