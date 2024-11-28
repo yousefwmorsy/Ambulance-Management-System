@@ -86,6 +86,8 @@ void Organiser::Simulation(){
 		for (int i = 0; i < HospitalCount; i++) {
 			srand(time(0));
 			int randomtime = rand() % 100 + 1;
+			//int arr[] = {42, 92};
+			//int randomtime = arr[i%2];
 			if (randomtime >=10 && randomtime < 20) { //If  10 <= number < 20, Move one SP patient to the Finish list.
 				if (HospitalList[i].getSRC())
 				{
@@ -112,7 +114,7 @@ void Organiser::Simulation(){
 				}
 			}
 			else if (randomtime >= 70 && randomtime < 75) { //if  70 <= number < 75, Move one Ncar from free to out list.
-				if (HospitalList[i].getScars()) {
+				if (HospitalList[i].getNcars()) {
 					OutCars.enqueue(HospitalList[i].SendCarOut("NC"), timestep);
 				}
 			}
@@ -127,18 +129,19 @@ void Organiser::Simulation(){
 			}
 			else if (randomtime >= 91 && randomtime < 95) { //if 91 <= number < 95, Move one car from back to “Free” list of its hospital.
 				Car* C;
-				if (!OutCars.isEmpty()) {
+				if (!BackCars.isEmpty()) {
 				BackCars.dequeue(C);
 				HospitalList[C->GetHospitalID()-1].addCar(C);
 				}
 			
 			}
 			I.PrintHospital(HospitalList[i], timestep);
-			cout << "Press Enter to continue.......";
+			cout << "Press any key to display next hospital";
 			cin.ignore();
 		}
 		incTime();
 	}
+	cout << "Simulation Ended: " << TotalRequestsCount << ", " << FinishedRequestsCount;
 }
 
 Organiser::~Organiser()

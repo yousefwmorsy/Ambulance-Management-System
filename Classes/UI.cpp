@@ -3,7 +3,7 @@
 
 void UI::PrintHospital(Hospital H, int timeStep)
 {
-	cout << "Current Time Step: " << timeStep;
+	cout << endl << endl <<"Current Time Step: " << timeStep << endl;
 	cout << H;
 }
 
