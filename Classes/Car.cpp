@@ -30,6 +30,10 @@ bool Car::checkSpecial()
 {
 	return isSpecial;
 }
+int Car::GetHospitalID()
+{
+	return hospitalID;
+}
 Car::Car(int hid, int cid, bool isS) {
 	hospitalID = hid;
 	carID = cid;
@@ -43,7 +47,7 @@ ostream& operator<<(ostream& out, const Car& c)
 	if (c.isSpecial) {
 		type = "Special";
 	}
-	out << "Car " << c.carID << "info :\n"
+	out << "Car " << c.carID << " info :\n"
 		<< "Hospital ID: " << c.hospitalID << endl
 		<< "Type: " << type << endl
 		<< "Patient ID: " << c.ptr;

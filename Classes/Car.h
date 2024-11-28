@@ -14,12 +14,13 @@ private:
 	bool isSpecial;
 	Request* ptr; //pointer for the patient	
 public:
-	Car(){}
+	Car();
 	Car(int hospitalID,int carID,bool isSpecial);
 	static void setSpeed(int speed_special, int speed_normal);
 	void setPatient(Request *);
 	Request* dropPatient();
 	Request* getPatient();
 	bool checkSpecial();
+	int GetHospitalID();
 	friend ostream& operator << (ostream& out, const Car& c);
 };

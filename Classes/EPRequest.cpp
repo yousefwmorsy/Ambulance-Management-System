@@ -2,7 +2,7 @@
 #include <iostream>
 using namespace std;
 
-EPRequest::EPRequest(int q, int p, int hi, int d, int s) : Request(false, q, p, hi, d)
+EPRequest::EPRequest(int q, int p, int hi, int d, int s) : Request("EP", q, p, hi, d)
 {
 	Severity = s;
 }

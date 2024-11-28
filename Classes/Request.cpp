@@ -5,16 +5,13 @@ using namespace std;
 ostream& operator<<(ostream& out, const Request& r)
 {
 	string type = "Normal";
-	if (r.type == 'S') {
-		type = "Special";
-	}
 	out << "Patient ID: " << r.Pid << " Info\n"
 		<< "Nearest Hospital: Hospital " << r.nearestHid << endl
 		<< "Distance: " << r.distance;
 	return out;
 }
 
-Request::Request(char t, int q, int p, int hi, int d)
+Request::Request(string t, int q, int p, int hi, int d)
 {
 	type = t;
 	QT = q;
@@ -38,7 +35,12 @@ int Request::gethid()
 	return nearestHid;
 }
 
-char Request::getType()
+string Request::getType()
 {
 	return type;
+}
+
+int Request::gitHospitalID()
+{
+	return nearestHid;
 }

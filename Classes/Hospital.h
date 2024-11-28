@@ -10,16 +10,25 @@ class Hospital
 	int numNcars;
 	int numScars;
 	int hospitalID;
+	int SRCount;
+	int NRCount;
+	int ERCount;
 	LinkedQueue <Car*> carN;
 	LinkedQueue <Car*> carS;
 	LinkedQueue <Request*> specialRequest;
 	LinkedQueue <Request*> normalRequest; //in the future it need to be special linkedqueue
 	priQueue <Request*> emergencyRequest;
 public:
-	Hospital() {}
-	Hospital(int SpecialCarCount, int NormalCarCount);
+	Hospital(int HID = 0, int SpecialCarCount = 0, int NormalCarCount = 0);
 	void addCar(Car* ptr); //send a pointer of car normal or Special and it add it to the list
 	void setRequest(Request*); //for normal and special
+	void setCarsandID(int special_cars, int normal_cars, int ID);
+	Request* FinishRequest(string type);
+	Car* SendCarOut(string type);
+	void SetCarFree(Car*C);
+	friend ostream& operator << (ostream& out, Hospital& h);
+	void Print();
+	
 	void setRequest(EPRequest*, int); //for emergency
 	Car* serveEP();
 	Car* serveSP();
