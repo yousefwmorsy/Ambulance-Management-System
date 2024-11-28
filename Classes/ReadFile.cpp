@@ -41,12 +41,12 @@ void Organiser::ReadInputFile() {
 		}
 	}
 	int NumS = 0, NumN = 0;
-
+	
 	//Geting the number of cars of each type to its hospial
 	HospitalList = new Hospital[HospitalCount];
 	for (int i = 0; i < HospitalCount; i++) {
 		inputFile >> NumS >> NumN;
-		HospitalList[i].setCarsandID(NumS, NumN, i);
+		HospitalList[i].setCarsandID(NumS, NumN, i+1);
 		int CID = 1;
 		for (int j = 0; j < NumS; j++) {
 			Car* C = new Car(i+1, CID, true);
@@ -66,7 +66,7 @@ void Organiser::ReadInputFile() {
 
 
 	for (int i = 0; i < NumOfRequests; i++) {
-		string type; int TimeStep, PatientID, HospitalID, DistanceFromHospital, Severty;
+		string type = ""; int TimeStep = -1, PatientID = -1, HospitalID = -1, DistanceFromHospital = -1, Severty = - 1;
 		inputFile >> type;
 		if (type == "EP") {
 			inputFile >> TimeStep >> PatientID >> HospitalID >> DistanceFromHospital >> Severty;
@@ -74,10 +74,11 @@ void Organiser::ReadInputFile() {
 			AllRequests.enqueue(EPR);
 		}
 		else {
-		inputFile >> TimeStep >> PatientID >> HospitalID >> DistanceFromHospital;
-		Request *R = new Request(type, TimeStep, PatientID, HospitalID ,DistanceFromHospital);
-		AllRequests.enqueue(R);
+			inputFile >> TimeStep >> PatientID >> HospitalID >> DistanceFromHospital;
+			Request *R = new Request(type, TimeStep, PatientID, HospitalID ,DistanceFromHospital);
+			AllRequests.enqueue(R);
 		}
+		
 	}
 
 	

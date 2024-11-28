@@ -77,7 +77,7 @@ void Organiser::incTime()
 
 void Organiser::Simulation(){
 	ReadInputFile();
-	Request* R;
+ 	Request* R = new Request;
 	while (AllRequests.dequeue(R)) {
 		HospitalList[R->gitHospitalID()-1].setRequest(R);
 	}
@@ -104,15 +104,21 @@ void Organiser::Simulation(){
 			else if (randomtime >= 20 && randomtime < 25) { // if  80 <= number < 90, Move one car from out to back list.
 				Car* C;
 				int i=0;
-				OutCars.dequeue(C,i);
-				BackCars.enqueue(C);
+				if (!OutCars.isEmpty()) {
+					OutCars.dequeue(C, i);
+					BackCars.enqueue(C);
+				}
+				
 			}
 			else if (randomtime >= 91 && randomtime < 95) { //if 91 <= number < 95, Move one car from back to “Free” list of its hospital.
 				Car* C;
-				if(BackCars.dequeue(C))
+				if (!OutCars.isEmpty()) {
+				BackCars.dequeue(C);
 				HospitalList[C->GetHospitalID()].addCar(C);
+				}
+				
 			}
-			I.PrintHospital(HospitalList[i], timestep);
+			I.PrintHospital(HospitalList[i+1], timestep);
 			cout << "Press Enter to continue.......";
 			cin.ignore();
 		}
