@@ -36,7 +36,7 @@ void Hospital::setRequest(Request* rq)
 		NRCount++;
 	}
 	else {
-		emergencyRequest.enqueue(rq, ((EPRequest*)rq)->getSeverity());
+		emergencyRequest.enqueue(rq);
 		ERCount++;
 	}
 	return;
@@ -63,7 +63,7 @@ Request* Hospital::FinishRequest(string type)
 		NRCount--;
 	}
 	else if (type == "EP") {
-		emergencyRequest.dequeue(R,i);
+		emergencyRequest.dequeue(R);
 		ERCount--;
 	}
 	return R;
@@ -91,6 +91,31 @@ void Hospital::SetCarFree(Car*c)
 	else {
 		carN.enqueue(c);
 	}
+}
+
+int Hospital::getSRC()
+{
+	return SRCount;
+}
+
+int Hospital::getNRC()
+{
+	return NRCount;
+}
+
+int Hospital::getERC()
+{
+	return ERCount;
+}
+
+int Hospital::getNcars()
+{
+	return numNcars;
+}
+
+int Hospital::getScars()
+{
+	return numScars;
 }
 
 ostream& operator<<(ostream& out,  Hospital& h)
@@ -124,9 +149,9 @@ ostream& operator<<(ostream& out,  Hospital& h)
 	int N = h.NRCount;
 	for (int i = 0; i < E; i++)
 	{
-		h.emergencyRequest.dequeue(R,Y);
+		h.emergencyRequest.dequeue(R);
 		out << R->getpid() << " ,";
-		h.emergencyRequest.enqueue(R,Y);
+		h.emergencyRequest.enqueue(R);
 	}
 	out << endl;
 	out << h.SRCount << " SP requests: ";
