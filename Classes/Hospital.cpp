@@ -28,7 +28,7 @@ void Hospital::setRequest(Request* rq)
 {
 	if(rq->getType() == "SP") { // the function need to implemented in request file
 		specialRequest.enqueue(rq);
-		ERCount++;
+		SRCount++;
 	}
 	else if(rq->getType() == "NP")
 	{

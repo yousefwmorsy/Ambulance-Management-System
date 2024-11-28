@@ -41,11 +41,11 @@ void Organiser::ReadInputFile() {
 		}
 	}
 	int NumS = 0, NumN = 0;
-	inputFile >> NumS >> NumN;
 
 	//Geting the number of cars of each type to its hospial
 	HospitalList = new Hospital[HospitalCount];
 	for (int i = 0; i < HospitalCount; i++) {
+		inputFile >> NumS >> NumN;
 		HospitalList[i].setCarsandID(NumS, NumN, i);
 		int CID = 1;
 		for (int j = 0; j < NumS; j++) {
@@ -60,6 +60,7 @@ void Organiser::ReadInputFile() {
 		}
 	}
 
+
 	//Geting the number of reqquists
 	inputFile >> NumOfRequests;
 
@@ -72,9 +73,11 @@ void Organiser::ReadInputFile() {
 			EPRequest* EPR = new EPRequest(TimeStep, PatientID, HospitalID, DistanceFromHospital, Severty);
 			AllRequests.enqueue(EPR);
 		}
+		else {
 		inputFile >> TimeStep >> PatientID >> HospitalID >> DistanceFromHospital;
 		Request *R = new Request(type, TimeStep, PatientID, HospitalID ,DistanceFromHospital);
 		AllRequests.enqueue(R);
+		}
 	}
 
 	

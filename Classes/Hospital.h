@@ -16,7 +16,7 @@ class Hospital
 	LinkedQueue <Car*> carN;
 	LinkedQueue <Car*> carS;
 	LinkedQueue <Request*> specialRequest;
-	LinkedQueue <Request*> normalRequest; //in the future it need to be special linkedqueue
+	LinkedQueue <Request*> normalRequest; 
 	priQueue <Request*> emergencyRequest;
 public:
 	Hospital(int HID = 0, int SpecialCarCount = 0, int NormalCarCount = 0);
@@ -30,14 +30,14 @@ public:
 	void Print();
 	
 	void setRequest(EPRequest*, int); //for emergency
-	Car* serveEP();
+	/*Car* serveEP();
 	Car* serveSP();
 	Car* serveNP();
 	bool hasEPRequests();
 	bool hasNPRequests();
 	bool hasSPRequests();
 	bool hasSCars();
-	bool hasNCars();
+	bool hasNCars();*/
 	//friend ostream& operator << (ostream& out, const Hospital& h);
 };
 

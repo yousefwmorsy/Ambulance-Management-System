@@ -77,9 +77,9 @@ void Organiser::incTime()
 
 void Organiser::Simulation(){
 	ReadInputFile();
-	Request* R = new Request;
+	Request* R;
 	while (AllRequests.dequeue(R)) {
-		HospitalList[R->gitHospitalID()].setRequest(R);
+		HospitalList[R->gitHospitalID()-1].setRequest(R);
 	}
 
 	while (notEnd()) {
@@ -109,7 +109,7 @@ void Organiser::Simulation(){
 			}
 			else if (randomtime >= 91 && randomtime < 95) { //if 91 <= number < 95, Move one car from back to “Free” list of its hospital.
 				Car* C;
-				BackCars.dequeue(C);
+				if(BackCars.dequeue(C))
 				HospitalList[C->GetHospitalID()].addCar(C);
 			}
 			I.PrintHospital(HospitalList[i], timestep);
