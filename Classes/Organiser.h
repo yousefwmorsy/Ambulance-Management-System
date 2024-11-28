@@ -18,6 +18,8 @@ private:
 	int timestep;
 	int HospitalCount;
 	int** HospitalsDistances; //Matrix Hospital Distances
+	int TotalRequestsCount;
+	int FinishedRequestsCount;
 	Hospital* HospitalList;
 	LinkedQueue<Request*> AllRequests;
 	LeavablePriQueue OutCars;
