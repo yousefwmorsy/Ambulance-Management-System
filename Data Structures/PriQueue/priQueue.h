@@ -90,6 +90,17 @@ public:
         return true;
     }
 
+    priQueue(const priQueue<T>& LQ) {
+        head = nullptr;
+        priNode<T>* NodePtr = LQ.head; // start at the head node in LQ
+        while (NodePtr) {
+            int x;
+            enqueue(NodePtr->getItem(x), NodePtr->getPri()); // get data of each node and enqueue it in this queue
+            NodePtr = NodePtr->getNext();
+        }
+    }
+
+
     bool isEmpty() const {
         return head == nullptr;
     }

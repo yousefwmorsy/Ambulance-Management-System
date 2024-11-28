@@ -14,8 +14,6 @@ void Hospital::addCar(Car* ptr)
 {
 	if (ptr->checkSpecial()) {
 		carS.enqueue(ptr);
-	
-
 	}
 	else
 	{
@@ -148,12 +146,16 @@ ostream& operator<<(ostream& out,  Hospital& h)
 	int E = h.ERCount;
 	int S = h.SRCount;
 	int N = h.NRCount;
+	priQueue <Request*> Temp; int X = 0;
 	for (int i = 0; i < E; i++)
-	{
-		int x;
-		h.emergencyRequest.dequeue(R, x);
+	{	
+		h.emergencyRequest.dequeue(R,X);
 		out << R->getpid() << " ,";
-		h.emergencyRequest.enqueue(R, x);
+		Temp.enqueue(R, X);
+
+	}
+	while(Temp.dequeue(R,X)) {
+		h.emergencyRequest.enqueue(R, X);
 	}
 	
 	out << endl;
@@ -174,7 +176,7 @@ ostream& operator<<(ostream& out,  Hospital& h)
 	}
 	out << endl;
 	out << "Free cars: " << h.numScars << " Scars, " << h.numNcars << " Ncars";
-	out << "\n================== Hospital #" << h.hospitalID << "end data ====================";
+	out << "\n================== Hospital #" << h.hospitalID << " end data =================";
 	
 
 	return out;

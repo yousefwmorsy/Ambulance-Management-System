@@ -77,13 +77,18 @@ void Organiser::incTime()
 
 void Organiser::Simulation(){
 	ReadInputFile();
- 	Request* R = new Request;
-	//while (AllRequests.dequeue(R)) {
-	//	HospitalList[R->gitHospitalID()-1].setRequest(R);
-	//}
-
+ 	
+	/*while (AllRequests.dequeue(R)) {
+		HospitalList[R->gitHospitalID()-1].setRequest(R);
+	}*/
+	int EnteredRequests = 0;
 	while (notEnd()) {
-		sendRequests();
+		Request* R = new Request;
+		while (AllRequests.peek(R) && R->getQT() == timestep) {
+			AllRequests.dequeue(R);
+			HospitalList[R->gitHospitalID() - 1].setRequest(R);
+			EnteredRequests++;
+		}
 		for (int i = 0; i < HospitalCount; i++) {
 			srand(time(0));
 			int randomtime = rand() % 100 + 1;
@@ -119,11 +124,11 @@ void Organiser::Simulation(){
 					OutCars.enqueue(HospitalList[i].SendCarOut("NC"), timestep);
 				}
 			}
-			else if (randomtime >= 20 && randomtime < 25) { // if  80 <= number < 90, Move one car from out to back list.
+			else if (randomtime >= 20 && randomtime < 25) { //if  80 <= number < 90, Move one car from out to back list.
 				Car* C;
 				int i=0;
 				if (!OutCars.isEmpty()) {
-					OutCars.dequeue(C, i);
+					OutCars.dequeue(C,i);
 					BackCars.enqueue(C);
 				}
 				
@@ -137,6 +142,7 @@ void Organiser::Simulation(){
 			
 			}
 			I.PrintHospital(HospitalList[i], timestep, FinishList, FinishedRequestsCount);
+			cout << "Arrived Patient: " << EnteredRequests << endl;
 			cout << "Press any key to display next hospital\n";
 			cin.ignore();
 		}
