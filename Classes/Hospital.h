@@ -43,6 +43,5 @@ public:
 	bool hasSPRequests();
 	bool hasSCars();
 	bool hasNCars();*/
-	//friend ostream& operator << (ostream& out, const Hospital& h);
 };
 

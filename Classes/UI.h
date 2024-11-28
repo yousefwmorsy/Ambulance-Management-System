@@ -4,9 +4,6 @@ class UI{
 private:
 
 public:
-	//UI();
-	void PrintHospital(Hospital, int);
-	void PrintRequist();
-	void PrintCars();
+	void PrintHospital(Hospital H, int timeStep, LinkedQueue<Request*> F, int FinishRCount);
 };
 

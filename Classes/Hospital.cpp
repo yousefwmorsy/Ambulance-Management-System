@@ -122,7 +122,7 @@ ostream& operator<<(ostream& out,  Hospital& h)
 {
 	Request *R;
 	int Y = 0;
-	out << "==================Hospital #" << h.hospitalID << " data====================" << endl;
+	out << "================== Hospital #" << h.hospitalID << " data ====================" << endl;
 		/*<< "Number of normal cars: " << h.numNcars << endl;
 	for (int i = 0; i < h.numNcars; i++)
 	{
@@ -149,10 +149,13 @@ ostream& operator<<(ostream& out,  Hospital& h)
 	int N = h.NRCount;
 	for (int i = 0; i < E; i++)
 	{
-		h.emergencyRequest.dequeue(R);
+		h.emergencyRequest.dequeue(R)
+			
+			;
 		out << R->getpid() << " ,";
 		h.emergencyRequest.enqueue(R);
 	}
+	
 	out << endl;
 	out << h.SRCount << " SP requests: ";
 	for (int i = 0; i < S; i++)
@@ -170,7 +173,9 @@ ostream& operator<<(ostream& out,  Hospital& h)
 		h.normalRequest.enqueue(R);
 	}
 	out << endl;
-	out << "Free cars: " << h.numScars << " Scars, " << h.numNcars << "Ncars" << endl;
+	out << "Free cars: " << h.numScars << " Scars, " << h.numNcars << " Ncars";
+	out << "\n================== Hospital #" << h.hospitalID << " data ====================";
+	
 
 	return out;
 }

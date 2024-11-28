@@ -135,13 +135,14 @@ void Organiser::Simulation(){
 				}
 			
 			}
-			I.PrintHospital(HospitalList[i], timestep);
-			cout << "Press any key to display next hospital";
+			I.PrintHospital(HospitalList[i], timestep, FinishList, FinishedRequestsCount);
+			cout << "Press any key to display next hospital\n";
 			cin.ignore();
 		}
 		incTime();
 	}
-	cout << "Simulation Ended: " << TotalRequestsCount << ", " << FinishedRequestsCount;
+	int x;
+	cin >> x;
 }
 
 Organiser::~Organiser()
