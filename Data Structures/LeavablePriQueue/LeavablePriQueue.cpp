@@ -8,8 +8,8 @@ void LeavablePriQueue::LeaveQueue(Car* &Removed, int PID)
 		ptr = ptr->getNext();
 	} //traversal until it reaches null or ptr before the one to be deleted
 	if (ptr) {
-		Removed = ptr->getNext()->getItem(x); //sets temp to ptr to be deleted
-		ptr->setNext(ptr->getNext()->getNext()); //sets the next of ptr to the next of deleted 
-	
+		priNode<Car*>* temp = ptr->getNext();//sets temp to ptr to be removed
+		Removed = temp->getItem(x); //pointer assigned to the removed car
+		ptr->setNext(temp->getNext()); //sets the next of ptr to the next of deleted 
 	}
 }
