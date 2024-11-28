@@ -126,23 +126,23 @@ ostream& operator<<(ostream& out,  Hospital& h)
 	{
 		h.emergencyRequest.dequeue(R,Y);
 		out << R->getpid() << " ,";
-		h.setRequest(R);
+		h.emergencyRequest.enqueue(R,Y);
 	}
 	out << endl;
-	out << h.ERCount << " SP requests: ";
+	out << h.SRCount << " SP requests: ";
 	for (int i = 0; i < S; i++)
 	{
 		h.specialRequest.dequeue(R);
 		out << R->getpid() << " ,";
-		h.setRequest(R);
+		h.specialRequest.enqueue(R);
 	}
 	out << endl;
-	out << h.ERCount << " NP requests: ";
+	out << h.NRCount << " NP requests: ";
 	for (int i = 0; i < N; i++)
 	{
 		h.normalRequest.dequeue(R);
 		out << R->getpid() << " ,";
-		h.setRequest(R);
+		h.normalRequest.enqueue(R);
 	}
 	out << endl;
 	out << "Free cars: " << h.numScars << " Scars, " << h.numNcars << "Ncars" << endl;
