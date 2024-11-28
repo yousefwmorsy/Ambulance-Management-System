@@ -174,7 +174,7 @@ ostream& operator<<(ostream& out,  Hospital& h)
 	}
 	out << endl;
 	out << "Free cars: " << h.numScars << " Scars, " << h.numNcars << " Ncars";
-	out << "\n================== Hospital #" << h.hospitalID << " data ====================";
+	out << "\n================== Hospital #" << h.hospitalID << "end data ====================";
 	
 
 	return out;

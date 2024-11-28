@@ -141,8 +141,7 @@ void Organiser::Simulation(){
 		}
 		incTime();
 	}
-	int x;
-	cin >> x;
+	int x; cin >> x; // To prevent the program from closing;
 }
 
 Organiser::~Organiser()
