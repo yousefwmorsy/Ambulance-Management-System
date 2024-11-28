@@ -7,6 +7,7 @@ protected:
 	string type;
 	int QT;
 	int Pid;
+	int pickupTime;
 	int nearestHid;
 	int distance;
 public:
