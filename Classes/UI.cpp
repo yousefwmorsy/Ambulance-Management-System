@@ -13,11 +13,3 @@ void UI::PrintHospital(Hospital H, int timeStep, LinkedQueue<Request*> F, int Fi
 	}
 	cout << endl;
 }
-
-void UI::PrintRequist()
-{
-}
-
-void UI::PrintCars()
-{
-}

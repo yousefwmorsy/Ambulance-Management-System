@@ -4,11 +4,18 @@
 
 #include "Organiser.h"
 using namespace std;
+/*Apreviation list:
+NCSpeed: Normal car speed
+SCSpeed: Special car speed
+NumOfRrequests: Number of entered requests
+NumOfCancellation: Number of Cancellation requests
+NumS: Number of special cars
+NumN: Number of normal cars
+CID: Car ID
+*/
 
 void Organiser::ReadInputFile() {
-	//Reading input file
 	fstream inputFile;
-
 	inputFile.open("Input&Output//Requests.txt");
 	//If there exist a problem when reading the file 
 	if (inputFile.fail()) {
@@ -22,18 +29,15 @@ void Organiser::ReadInputFile() {
 	inputFile >> NCSpeed >> SCSpeed;
 	Car::setSpeed(SCSpeed, NCSpeed);
 
-	//Creating Matrecies to sotre distances of hospitals and its number of cars of each type
+	//Creating Matrex to sotre distances of hospitals
 	HospitalsDistances = new int* [HospitalCount];
 
-	//Allocate the Matrices
+	//Allocate the Matrix
 	for (int i = 0; i < HospitalCount; i++) {
  		HospitalsDistances[i] = new int[HospitalCount];
 	}
 
 	//------------------------------ / Storing Data / -----------------------------------
-
-	//Creating Hospital Objects into HospitalList
-	
 	//Get the distances of hospitals in a matrix[n][n]
 	for (int i = 0; i < HospitalCount; i++) {
 		for (int j = 0; j < HospitalCount; j++) {
@@ -60,11 +64,8 @@ void Organiser::ReadInputFile() {
 		}
 	}
 
-
 	//Geting the number of reqquists
 	inputFile >> NumOfRequests;
-
-
 	for (int i = 0; i < NumOfRequests; i++) {
 		string type = ""; int TimeStep = -1, PatientID = -1, HospitalID = -1, DistanceFromHospital = -1, Severty = - 1;
 		inputFile >> type;
@@ -83,7 +84,7 @@ void Organiser::ReadInputFile() {
 		
 	}
 
-	
+	//Store Cancelled requests
 	inputFile >> NumOfReqCancellation;
 	for (int i = 0; i < NumOfReqCancellation; i++) {
 		CancelRequest* CancelR = new CancelRequest;
