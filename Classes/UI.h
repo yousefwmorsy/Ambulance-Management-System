@@ -5,7 +5,7 @@ private:
 
 public:
 	//UI();
-	void PrintHospital(Hospital H);
+	void PrintHospital(Hospital, int);
 	void PrintRequist();
 	void PrintCars();
 };

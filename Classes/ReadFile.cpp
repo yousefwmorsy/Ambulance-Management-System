@@ -12,7 +12,7 @@ void Organiser::ReadInputFile() {
 	inputFile.open("Input&Output//Requests.txt");
 	//If there exist a problem when reading the file 
 	if (inputFile.fail()) {
-		cout << "Can't read the file........";
+		cout << "Can't read the file........!";
 		return ;
 	}
 
@@ -47,14 +47,14 @@ void Organiser::ReadInputFile() {
 	HospitalList = new Hospital[HospitalCount];
 	for (int i = 0; i < HospitalCount; i++) {
 		HospitalList[i].setCarsandID(NumS, NumN, i);
-		int CID = 0;
+		int CID = 1;
 		for (int j = 0; j < NumS; j++) {
-			Car* C = new Car(i, CID, true);
+			Car* C = new Car(i+1, CID, true);
 			HospitalList[i].addCar(C);
 			CID++;
 		}
 		for (int j = 0; j < NumN; j++) {
-			Car* C = new Car(i, CID, false);
+			Car* C = new Car(i+1, CID, false);
 			HospitalList[i].addCar(C);
 			CID++;
 		}
@@ -71,12 +71,10 @@ void Organiser::ReadInputFile() {
 			inputFile >> TimeStep >> PatientID >> HospitalID >> DistanceFromHospital >> Severty;
 			EPRequest* EPR = new EPRequest(TimeStep, PatientID, HospitalID, DistanceFromHospital, Severty);
 			AllRequests.enqueue(EPR);
-			TotalRequestsCount++;
 		}
 		inputFile >> TimeStep >> PatientID >> HospitalID >> DistanceFromHospital;
 		Request *R = new Request(type, TimeStep, PatientID, HospitalID ,DistanceFromHospital);
 		AllRequests.enqueue(R);
-		TotalRequestsCount++;
 	}
 
 	
