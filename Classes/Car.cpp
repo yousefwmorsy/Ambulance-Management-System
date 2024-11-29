@@ -38,6 +38,7 @@ Car::Car(int hid, int cid, bool isS) {
 	hospitalID = hid;
 	carID = cid;
 	isSpecial = isS;
+	busyTime = 0;
 	ptr = nullptr;
 }
 

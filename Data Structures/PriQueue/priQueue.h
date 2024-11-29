@@ -89,6 +89,15 @@ public:
         pri = head->getPri();
         return true;
     }
+    /////////////////////////////////////////////////////////////////////////////////////////
+    /*
+    Function: Copy constructor
+    To avoid shallow copy,
+    copy constructor is provided
+
+    Input: priQueue<T>: The Queue to be copied
+    Output: none
+    */
 
     priQueue(const priQueue<T>& LQ) {
         head = nullptr;

@@ -117,11 +117,77 @@ int Hospital::getScars()
 	return numScars;
 }
 
+int Hospital::getHospitalID()
+{
+	return hospitalID;
+}
+
+void Hospital::printEP()
+{
+	Request* R;
+	priQueue <Request*> Temp; int X = 0;
+	int E = ERCount;
+	cout << ERCount << " EP requests: ";
+	for (int i = 0; i < E; i++)
+	{
+		emergencyRequest.dequeue(R, X);
+		cout << *R;
+		if (i != E - 1)
+		{
+			cout << ", ";
+		}
+		Temp.enqueue(R, X);
+
+	}
+	while (Temp.dequeue(R, X)) {
+		emergencyRequest.enqueue(R, X);
+	}
+	cout << endl;
+}
+
+void Hospital::printSP()
+{
+	Request* R;
+	int S = SRCount;
+	cout << SRCount << " SP requests: ";
+	for (int i = 0; i < S; i++)
+	{
+		specialRequest.dequeue(R);
+		cout << *R;
+		if (i != S - 1)
+		{
+			cout << ", ";
+		}
+		specialRequest.enqueue(R);
+	}
+	cout << endl;
+}
+
+void Hospital::printNP()
+{
+	Request* R;
+	int N = NRCount;
+	cout << NRCount << " NP requests: ";
+	for (int i = 0; i < N; i++)
+	{
+		normalRequest.dequeue(R);
+		cout << *R;
+		if (i != N - 1)
+		{
+			cout << ", ";
+		}
+		normalRequest.enqueue(R);
+	}
+	cout << endl;
+}
+
 ostream& operator<<(ostream& out,  Hospital& h)
 {
-	Request *R;
-	int Y = 0;
-	out << "================== Hospital #" << h.hospitalID << " data ====================" << endl;
+	out << h.getHospitalID();
+	
+	//Request *R;
+	//int Y = 0;
+	//out << "================== Hospital #" << h.hospitalID << " data ====================" << endl;
 		/*<< "Number of normal cars: " << h.numNcars << endl;
 	for (int i = 0; i < h.numNcars; i++)
 	{
@@ -142,41 +208,13 @@ ostream& operator<<(ostream& out,  Hospital& h)
 			h.carS.enqueue(c);
 		}
 	}*/
-	out << h.ERCount << " EP requests: ";
-	int E = h.ERCount;
-	int S = h.SRCount;
-	int N = h.NRCount;
-	priQueue <Request*> Temp; int X = 0;
-	for (int i = 0; i < E; i++)
-	{	
-		h.emergencyRequest.dequeue(R,X);
-		out << R->getpid() << " ,";
-		Temp.enqueue(R, X);
+	/*h.printEP();
+	h.printNP();
+	h.printSP();*/
 
-	}
-	while(Temp.dequeue(R,X)) {
-		h.emergencyRequest.enqueue(R, X);
-	}
-	
-	out << endl;
-	out << h.SRCount << " SP requests: ";
-	for (int i = 0; i < S; i++)
-	{
-		h.specialRequest.dequeue(R);
-		out << R->getpid() << " ,";
-		h.specialRequest.enqueue(R);
-	}
-	out << endl;
-	out << h.NRCount << " NP requests: ";
-	for (int i = 0; i < N; i++)
-	{
-		h.normalRequest.dequeue(R);
-		out << R->getpid() << " ,";
-		h.normalRequest.enqueue(R);
-	}
-	out << endl;
-	out << "Free cars: " << h.numScars << " Scars, " << h.numNcars << " Ncars";
-	out << "\n================== Hospital #" << h.hospitalID << " end data =================";
+
+	//out << "Free cars: " << h.numScars << " Scars, " << h.numNcars << " Ncars";
+	//out << "\n================== Hospital #" << h.hospitalID << " end data =================";
 	
 
 	return out;

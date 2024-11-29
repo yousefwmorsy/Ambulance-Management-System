@@ -6,8 +6,11 @@ class Request
 protected:
 	string type;
 	int QT;
+	int AT;
+	int PT;
+	int WT;
+	int FT;
 	int Pid;
-	int pickupTime;
 	int nearestHid;
 	int distance;
 public:
@@ -19,6 +22,7 @@ public:
 	int gitHospitalID();
 	int gethid();
 	friend ostream& operator << (ostream& out, const Request& r);
+
 	//Make operator (=) overloading
 };
 

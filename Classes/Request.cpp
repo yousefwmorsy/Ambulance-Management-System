@@ -4,12 +4,14 @@ using namespace std;
 
 ostream& operator<<(ostream& out, const Request& r)
 {
-	string type = "Normal";
-	out << "Patient ID: " << r.Pid << " Info\n"
-		<< "Nearest Hospital: Hospital " << r.nearestHid << endl
-		<< "Distance: " << r.distance;
+	//string type = "Normal";
+	//out << "Patient ID: " << r.Pid << " Info\n"
+	//	<< "Nearest Hospital: Hospital " << r.nearestHid << endl
+	//	<< "Distance: " << r.distance;
+	out << r.Pid;
 	return out;
 }
+
 
 Request::Request(string t, int q, int p, int hi, int d)
 {
@@ -18,6 +20,9 @@ Request::Request(string t, int q, int p, int hi, int d)
 	Pid = p;
 	nearestHid = hi;
 	distance = d;
+	AT = 0;
+	FT = 0;
+	WT = 0;
 }
 
 int Request::getQT()

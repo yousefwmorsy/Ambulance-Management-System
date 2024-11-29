@@ -34,6 +34,10 @@ public:
 	int getERC();
 	int getNcars();
 	int getScars();
+	int getHospitalID();
+	void printEP();
+	void printSP();
+	void printNP();
 	//void setRequest(EPRequest*, int); //for emergency
 	/*Car* serveEP();
 	Car* serveSP();

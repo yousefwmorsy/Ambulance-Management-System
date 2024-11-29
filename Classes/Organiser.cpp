@@ -23,26 +23,10 @@ void Organiser::sendRequests()
 {
 	//sends request to suitable hospital in the suitable list
 	//called every timestep
-	bool x = 1;
-	while (x && notEnd())
-	{
-		Request* Top;
-		AllRequests.peek(Top);
-		
-		if (Top->getQT() == timestep) {
-			AllRequests.dequeue(Top);
-			
-			/*if (Top->getType() == "EP")
-			{
-				HospitalList[Top->gethid()].setRequest((EPRequest*)Top, ((EPRequest*)Top)->getSeverity());
-			}
-			else */
-			HospitalList[Top->gethid()-1].setRequest(Top);
-		}
-		else
-		{
-			x = 0;
-		}
+	Request* R;
+	while (AllRequests.peek(R) && R->getQT() == timestep) {
+		AllRequests.dequeue(R);
+		HospitalList[R->gitHospitalID() - 1].setRequest(R);
 	}
 }
 
@@ -82,13 +66,10 @@ void Organiser::Simulation(){
 		HospitalList[R->gitHospitalID()-1].setRequest(R);
 	}*/
 	int EnteredRequests = 0;
+
 	while (notEnd()) {
 		Request* R = new Request;
-		while (AllRequests.peek(R) && R->getQT() == timestep) {
-			AllRequests.dequeue(R);
-			HospitalList[R->gitHospitalID() - 1].setRequest(R);
-			EnteredRequests++;
-		}
+		sendRequests();
 		for (int i = 0; i < HospitalCount; i++) {
 			srand(time(0));
 			int randomtime = rand() % 100 + 1;
@@ -142,19 +123,18 @@ void Organiser::Simulation(){
 			
 			}
 			I.PrintHospital(HospitalList[i], timestep, FinishList, FinishedRequestsCount);
-			cout << "Arrived Patient: " << EnteredRequests << endl;
 			cout << "Press any key to display next hospital\n";
 			cin.ignore();
 		}
 		incTime();
 	}
-	int x; cin >> x; // To prevent the program from closing;
+	//int x; cin >> x; // To prevent the program from closing;
 }
 
 Organiser::~Organiser()
 {
 	delete[] HospitalList, HospitalsDistances;
-	cout << "Hospital List Destroyed";
+	//cout << "Hospital List Destroyed";
 }
 
 

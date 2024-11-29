@@ -12,6 +12,8 @@ int main() {
 	//}
 
 	pOrg->Simulation();
-
+	
 	delete pOrg;
+
+	while (true) {}
 }

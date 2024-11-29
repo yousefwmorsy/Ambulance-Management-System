@@ -11,6 +11,7 @@ private:
 	static int speedN;
 	int carID;
 	int hospitalID;
+	int busyTime;
 	bool isSpecial;
 	Request* ptr; //pointer for the patient	
 public:
