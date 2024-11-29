@@ -19,32 +19,32 @@ bool Organiser::notEnd()
 
 
 
-//void Organiser::sendRequests()
-//{
-//	//sends request to suitable hospital in the suitable list
-//	//called every timestep
-//	bool x = 1;
-//	while (x && notEnd())
-//	{
-//		Request* Top;
-//		AllRequests.peek(Top);
-//		
-//		if (Top->getQT() == timestep) {
-//			AllRequests.dequeue(Top);
-//			
-//			if (Top->getType() == "EP")
-//			{
-//				HospitalList[Top->gethid()].setRequest((EPRequest*)Top, ((EPRequest*)Top)->getSeverity());
-//			}
-//			else 
-//				HospitalList[Top->gethid()].setRequest(Top);
-//		}
-//		else
-//		{
-//			x = 0;
-//		}
-//	}
-//}
+void Organiser::sendRequests()
+{
+	//sends request to suitable hospital in the suitable list
+	//called every timestep
+	bool x = 1;
+	while (x && notEnd())
+	{
+		Request* Top;
+		AllRequests.peek(Top);
+		
+		if (Top->getQT() == timestep) {
+			AllRequests.dequeue(Top);
+			
+			/*if (Top->getType() == "EP")
+			{
+				HospitalList[Top->gethid()].setRequest((EPRequest*)Top, ((EPRequest*)Top)->getSeverity());
+			}
+			else */
+			HospitalList[Top->gethid()-1].setRequest(Top);
+		}
+		else
+		{
+			x = 0;
+		}
+	}
+}
 
 //void Organiser::serveRequests()
 //{
@@ -78,11 +78,12 @@ void Organiser::incTime()
 void Organiser::Simulation(){
 	ReadInputFile();
  	Request* R = new Request;
-	while (AllRequests.dequeue(R)) {
-		HospitalList[R->gitHospitalID()-1].setRequest(R);
-	}
+	//while (AllRequests.dequeue(R)) {
+	//	HospitalList[R->gitHospitalID()-1].setRequest(R);
+	//}
 
 	while (notEnd()) {
+		sendRequests();
 		for (int i = 0; i < HospitalCount; i++) {
 			srand(time(0));
 			int randomtime = rand() % 100 + 1;

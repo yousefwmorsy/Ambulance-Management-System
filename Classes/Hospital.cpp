@@ -36,7 +36,7 @@ void Hospital::setRequest(Request* rq)
 		NRCount++;
 	}
 	else {
-		emergencyRequest.enqueue(rq);
+		emergencyRequest.enqueue(rq, ((EPRequest*)rq)->getSeverity());
 		ERCount++;
 	}
 	return;
@@ -63,7 +63,8 @@ Request* Hospital::FinishRequest(string type)
 		NRCount--;
 	}
 	else if (type == "EP") {
-		emergencyRequest.dequeue(R);
+		int x;
+		emergencyRequest.dequeue(R, x);
 		ERCount--;
 	}
 	return R;
@@ -149,11 +150,10 @@ ostream& operator<<(ostream& out,  Hospital& h)
 	int N = h.NRCount;
 	for (int i = 0; i < E; i++)
 	{
-		h.emergencyRequest.dequeue(R)
-			
-			;
+		int x;
+		h.emergencyRequest.dequeue(R, x);
 		out << R->getpid() << " ,";
-		h.emergencyRequest.enqueue(R);
+		h.emergencyRequest.enqueue(R, x);
 	}
 	
 	out << endl;
