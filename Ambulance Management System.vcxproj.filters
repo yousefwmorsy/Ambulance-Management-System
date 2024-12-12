@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Data Structures">
+      <UniqueIdentifier>{3934b994-9988-44e3-a801-4f1a6cd2b2f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Stack">
+      <UniqueIdentifier>{dfdb2476-5adf-4388-9b1d-62b09cc6c5e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Queue">
+      <UniqueIdentifier>{4097c2bb-1807-4030-bbc3-67fde30488d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\PriQueue">
+      <UniqueIdentifier>{62995d0c-6ef2-4493-aba6-7b05faa016c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\LeavablePriQueue">
+      <UniqueIdentifier>{1a412f04-78ea-4fea-95c6-24b485077bf6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\LeavableQueue">
+      <UniqueIdentifier>{205c9ce8-fbb5-4de0-b314-b807766595d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes">
+      <UniqueIdentifier>{8312dfbf-7f7c-44c3-b720-35779e6ca5be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\Car">
+      <UniqueIdentifier>{e51c9605-d304-4208-8c82-d6ba19477fc2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\Hospital">
+      <UniqueIdentifier>{9e5b9f2c-51b5-46bf-9690-eaee67e298ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\UI">
+      <UniqueIdentifier>{3746eec9-4f0e-4329-8f84-fe0c2d1816ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\Organiser">
+      <UniqueIdentifier>{5ec154c9-ca9c-418b-bdd5-486a6b549527}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\Request">
+      <UniqueIdentifier>{9b45509a-14f5-4a62-a0c0-005006a871a2}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Data Structures\Stack\StackADT.h">
+      <Filter>Data Structures\Stack</Filter>
+    </ClInclude>
+    <ClInclude Include="Data Structures\Stack\ArrayStack.h">
+      <Filter>Data Structures\Stack</Filter>
+    </ClInclude>
+    <ClInclude Include="Data Structures\Queue\LinkedQueue.h">
+      <Filter>Data Structures\Queue</Filter>
+    </ClInclude>
+    <ClInclude Include="Data Structures\PriQueue\priQueue.h">
+      <Filter>Data Structures\PriQueue</Filter>
+    </ClInclude>
+    <ClInclude Include="Data Structures\LeavablePriQueue\LeavablePriQueue.h">
+      <Filter>Data Structures\LeavablePriQueue</Filter>
+    </ClInclude>
+    <ClInclude Include="Data Structures\LeavableQueue\LeavableQueue.h">
+      <Filter>Data Structures\LeavableQueue</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Car.h">
+      <Filter>Classes\Car</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\EPRequest.h">
+      <Filter>Classes\Request</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Request.h">
+      <Filter>Classes\Request</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Hospital.h">
+      <Filter>Classes\Hospital</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Organiser.h">
+      <Filter>Classes\Organiser</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\UI.h">
+      <Filter>Classes\UI</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Data Structures\LeavablePriQueue\LeavablePriQueue.cpp">
+      <Filter>Data Structures\LeavablePriQueue</Filter>
+    </ClCompile>
+    <ClCompile Include="Data Structures\LeavableQueue\LeavableQueue.cpp">
+      <Filter>Data Structures\LeavableQueue</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Car.cpp">
+      <Filter>Classes\Car</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\EPRequest.cpp">
+      <Filter>Classes\Request</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Request.cpp">
+      <Filter>Classes\Request</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Classes\Hospital.cpp">
+      <Filter>Classes\Hospital</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Organiser.cpp">
+      <Filter>Classes\Organiser</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\ReadFile.cpp">
+      <Filter>Classes\Organiser</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\UI.cpp">
+      <Filter>Classes\UI</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
