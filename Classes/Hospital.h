@@ -1,0 +1,40 @@
+#pragma once
+#include "Request.h"
+#include "EPRequest.h"
+#include "Car.h"
+#include"..//Data Structures/Queue/LinkedQueue.h"
+#include "..//Data Structures/PriQueue/priQueue.h"
+#include "..//Data Structures/LeavableQueue/LeavableQueue.h"
+
+class Hospital
+{private:
+	int numNcars;
+	int numScars;
+	int hospitalID;
+	int SRCount;
+	int NRCount;
+	int ERCount;
+	LinkedQueue <Car*> carN;
+	LinkedQueue <Car*> carS;
+	LinkedQueue <Request*> specialRequest;
+	LeavableQueue normalRequest; 
+	priQueue <Request*> emergencyRequest;
+public:
+	Hospital(int HID = 0, int SpecialCarCount = 0, int NormalCarCount = 0);
+	void addCar(Car* ptr); //send a pointer of car normal or Special and it add it to the list
+	void setRequest(Request*); //for normal and special
+	void setCarsandID(int special_cars, int normal_cars, int ID);
+	Request* FinishRequest(string type);
+	Car* SendCarOut(string type);
+	friend ostream& operator << (ostream& out, Hospital& h);
+	int getSRC();
+	int getNRC();
+	int getERC();
+	int getNcars();
+	int getScars();
+	int getHospitalID();
+	void printEP();
+	void printSP();
+	void printNP();
+};
+
