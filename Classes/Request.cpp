@@ -33,11 +33,6 @@ int Request::getpid()
 }
 
 
-int Request::gethid()
-{
-	return nearestHid;
-}
-
 string Request::getType()
 {
 	return type;
