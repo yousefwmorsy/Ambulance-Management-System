@@ -35,6 +35,7 @@ public:
 	int getTime(); //returns current timestep
 	void incTime(); //increments timestep
 	void Simulation();
+	void linkCarToPatient(Request*& Patient);
 	~Organiser();
 };
 

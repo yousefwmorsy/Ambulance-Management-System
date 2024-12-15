@@ -107,6 +107,15 @@ void Organiser::Simulation(){
 
 }
 
+void Organiser::linkCarToPatient(Request*& Patient)
+{
+	int hospitalID = Patient->getHospitalID();
+	Car* Car = HospitalList[hospitalID].SendCarOut(Patient->getType());
+	OutCars.enqueue(Car, -1 * (timestep + (Patient->getDistance()) / Car->getSpeed()));
+	Patient->setPT(timestep);
+	Car->setPatient(Patient);
+}
+
 Organiser::~Organiser()
 {
 	delete[] HospitalList, HospitalsDistances;
