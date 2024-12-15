@@ -26,6 +26,11 @@ Request* Car::getPatient()
 {
 	return ptr;
 }
+int Car::getSpeed(string Type)
+{
+	return (Type == "NP") ? speedN: speedS;
+}
+
 bool Car::checkSpecial()
 {
 	return isSpecial;
@@ -38,6 +43,7 @@ Car::Car(int hid, int cid, bool isS) {
 	hospitalID = hid;
 	carID = cid;
 	isSpecial = isS;
+	carStatus = "Ready";
 	busyTime = 0;
 	ptr = nullptr;
 }
