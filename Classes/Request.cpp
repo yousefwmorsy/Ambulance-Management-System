@@ -22,6 +22,11 @@ Request::Request(string t, int q, int p, int hi, int d)
 	PT = 0;
 }
 
+void Request::setPT(int x)
+{
+	PT = x;
+}
+
 int Request::getQT()
 {
 	return QT;
@@ -41,4 +46,9 @@ string Request::getType()
 int Request::getHospitalID()
 {
 	return nearestHid;
+}
+
+int Request::getDistance()
+{
+	return distance;
 }

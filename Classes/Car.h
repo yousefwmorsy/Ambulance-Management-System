@@ -12,6 +12,7 @@ private:
 	int carID;
 	int hospitalID;
 	int busyTime;
+	string carStatus;
 	bool isSpecial;
 	Request* ptr; //pointer for the patient	
 public:
@@ -21,6 +22,7 @@ public:
 	void setPatient(Request *);
 	Request* dropPatient();
 	Request* getPatient();
+	int getSpeed(string Type);
 	bool checkSpecial();
 	int GetHospitalID();
 };
