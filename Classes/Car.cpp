@@ -26,9 +26,9 @@ Request* Car::getPatient()
 {
 	return ptr;
 }
-int Car::getSpeed(string Type)
+int Car::getSpeed()
 {
-	return (Type == "NP") ? speedN: speedS;
+	return (!isSpecial) ? speedN: speedS;
 }
 
 bool Car::checkSpecial()

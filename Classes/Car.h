@@ -22,7 +22,7 @@ public:
 	void setPatient(Request *);
 	Request* dropPatient();
 	Request* getPatient();
-	int getSpeed(string Type);
+	int getSpeed();
 	bool checkSpecial();
 	int GetHospitalID();
 };
