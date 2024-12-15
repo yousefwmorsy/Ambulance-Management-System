@@ -20,7 +20,6 @@ public:
 	int getpid();
 	string getType();
 	int getHospitalID();
-	int gethid();
 	friend ostream& operator << (ostream& out, const Request& r);
 
 	//Make operator (=) overloading
