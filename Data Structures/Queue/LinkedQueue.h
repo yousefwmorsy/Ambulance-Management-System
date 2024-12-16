@@ -115,7 +115,8 @@ public :
 	bool isEmpty() const ;
 	bool enqueue(const T& newEntry);
 	bool dequeue(T& frntEntry);  
-	bool peek(T& frntEntry)  const;	
+	bool peek(T& frntEntry)  const;
+	void print();
 	~LinkedQueue();
 
 	//copy constructor
@@ -221,6 +222,22 @@ bool LinkedQueue<T>:: peek(T& frntEntry) const
 	frntEntry = frontPtr->getItem();
 	return true;
 
+}
+template<typename T>
+inline void LinkedQueue<T>::print()
+{
+	if (isEmpty)
+	{
+		return;
+	}
+	else
+	{
+		T item;
+		while (dequeue(item))
+		{
+
+		}
+	}
 }
 ///////////////////////////////////////////////////////////////////////////////////
 /*
