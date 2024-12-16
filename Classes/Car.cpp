@@ -10,8 +10,18 @@ void Car::setSpeed(int s,int n){
 void Car::setPatient(Request* pt)
 {
 	ptr = pt;
-	carStatus = "Assigned";
+	setStatus("Assigned");
 	return;
+}
+
+void Car::setStatus(string status)
+{
+	carStatus = status;
+}
+
+void Car::incBusyTime(int x)
+{
+	busyTime += x;
 }
 
 Request* Car::dropPatient()

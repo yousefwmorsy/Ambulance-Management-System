@@ -20,6 +20,8 @@ public:
 	Car(int hospitalID,int carID,bool isSpecial);
 	static void setSpeed(int speed_special, int speed_normal);
 	void setPatient(Request *);
+	void setStatus(string status);
+	void incBusyTime(int x);
 	Request* dropPatient();
 	Request* getPatient();
 	int getSpeed();

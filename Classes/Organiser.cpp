@@ -109,11 +109,34 @@ void Organiser::Simulation(){
 
 void Organiser::linkCarToPatient(Request*& Patient, Car*& Car)
 {
-	int pickupTime = timestep + ((Patient->getDistance()) / Car->getSpeed());
+	int timeToReach = ((Patient->getDistance()) / Car->getSpeed());
+	int pickupTime = timestep + timeToReach;
 	OutCars.enqueue(Car, -1 * pickupTime); //add to outcars, priority is the absolute reach time [timestep + distance/speed]
 	Patient->setAT(timestep); //sets the assignment time of patient to current timestep
-	Patient->setPT(pickupTime); //sets the expected pickup time of patient
 	Car->setPatient(Patient); //links patient to car and sets status as "Assigned"
+	Car->incBusyTime(timeToReach); //increments busy time
+}
+
+void Organiser::carReachedPatient(Car*& Car)
+{
+	Request* Patient = Car->getPatient();
+	int timeToReach = ((Patient->getDistance()) / Car->getSpeed());
+	int returnTime = timestep + timeToReach;
+	Patient->setPT(timestep); //sets the pickup time of patient to current timestep
+	Car->setStatus("Loaded"); //sets status of car to "Loaded"
+	Car->incBusyTime(timeToReach); //increments busy time
+	BackCars.enqueue(Car, -1 * returnTime); //add to backcars, priority is absolute reach time
+}
+
+void Organiser::checkOutCarsReached()
+{
+	Car* Car;
+	int priority;
+	while (OutCars.peek(Car, priority) && timestep == priority*-1)
+	{
+		OutCars.dequeue(Car, priority);
+		carReachedPatient(Car);
+	}
 }
 
 Organiser::~Organiser()
