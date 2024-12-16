@@ -72,12 +72,16 @@ Car* Hospital::SendCarOut(string type)
 {
 	Car* C;
 	if (type == "SC") {
-		carS.dequeue(C);
-		numScars--;
+		if (carS.dequeue(C))
+			numScars--;
+		else
+			return nullptr;
 	}
 	else {
-		carS.dequeue(C);
-		numNcars--;
+		if (carN.dequeue(C))
+			numNcars--;
+		else
+			return nullptr;
 	}
 	return C;
 }
@@ -169,6 +173,27 @@ void Hospital::printNP()
 		normalRequest.enqueue(R);
 	}
 	cout << endl;
+}
+
+void Hospital::SetFailurePatient(Request* R)
+{
+	if (R->getType() == "NP") {
+		LeavableQueue temp;
+		temp.enqueue(R);
+		while (normalRequest.dequeue(R)) {
+			temp.enqueue(R);
+		}
+	}
+	else if (R->getType() == "SP") {
+		LinkedQueue <Request*> temp;
+		temp.enqueue(R);
+		while (specialRequest.dequeue(R)) {
+			temp.enqueue(R);
+		}
+	}
+	else {
+		emergencyRequest.enqueue(R, ((EPRequest*)R)->getSeverity());
+	}
 }
 
 ostream& operator<<(ostream& out,  Hospital& h)

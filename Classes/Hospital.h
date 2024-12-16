@@ -36,5 +36,6 @@ public:
 	void printEP();
 	void printSP();
 	void printNP();
+	void SetFailurePatient(Request*);
 };
 
