@@ -34,7 +34,6 @@ public:
 	void SetCarToFail(bool fail);
 	int GetBusyTime();
 	void SetBusyTime(int t);
-	int GetBusyTime();
 
 	/*void SetRTimeToReq(int n);
 	int GetRTimeToReq();
