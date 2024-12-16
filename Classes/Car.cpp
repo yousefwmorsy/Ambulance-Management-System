@@ -10,6 +10,7 @@ void Car::setSpeed(int s,int n){
 void Car::setPatient(Request* pt)
 {
 	ptr = pt;
+	carStatus = "Assigned";
 	return;
 }
 
