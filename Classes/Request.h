@@ -18,6 +18,7 @@ public:
 	Request(string t , int q, int p, int hi, int d);
 	void setAT(int x);
 	void setPT(int x);
+	void setFT(int x);
 	int getQT();
 	int getpid();
 	string getType();

@@ -86,14 +86,14 @@ void Organiser::Simulation(){
 				int i=0;
 				if (!OutCars.isEmpty()) {
 					OutCars.dequeue(C,i);
-					BackCars.enqueue(C);
+					BackCars.enqueue(C,i);
 				}
 				
 			}
 			else if (randomtime >= 91 && randomtime < 95) { //if 91 <= number < 95, Move one car from back to “Free” list of its hospital.
 				Car* C;
 				if (!BackCars.isEmpty()) {
-				BackCars.dequeue(C);
+				BackCars.dequeue(C,i);
 				HospitalList[C->GetHospitalID()-1].addCar(C);
 				}
 			
@@ -117,6 +117,12 @@ void Organiser::linkCarToPatient(Request*& Patient, Car*& Car)
 	Car->incBusyTime(timeToReach); //increments busy time
 }
 
+void Organiser::finishRequest(Request*& Patient)
+{
+	FinishList.enqueue(Patient);
+	FinishedRequestsCount++;
+}
+
 void Organiser::carReachedPatient(Car*& Car)
 {
 	Request* Patient = Car->getPatient();
@@ -126,6 +132,14 @@ void Organiser::carReachedPatient(Car*& Car)
 	Car->setStatus("Loaded"); //sets status of car to "Loaded"
 	Car->incBusyTime(timeToReach); //increments busy time
 	BackCars.enqueue(Car, -1 * returnTime); //add to backcars, priority is absolute reach time
+}
+
+void Organiser::carReachedHospital(Car*& Car)
+{
+	Request* Patient = Car->dropPatient();//car drops patient and status set to free
+	HospitalList[Car->GetHospitalID()].addCar(Car); //car is added to free list of hospital
+	Patient->setFT(timestep); //finish time is set to current timestep
+	finishRequest(Patient); //patient sent to finished request list
 }
 
 void Organiser::checkOutCarsReached()
@@ -138,6 +152,19 @@ void Organiser::checkOutCarsReached()
 		carReachedPatient(Car);
 	}
 }
+
+void Organiser::checkBackCarsReached()
+{
+	Car* Car;
+	int priority;
+	while (BackCars.peek(Car, priority) && timestep == priority * -1)
+	{
+		BackCars.dequeue(Car, priority);
+		carReachedHospital(Car);
+	}
+}
+
+
 
 Organiser::~Organiser()
 {
