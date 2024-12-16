@@ -11,12 +11,11 @@ private:
 	static int speedN;
 	int carID;
 	int hospitalID;
+	int timeToReach;
 	int busyTime;
 	string carStatus;
 	bool isSpecial;
 	bool isFail;
-	int RTimeToReq;
-	int RTimeToFree;
 	Request* ptr; //pointer for the patient	
 public:
 	Car();
@@ -32,7 +31,11 @@ public:
 	int GetHospitalID();
 	int GetCarID();
 	bool GetFailingCondition();
-	void SetCarToFail();
+	void SetCarToFail(bool fail);
+	int GetBusyTime();
+	void SetBusyTime(int t);
+	int GetBusyTime();
+
 	/*void SetRTimeToReq(int n);
 	int GetRTimeToReq();
 	void SetRTimeToFree(int n);

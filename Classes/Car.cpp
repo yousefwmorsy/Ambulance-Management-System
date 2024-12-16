@@ -60,15 +60,16 @@ bool Car::GetFailingCondition()
 {
 	return isFail;
 }
-void Car::SetCarToFail()
+void Car::SetCarToFail(bool fail)
 {
-	isFail = true;
+	isFail = fail;
 }
 
-//void Car::SetRTimeToReq(int n)
-//{
-//	RTimeToReq = n;
-//}
+int Car::GetBusyTime()
+{
+	return busyTime;
+}
+
 
 Car::Car()
 {
