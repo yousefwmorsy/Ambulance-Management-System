@@ -40,6 +40,8 @@ Single Node Case:
 
 #ifndef LINKED_QUEUE_
 #define LINKED_QUEUE_
+#include <iostream>
+using namespace std;
 
 template < typename T>
 class Node
@@ -226,16 +228,17 @@ bool LinkedQueue<T>:: peek(T& frntEntry) const
 template<typename T>
 inline void LinkedQueue<T>::print()
 {
-	if (isEmpty)
+	if (isEmpty())
 	{
 		return;
 	}
 	else
 	{
-		T item;
-		while (dequeue(item))
+		Node<T>* current = frontPtr;
+		while (current != nullptr)
 		{
-
+			cout << *current->getItem() << endl;
+			current = current->getNext();
 		}
 	}
 }
