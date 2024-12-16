@@ -101,12 +101,6 @@ void Organiser::Simulation(){
 			I.PrintHospital(HospitalList[i], timestep, FinishList, FinishedRequestsCount);
 			cout << "Press any key to display next hospital\n";
 			cin.ignore();
-			Request y("na", 1, 2, 3, 4);
-			cout << "id = " << y << endl;;
-			cout << "no of finished requests : " << FinishedRequestsCount << endl;
-			cout << "Finished Requests : ";
-			cout << endl;
-			FinishList.print();
 		}
 		incTime();
 	}
