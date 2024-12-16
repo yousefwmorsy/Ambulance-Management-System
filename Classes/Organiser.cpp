@@ -107,13 +107,13 @@ void Organiser::Simulation(){
 
 }
 
-void Organiser::linkCarToPatient(Request*& Patient)
+void Organiser::linkCarToPatient(Request*& Patient, Car*& Car)
 {
-	int hospitalID = Patient->getHospitalID();
-	Car* Car = HospitalList[hospitalID].SendCarOut(Patient->getType());
-	OutCars.enqueue(Car, -1 * (timestep + (Patient->getDistance()) / Car->getSpeed()));
-	Patient->setPT(timestep);
-	Car->setPatient(Patient);
+	int pickupTime = timestep + ((Patient->getDistance()) / Car->getSpeed());
+	OutCars.enqueue(Car, -1 * pickupTime); //add to outcars, priority is the absolute reach time [timestep + distance/speed]
+	Patient->setAT(timestep); //sets the assignment time of patient to current timestep
+	Patient->setPT(pickupTime); //sets the expected pickup time of patient
+	Car->setPatient(Patient); //links patient to car and sets status as "Assigned"
 }
 
 Organiser::~Organiser()

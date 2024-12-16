@@ -22,6 +22,11 @@ Request::Request(string t, int q, int p, int hi, int d)
 	PT = 0;
 }
 
+void Request::setAT(int x)
+{
+	AT = x;
+}
+
 void Request::setPT(int x)
 {
 	PT = x;

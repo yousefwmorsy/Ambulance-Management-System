@@ -72,12 +72,16 @@ Car* Hospital::SendCarOut(string type)
 {
 	Car* C;
 	if (type == "SC") {
-		carS.dequeue(C);
-		numScars--;
+		if (carS.dequeue(C))
+			numScars--;
+		else
+			return nullptr;
 	}
 	else {
-		carS.dequeue(C);
-		numNcars--;
+		if (carN.dequeue(C))
+			numNcars--;
+		else
+			return nullptr;
 	}
 	return C;
 }

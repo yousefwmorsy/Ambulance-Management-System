@@ -16,6 +16,7 @@ protected:
 public:
 	Request() {}
 	Request(string t , int q, int p, int hi, int d);
+	void setAT(int x);
 	void setPT(int x);
 	int getQT();
 	int getpid();
