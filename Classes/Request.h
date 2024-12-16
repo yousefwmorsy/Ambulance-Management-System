@@ -16,10 +16,14 @@ protected:
 public:
 	Request() {}
 	Request(string t , int q, int p, int hi, int d);
+	void setAT(int x);
+	void setPT(int x);
+	void setFT(int x);
 	int getQT();
 	int getpid();
 	string getType();
 	int getHospitalID();
+	int getDistance();
 	friend ostream& operator << (ostream& out, const Request& r);
 
 	//Make operator (=) overloading

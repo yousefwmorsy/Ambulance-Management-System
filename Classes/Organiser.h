@@ -21,9 +21,9 @@ private:
 	int TotalRequestsCount;
 	int FinishedRequestsCount;
 	Hospital* HospitalList;
-	LinkedQueue<Request*> AllRequests;
+	LeavableQueue AllRequests;
 	LeavablePriQueue OutCars;
-	LinkedQueue<Car*> BackCars;
+	priQueue<Car*> BackCars;
 	LinkedQueue<Request*> FinishList;
 	LinkedQueue<CancelRequest*> CancellationRequests;
 	UI I;
@@ -35,6 +35,13 @@ public:
 	int getTime(); //returns current timestep
 	void incTime(); //increments timestep
 	void Simulation();
+	void linkCarToPatient(Request*& Patient, Car*& Car);
+	void finishRequest(Request*& Patient);
+	void carReachedPatient(Car*& Car);
+	void carReachedHospital(Car*& Car);
+	void checkOutCarsReached();
+	void checkBackCarsReached();
+	void checkCancelRequests();
 	~Organiser();
 };
 
