@@ -20,13 +20,18 @@ private:
 	int** HospitalsDistances; //Matrix Hospital Distances
 	int TotalRequestsCount;
 	int FinishedRequestsCount;
+	int OutCarsFailureProbability;
+	int BackCarsFailureProbability;
+	int OCarCount;
+	int BCarCount;
 	Hospital* HospitalList;
-	LinkedQueue<Request*> AllRequests;
+	LeavableQueue AllRequests;
 	LeavablePriQueue OutCars;
-	LinkedQueue<Car*> BackCars;
+	priQueue<Car*> BackCars;
 	LinkedQueue<Request*> FinishList;
 	LinkedQueue<CancelRequest*> CancellationRequests;
 	UI I;
+	priQueue<Car*> CheckupList;
 public:
 	Organiser();
 	bool notEnd(); //checks that the program did not end
@@ -35,6 +40,17 @@ public:
 	int getTime(); //returns current timestep
 	void incTime(); //increments timestep
 	void Simulation();
+	Car* CarFailure(int);
+	void OutCarFailureAction(Car*);
+	void BackCarFailureAction(Car*);
+	void ReturnRepairedCars();
+	void linkCarToPatient(Request*& Patient, Car*& Car);
+	void finishRequest(Request*& Patient);
+	void carReachedPatient(Car*& Car);
+	void carReachedHospital(Car*& Car);
+	void checkOutCarsReached();
+	void checkBackCarsReached();
+	void checkCancelRequests();
 	~Organiser();
 };
 

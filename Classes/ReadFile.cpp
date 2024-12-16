@@ -91,4 +91,8 @@ void Organiser::ReadInputFile() {
 		inputFile >> CancelR->CancelTime >> CancelR->PID, CancelR->HID;
 		CancellationRequests.enqueue(CancelR);
 	}
+
+	// Reading Failure probability:
+	inputFile >> OutCarsFailureProbability;
+	inputFile >> BackCarsFailureProbability;
 }

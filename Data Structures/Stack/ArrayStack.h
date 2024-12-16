@@ -56,7 +56,20 @@ public:
 		TopEntry = items[top];
 		return true;
 	}  // end peek
-
+	void print()
+	{
+		if (isEmpty())
+		{
+			return;
+		}
+		else
+		{
+			for (int i = 0; i < top; i++)
+			{
+				cout << *items[i];
+			}
+		}
+	}
 }; // end ArrayStack
 
 #endif
