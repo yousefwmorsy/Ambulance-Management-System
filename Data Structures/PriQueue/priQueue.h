@@ -89,6 +89,22 @@ public:
         pri = head->getPri();
         return true;
     }
+    void print()
+    {
+        if (isEmpty())
+        {
+            return;
+        }
+        else
+        {
+            Node<T>* current = head;
+            while (current != nullptr)
+            {
+                cout << *current->getItem << endl;
+                current = current->getNext();
+            }
+        }
+    }
     /////////////////////////////////////////////////////////////////////////////////////////
     /*
     Function: Copy constructor
