@@ -84,8 +84,7 @@ void Organiser::Simulation(){
 			C->SetCarToFail(false);
 			HospitalList[C->GetHospitalID() - 1].addCar(C);
 		}
-
-		incTime();
+		timestep++;
 	}
 
 }
@@ -124,7 +123,6 @@ Car* Organiser::CarFailure(int x, int &t)
 	return RandCar;
 }
 
-
 void Organiser::OutCarFailureAction(Car* C, int t)
 {
 	int p, id = C->GetCarID();
@@ -133,17 +131,22 @@ void Organiser::OutCarFailureAction(Car* C, int t)
 	HospitalList[C->GetHospitalID() - 2].SetFailurePatient(C->dropPatient()); //Return the request to the hospital
 	BackCars.enqueue(C, -1*t); // Put the car in the BackCars from its frailer position
 }
-
 //NOT FINISHED
 void Organiser::BackCarFailureAction(Car*C, int t)
 {
-	int CarsCount = HospitalList[C->GetHospitalID() - 1].getNcars() + HospitalList[C->GetHospitalID() - 1].getScars();;
+	FailedBackCars.enqueue(C,t);
+	Car* FBC; int StopedBackTime;
+	int CarsCount = HospitalList[C->GetHospitalID() - 1].getNcars() + HospitalList[C->GetHospitalID() - 1].getScars();
 	if (CarsCount) {
 		//Assign new car from the same hospital to pick the patient and come with the car
 		// Waiting for Assigns functions.....
 		if (/*Assigning is */true) {
-			BackCars.enqueue(C, t * -1);
+			// Set the Car to BackCars
 		}
+	}
+	while (FailedBackCars.dequeue(FBC, StopedBackTime)) {
+		StopedBackTime--;
+		FailedBackCars.enqueue(FBC, StopedBackTime);
 	}
 }
 

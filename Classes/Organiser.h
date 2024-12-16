@@ -28,6 +28,7 @@ private:
 	LeavableQueue AllRequests;
 	LeavablePriQueue OutCars;
 	priQueue<Car*> BackCars;
+	priQueue<Car*> FailedBackCars;
 	LinkedQueue<Request*> FinishList;
 	LinkedQueue<CancelRequest*> CancellationRequests;
 	UI I;
@@ -37,8 +38,6 @@ public:
 	bool notEnd(); //checks that the program did not end
 	void ReadInputFile(); //reads file contents
 	void sendRequests(); //sends requests at current timestep to suitable hospital
-	int getTime(); //returns current timestep
-	void incTime(); //increments timestep
 	void Simulation();
 	Car* CarFailure(int , int &t);
 	void OutCarFailureAction(Car*, int t);
