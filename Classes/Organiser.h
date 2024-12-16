@@ -40,9 +40,9 @@ public:
 	int getTime(); //returns current timestep
 	void incTime(); //increments timestep
 	void Simulation();
-	Car* CarFailure(int);
-	void OutCarFailureAction(Car*);
-	void BackCarFailureAction(Car*);
+	Car* CarFailure(int , int &t);
+	void OutCarFailureAction(Car*, int t);
+	void BackCarFailureAction(Car*, int t);
 	void ReturnRepairedCars();
 	void linkCarToPatient(Request*& Patient, Car*& Car);
 	void finishRequest(Request*& Patient);
