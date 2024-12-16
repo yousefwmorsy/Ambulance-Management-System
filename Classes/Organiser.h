@@ -23,7 +23,7 @@ private:
 	Hospital* HospitalList;
 	LinkedQueue<Request*> AllRequests;
 	LeavablePriQueue OutCars;
-	LinkedQueue<Car*> BackCars;
+	priQueue<Car*> BackCars;
 	LinkedQueue<Request*> FinishList;
 	LinkedQueue<CancelRequest*> CancellationRequests;
 	UI I;
@@ -36,6 +36,8 @@ public:
 	void incTime(); //increments timestep
 	void Simulation();
 	void linkCarToPatient(Request*& Patient, Car*& Car);
+	void carReachedPatient(Car*& Car);
+	void checkOutCarsReached();
 	~Organiser();
 };
 
