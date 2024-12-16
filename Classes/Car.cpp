@@ -26,12 +26,14 @@ void Car::incBusyTime(int x)
 
 Request* Car::dropPatient()
 {
+	setStatus("Ready");
 	if (ptr)
 	{
 		Request* x = ptr;
 		ptr = nullptr;
 		return x;
 	}
+	return nullptr;
 }
 Request* Car::getPatient()
 {

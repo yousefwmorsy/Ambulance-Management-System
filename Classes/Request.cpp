@@ -32,6 +32,11 @@ void Request::setPT(int x)
 	PT = x;
 }
 
+void Request::setFT(int x)
+{
+	FT = x;
+}
+
 int Request::getQT()
 {
 	return QT;
