@@ -52,6 +52,30 @@ int Car::GetHospitalID()
 {
 	return hospitalID;
 }
+int Car::GetCarID()
+{
+	return carID;
+}
+bool Car::GetFailingCondition()
+{
+	return isFail;
+}
+void Car::SetCarToFail(bool fail)
+{
+	isFail = fail;
+}
+
+int Car::GetBusyTime()
+{
+	return busyTime;
+}
+
+
+Car::Car()
+{
+	isFail = false;
+}
+
 Car::Car(int hid, int cid, bool isS) {
 	hospitalID = hid;
 	carID = cid;
@@ -59,5 +83,6 @@ Car::Car(int hid, int cid, bool isS) {
 	carStatus = "Ready";
 	busyTime = 0;
 	ptr = nullptr;
+	isFail = false;
 }
 
