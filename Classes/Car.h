@@ -14,6 +14,9 @@ private:
 	int busyTime;
 	string carStatus;
 	bool isSpecial;
+	bool isFail;
+	int RTimeToReq;
+	int RTimeToFree;
 	Request* ptr; //pointer for the patient	
 public:
 	Car();
@@ -27,4 +30,11 @@ public:
 	int getSpeed();
 	bool checkSpecial();
 	int GetHospitalID();
+	int GetCarID();
+	bool GetFailingCondition();
+	void SetCarToFail();
+	/*void SetRTimeToReq(int n);
+	int GetRTimeToReq();
+	void SetRTimeToFree(int n);
+	int GetRTimeToFree();*/
 };
