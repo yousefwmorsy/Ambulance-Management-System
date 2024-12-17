@@ -19,6 +19,11 @@ void Car::setStatus(string status)
 	carStatus = status;
 }
 
+string Car::getStatus()
+{
+	return carStatus;
+}
+
 void Car::incBusyTime(int x)
 {
 	busyTime += x;
@@ -86,3 +91,16 @@ Car::Car(int hid, int cid, bool isS) {
 	isFail = false;
 }
 
+ostream& operator<<(ostream& out, const Car& c)
+{
+	if (c.isSpecial)
+	{
+		out << "S" << c.carID << "_H" << c.hospitalID << "_P" << *c.ptr;
+	}
+	else
+	{
+		out << "N" << c.carID << "_H" << c.hospitalID << "_P" << *c.ptr;
+	}
+	return out;
+	// TODO: insert return statement here
+}

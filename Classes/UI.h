@@ -4,6 +4,8 @@ class UI{
 private:
 
 public:
-	void PrintHospital(Hospital H, int timeStep, LinkedQueue<Request*> F, int FinishRCount);
+	void PrintInteractive(Hospital H, int timeStep, LinkedQueue<Request*> F, int FinishRCount, int OCarC, int BCarC, LeavablePriQueue OCars, priQueue<Car*> BCars);
+	bool SelectMode();
+	void PrintSilent();
 };
 

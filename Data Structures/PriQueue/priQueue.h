@@ -92,6 +92,7 @@ public:
     }
     void print()
     {
+        int x;
         if (isEmpty())
         {
             return;
@@ -101,7 +102,7 @@ public:
             priNode<T>* current = head;
             while (current != nullptr)
             {
-                cout << *current->getItem << endl;
+                cout << *current->getItem(x) << endl;
                 current = current->getNext();
             }
         }

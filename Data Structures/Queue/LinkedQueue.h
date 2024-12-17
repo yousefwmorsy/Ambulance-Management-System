@@ -237,7 +237,7 @@ inline void LinkedQueue<T>::print()
 		Node<T>* current = frontPtr;
 		while (current != nullptr)
 		{
-			cout << *current->getItem() << endl;
+			cout << current->getItem() << endl;
 			current = current->getNext();
 		}
 	}

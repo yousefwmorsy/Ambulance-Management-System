@@ -23,6 +23,7 @@ public:
 	static void setSpeed(int speed_special, int speed_normal);
 	void setPatient(Request *);
 	void setStatus(string status);
+	string getStatus();
 	void incBusyTime(int x);
 	Request* dropPatient();
 	Request* getPatient();
@@ -34,6 +35,7 @@ public:
 	void SetCarToFail(bool fail);
 	int GetBusyTime();
 	void SetBusyTime(int t);
+	friend ostream& operator << (ostream& out, const Car& c);
 
 	/*void SetRTimeToReq(int n);
 	int GetRTimeToReq();
