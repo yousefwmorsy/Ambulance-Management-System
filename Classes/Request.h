@@ -22,6 +22,7 @@ public:
 	int getQT();
 	int getpid();
 	string getType();
+	void setHospitalID(int); //only used for EP 
 	int getHospitalID();
 	int getDistance();
 	friend ostream& operator << (ostream& out, const Request& r);
