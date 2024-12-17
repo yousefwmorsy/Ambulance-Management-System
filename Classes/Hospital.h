@@ -33,8 +33,10 @@ public:
 	int getNcars();
 	int getScars();
 	int getHospitalID();
+	bool checkCancel(Request*& Patient, int timestep); //returns true if patient cancelled request is found
 	void printEP();
 	void printSP();
 	void printNP();
+	void SetFailurePatient(Request*);
 };
 
