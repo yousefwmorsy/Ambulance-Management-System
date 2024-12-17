@@ -149,15 +149,15 @@ void Organiser::ReturnRepairedCars()
 {
 }
 
-void Organiser::linkCarToPatient(Request*& Patient, Car*& Car)
-{
-	int timeToReach = ((Patient->getDistance()) / Car->getSpeed());
-	int pickupTime = timestep + timeToReach;
-	OutCars.enqueue(Car, -1 * pickupTime); //add to outcars, priority is the absolute reach time [timestep + distance/speed]
-	Patient->setAT(timestep); //sets the assignment time of patient to current timestep
-	Car->setPatient(Patient); //links patient to car and sets status as "Assigned"
-	Car->incBusyTime(timeToReach); //increments busy time
-}
+//void Organiser::linkCarToPatient(Request*& Patient, Car*& Car)
+//{
+//	int timeToReach = ((Patient->getDistance()) / Car->getSpeed());
+//	int pickupTime = timestep + timeToReach;
+//	OutCars.enqueue(Car, -1 * pickupTime); //add to outcars, priority is the absolute reach time [timestep + distance/speed]
+//	Patient->setAT(timestep); //sets the assignment time of patient to current timestep
+//	Car->setPatient(Patient); //links patient to car and sets status as "Assigned"
+//	Car->incBusyTime(timeToReach); //increments busy time
+//}
 
 void Organiser::finishRequest(Request*& Patient)
 {
@@ -212,12 +212,84 @@ void Organiser::checkBackCarsReached()
 	}
 }
 
+void Organiser::linkCarToPatient( Car*& Car)
+{
+	Request* Patient = Car->getPatient();
+	int timeToReach = ((Patient->getDistance()) / Car->getSpeed());
+	int pickupTime = timestep + timeToReach;
+	OutCars.enqueue(Car, -1 * pickupTime); //add to outcars, priority is the absolute reach time [timestep + distance/speed]
+	Patient->setAT(timestep); //sets the assignment time of patient to current timestep
+	Car->setPatient(Patient); //links patient to car and sets status as "Assigned"
+	Car->incBusyTime(timeToReach); //increments busy time
+}
 
+void Organiser::handlingEP()
+{
+	Car* assignCar = nullptr;
+	Request* eP = nullptr;
+	int x;
+	for (int i = 0; i < HospitalCount; i++)
+	{
+		while (HospitalList[i].canAssign()&&!waitEP.isEmpty())
+		{
+			waitEP.dequeue(eP, x);
+			assignCar = HospitalList[i].assiEP(eP);
+			linkCarToPatient(assignCar);
+		}
+	}
+	return;
+}
+
+void Organiser::serveRequests()
+{
+	Car* temp;
+	for (int i = 0; i < HospitalCount; i++)
+	{
+		while (HospitalList[i].checkEPatient(timestep))
+		{
+			temp = HospitalList[i].assiEP();
+			if (temp == nullptr)
+			{
+				HospitalList[i].EPtowait(waitEP, timestep);// should implement function that takes all the current EP that couldn't be assigned
+				break;
+			}
+			else
+			{
+				linkCarToPatient(temp);//here you need to assign car to the out and set return time
+			}
+		}
+	}
+	handlingEP();//handling the EP that couldn't be assigned
+	for (int i = 0; i < HospitalCount; i++)
+	{
+		while (HospitalList[i].checkSPatient(timestep))
+		{
+			temp = HospitalList[i].assiSP();
+			if (temp == nullptr)
+			{
+				break;
+			}
+			else
+			{
+				linkCarToPatient(temp);//here you need to assign car to the out and set return time
+			}
+		}
+		while (HospitalList[i].checkNPatient(timestep))
+		{
+			temp = HospitalList[i].assiNP();
+			if (temp == nullptr)
+			{
+				break;
+			}
+			else
+			{
+				linkCarToPatient(temp);//here you need to assign car to the out and set return time
+			}
+		}
+	}
+}
 
 Organiser::~Organiser()
 {
 	delete[] HospitalList, HospitalsDistances;
 }
-
-
-
