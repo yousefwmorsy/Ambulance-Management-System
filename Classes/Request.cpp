@@ -53,6 +53,12 @@ string Request::getType()
 	return type;
 }
 
+void Request::setHospitalID(int HID)
+{
+	nearestHid = HID;
+	return;
+}
+
 int Request::getHospitalID()
 {
 	return nearestHid;
