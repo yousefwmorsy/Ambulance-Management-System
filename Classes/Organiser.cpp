@@ -83,8 +83,6 @@ void Organiser::Simulation(){
 			C->SetCarToFail(false);
 			HospitalList[C->GetHospitalID() - 1].addCar(C);
 		}
-
-		incTime();
 	}
 
 }

@@ -37,8 +37,6 @@ public:
 	bool notEnd(); //checks that the program did not end
 	void ReadInputFile(); //reads file contents
 	void sendRequests(); //sends requests at current timestep to suitable hospital
-	int getTime(); //returns current timestep
-	void incTime(); //increments timestep
 	void Simulation();
 	Car* CarFailure(int);
 	void OutCarFailureAction(Car*);
