@@ -116,6 +116,16 @@ int Hospital::getHospitalID()
 	return hospitalID;
 }
 
+bool Hospital::checkCancel(Request*& Patient, int timestep)
+{
+	if (normalRequest.peek(Patient) && Patient->getQT() == timestep)
+	{
+		normalRequest.dequeue(Patient);
+		return true;
+	}
+	return false;
+}
+
 void Hospital::printEP()
 {
 	Request* R;
@@ -174,6 +184,7 @@ void Hospital::printNP()
 	}
 	cout << endl;
 }
+
 
 bool Hospital::canAssign()
 {
@@ -295,6 +306,7 @@ Car* Hospital::assiEP(Request* pt)
 	}
 	return assiCar;
 }
+
 
 void Hospital::SetFailurePatient(Request* R)
 {
