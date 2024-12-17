@@ -30,6 +30,7 @@ private:
 	priQueue<Car*> BackCars;
 	LinkedQueue<Request*> FinishList;
 	LinkedQueue<CancelRequest*> CancellationRequests;
+	priQueue <Request*>  waitEP; //used for handling EP that couldn't be handled in there timestep
 	UI I;
 	priQueue<Car*> CheckupList;
 public:
@@ -44,6 +45,7 @@ public:
 	void OutCarFailureAction(Car*);
 	void BackCarFailureAction(Car*);
 	void ReturnRepairedCars();
+	void linkCarToPatient( Car*& Car);
 	void linkCarToPatient(Request*& Patient, Car*& Car);
 	void finishRequest(Request*& Patient);
 	void carReachedPatient(Car*& Car);
@@ -52,6 +54,8 @@ public:
 	void checkOutCarsReached();
 	void checkBackCarsReached();
 	void checkCancelRequests();
+	void handlingEP();
+	void serveRequests();
 	~Organiser();
 };
 
