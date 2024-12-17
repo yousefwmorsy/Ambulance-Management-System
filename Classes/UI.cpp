@@ -9,7 +9,7 @@ void UI::PrintInteractive(Hospital H, int timeStep, LinkedQueue<Request*> F, int
 	H.printEP();
 	H.printSP();
 	H.printNP();
-	cout << "Free Cars: " << H.CarSCount() << "SCars, " << H.CarNCount() << "NCars" << endl;
+	cout << "Free Cars: " << H.CarSCount() << " SCars, " << H.CarNCount() << " NCars" << endl;
 	cout << "================= Hospital #" << H << " end data =================";
 	cout << endl << "-------------------------------------------------------------------" << endl;
 	cout << OCarC << " ==> Out cars: ";
@@ -17,7 +17,7 @@ void UI::PrintInteractive(Hospital H, int timeStep, LinkedQueue<Request*> F, int
 	cout << endl << BCarC << " <== Back cars: ";
 	BCars.print();
 	cout << endl << "-------------------------------------------------------------------" << endl;
-	cout << endl << FinishRCount << " finished patients: ";
+	cout << FinishRCount << " finished patients: ";
 	Request* R;
 	for (int i = 0; i < FinishRCount; i++) {
 		F.dequeue(R);
