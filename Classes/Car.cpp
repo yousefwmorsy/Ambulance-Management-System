@@ -216,7 +216,7 @@ Car::Car(int hid, int cid, bool isS) {
 	busyTime = 0;
 	ptr = nullptr;
 	isFail = false;
-
+}
 void Organiser::finishRequest(Request*& Patient)
 {
 	Patient->setFT(timestep); //finish time is set to current timestep

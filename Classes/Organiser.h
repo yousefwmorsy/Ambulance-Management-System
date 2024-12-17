@@ -53,7 +53,6 @@ public:
 	void checkCancelRequests();
 	void checkOutCarsReached();
 	void checkBackCarsReached();
-	void checkCancelRequests();
 	void handlingEP();
 	void serveRequests();
 	~Organiser();
