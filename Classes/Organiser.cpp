@@ -35,6 +35,14 @@ void Organiser::sendRequests()
 
 void Organiser::Simulation(){
 	ReadInputFile();
+	cout << "Select Mode: " << endl;
+	cout << "Type ""i"" for Interactive Mode" << endl;
+	cout << "Type ""s"" for Silent Mode" << endl;
+	bool m = I.SelectMode();
+	if (!m)
+	{
+		I.PrintSilent();
+	}
 	Car* C; int i;
 	int EnteredRequests = 0;
 
@@ -83,45 +91,15 @@ void Organiser::Simulation(){
 			C->SetCarToFail(false);
 			HospitalList[C->GetHospitalID() - 1].addCar(C);
 		}
-		cout << "Select Mode: " << endl;
-		cout << "Type ""i"" for Interactive Mode" << endl;
-		cout << "Type ""s"" for Silent Mode" << endl;
-		bool m = I.SelectMode();
 		if (m)
 		{
 			for (int i = 0; i < HospitalCount; i++)
 			{
-				I.PrintInteractive(HospitalList[i], timestep, FinishList, FinishedRequestsCount, OCarCount, BCarCount, OutCars, BackCars);
+				I.PrintInteractive(HospitalList[i], timestep, FinishList, FinishedRequestsCount, OCarCount, BCarCount, OutCars, BackCars, CheckUpCarC(), CheckupList);
+				cin.ignore();
 			}
 		}
-		else if (!m)
-		{
-			I.PrintSilent();
-		}
-		else
-		{
-			I.SelectMode();
-		}
 	}
-	//string m;
-	/*cout << "Select Mode: " << endl;
-	cout << "Type ""i"" for Interactive Mode" << endl;
-	cout << "Type ""s"" for Silent Mode" << endl;
-	if (I.SelectMode())
-	{
-		for (int i = 0; i < HospitalCount; i++)
-		{
-			I.PrintInteractive(HospitalList[i], timestep, FinishList, FinishedRequestsCount, OCarCount, BCarCount, OutCars, BackCars);
-		}
-	}
-	else if (!I.SelectMode())
-	{
-		I.PrintSilent();
-	}
-	else
-	{
-		I.SelectMode();
-	}*/
 }
 
 Car* Organiser::CarFailure(int x)
@@ -323,6 +301,19 @@ void Organiser::serveRequests()
 			}
 		}
 	}
+}
+
+int Organiser::CheckUpCarC()
+{
+	priQueue <Car*> ChechUpL = CheckupList;
+	int c = 0;
+	int s;
+	Car* car;
+	while (ChechUpL.dequeue(car, s))
+	{
+		c++;
+	}
+	return c;
 }
 
 Organiser::~Organiser()

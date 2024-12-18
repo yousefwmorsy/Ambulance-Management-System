@@ -52,6 +52,7 @@ public:
 	void checkCancelRequests();
 	void handlingEP();
 	void serveRequests();
+	int CheckUpCarC();
 	~Organiser();
 };
 

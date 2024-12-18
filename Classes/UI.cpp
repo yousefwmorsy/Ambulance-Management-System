@@ -2,7 +2,7 @@
 #include "Hospital.h"
 #include <string>
 
-void UI::PrintInteractive(Hospital H, int timeStep, LinkedQueue<Request*> F, int FinishRCount, int OCarC, int BCarC, LeavablePriQueue OCars, priQueue<Car*> BCars)
+void UI::PrintInteractive(Hospital H, int timeStep, LinkedQueue<Request*> F, int FinishRCount, int OCarC, int BCarC, LeavablePriQueue OCars, priQueue<Car*> BCars, int CheckUpC, priQueue <Car*> CheckUpL)
 {
 	cout <<"Current Time Step: " << timeStep << endl;
 	cout << "================== Hospital #" << H << " data ====================" << endl;
@@ -16,6 +16,8 @@ void UI::PrintInteractive(Hospital H, int timeStep, LinkedQueue<Request*> F, int
 	OCars.print();
 	cout << endl << BCarC << " <== Back cars: ";
 	BCars.print();
+	cout << endl << CheckUpC << " === Check Up cars: ";
+	CheckUpL.print();
 	cout << endl << "-------------------------------------------------------------------" << endl;
 	cout << FinishRCount << " finished patients: ";
 	Request* R;
@@ -46,9 +48,10 @@ bool UI::SelectMode()
 	}
 	else
 	{
+		cout << "Type either ""i"" or ""s""" << endl;
 		/*cout << "Please type ""i"" or ""s""" << endl;
 		SelectMode(m, H, timestep, F, FinishRcount, OCarC, BCarC, OCars, BCars);*/
-		SelectMode();
+		return SelectMode();
 	}
 }
 
