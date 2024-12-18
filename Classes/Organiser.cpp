@@ -3,6 +3,7 @@
 #include "time.h"
 #include "random"
 #include "UI.h"
+#include <fstream>
 using namespace std;
 
 Organiser::Organiser()
@@ -100,6 +101,7 @@ void Organiser::Simulation(){
 			}
 		}
 	}
+	CreateOutputFile();
 }
 
 Car* Organiser::CarFailure(int x)
@@ -314,6 +316,53 @@ int Organiser::CheckUpCarC()
 		c++;
 	}
 	return c;
+}
+
+void Organiser::CreateOutputFile()
+{
+	ofstream OutputFile("Output.txt");
+	if (OutputFile.is_open())
+	{
+		OutputFile << "FT     PID     QT     WT" << endl;
+		Request** FT = new Request * [FinishedRequestsCount];
+		LinkedQueue <Request*> FinishL = FinishList;
+		Request* r;
+		int np = 0, sp = 0, ep = 0;
+		for (int i = 0; i < FinishedRequestsCount; i++)
+		{
+			if (FinishL.dequeue(r))
+			{
+				FT[i] = r;
+				if (r->getType() == "NP")
+					np++;
+				else if (r->getType() == "SP")
+					sp++;
+				else
+					ep++;
+			}
+		}
+		for (int i = 0; i < FinishedRequestsCount - 1; i++)
+		{
+			for (int j = 0; j < FinishedRequestsCount - i - 1; j++)
+			{
+				if (FT[j]->getFT() > FT[j + 1]->getFT())
+				{
+					Request* temp = FT[j];
+					FT[j] = FT[j + 1];
+					FT[j + 1] = temp;
+				}
+			}
+		}
+		for (int i = 0; i < FinishedRequestsCount; i++)
+		{
+			OutputFile << FT[i]->getFT() << "    " << FT[i]->getpid() << "    " << FT[i]->getQT() << "    " << FT[i]->getWT() << endl;
+			OutputFile << "..............................." << endl;
+			OutputFile << "Patients: " << FinishedRequestsCount << "     " << "[NP: " << np << ",SP: " << sp << ",EP: " << ep << "]" << endl;
+
+		}
+	}
+	else
+		cout << "Error loading file" << endl;
 }
 
 Organiser::~Organiser()

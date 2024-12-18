@@ -53,6 +53,7 @@ public:
 	void handlingEP();
 	void serveRequests();
 	int CheckUpCarC();
+	void CreateOutputFile();
 	~Organiser();
 };
 
