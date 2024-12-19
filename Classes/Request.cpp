@@ -37,9 +37,19 @@ void Request::setFT(int x)
 	FT = x;
 }
 
+int Request::getFT()
+{
+	return FT;
+}
+
 int Request::getQT()
 {
 	return QT;
+}
+
+int Request::getWT()
+{
+	return WT;
 }
 
 int Request::getpid()
@@ -51,6 +61,12 @@ int Request::getpid()
 string Request::getType()
 {
 	return type;
+}
+
+void Request::setHospitalID(int HID)
+{
+	nearestHid = HID;
+	return;
 }
 
 int Request::getHospitalID()

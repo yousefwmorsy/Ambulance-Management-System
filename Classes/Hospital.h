@@ -5,6 +5,7 @@
 #include"..//Data Structures/Queue/LinkedQueue.h"
 #include "..//Data Structures/PriQueue/priQueue.h"
 #include "..//Data Structures/LeavableQueue/LeavableQueue.h"
+#include "..//Data Structures/LeavablePriQueue/LeavablePriQueue.h"
 
 class Hospital
 {private:
@@ -33,9 +34,28 @@ public:
 	int getNcars();
 	int getScars();
 	int getHospitalID();
+
+	//assign patient to car if it is not avalible it will return null ptr;
+	Car* assiNP();
+	Car* assiSP();
+	Car* assiEP();
+	Car* assiEP(Request*); // only used with EP that could get to nearest hospital
+	
+	bool canAssign();
+	const bool checkEPatient(int& timestep);
+	const bool checkNPatient(int& timestep);
+	const bool checkSPatient(int& timestep);
+
+	void EPtowait(priQueue<Request*>& pr, int timestep);
+
+
+	bool checkCancel(Request*& Patient, int timestep); //returns true if patient cancelled request is found
+
 	void printEP();
 	void printSP();
 	void printNP();
+	int CarNCount();
+	int CarSCount();
 	void SetFailurePatient(Request*);
 };
 

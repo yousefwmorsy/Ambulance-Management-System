@@ -19,9 +19,12 @@ public:
 	void setAT(int x);
 	void setPT(int x);
 	void setFT(int x);
+	int getFT();
 	int getQT();
+	int getWT();
 	int getpid();
 	string getType();
+	void setHospitalID(int); //only used for EP 
 	int getHospitalID();
 	int getDistance();
 	friend ostream& operator << (ostream& out, const Request& r);

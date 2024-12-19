@@ -1,5 +1,6 @@
 #pragma once
-
+#include <iostream>
+using namespace std;
 
 template < typename T>
 class priNode
@@ -91,16 +92,17 @@ public:
     }
     void print()
     {
+        int x;
         if (isEmpty())
         {
             return;
         }
         else
         {
-            Node<T>* current = head;
+            priNode<T>* current = head;
             while (current != nullptr)
             {
-                cout << *current->getItem << endl;
+                cout << *current->getItem(x) << endl;
                 current = current->getNext();
             }
         }

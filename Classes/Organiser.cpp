@@ -3,6 +3,7 @@
 #include "time.h"
 #include "random"
 #include "UI.h"
+#include <fstream>
 using namespace std;
 
 Organiser::Organiser()
@@ -31,6 +32,14 @@ void Organiser::sendRequests()
 
 void Organiser::Simulation(){
 	ReadInputFile();
+	cout << "Select Mode: " << endl;
+	cout << "Type ""i"" for Interactive Mode" << endl;
+	cout << "Type ""s"" for Silent Mode" << endl;
+	bool m = I.SelectMode();
+	if (!m)
+	{
+		I.PrintSilent();
+	}
 	Car* C; int i;
 	int EnteredRequests = 0;
 
@@ -84,9 +93,20 @@ void Organiser::Simulation(){
 			C->SetCarToFail(false);
 			HospitalList[C->GetHospitalID() - 1].addCar(C);
 		}
+    
+		if (m)
+		{
+			for (int i = 0; i < HospitalCount; i++)
+			{
+				I.PrintInteractive(HospitalList[i], timestep, FinishList, FinishedRequestsCount, OCarCount, BCarCount, OutCars, BackCars, CheckUpCarC(), CheckupList);
+				cin.ignore();
+			}
+		}
+
+
 		timestep++;
 	}
-
+	CreateOutputFile();
 }
 
 Car* Organiser::CarFailure(int x, int &t)
@@ -154,8 +174,9 @@ void Organiser::ReturnRepairedCars()
 {
 }
 
-void Organiser::linkCarToPatient(Request*& Patient, Car*& Car)
+void Organiser::linkCarToPatient(Car*& Car)
 {
+	Request * Patient = Car->getPatient();
 	int timeToReach = ((Patient->getDistance()) / Car->getSpeed());
 	int pickupTime = timestep + timeToReach;
 	OutCars.enqueue(Car, -1 * pickupTime); //add to outcars, priority is the absolute reach time [timestep + distance/speed]
@@ -215,10 +236,133 @@ void Organiser::checkBackCarsReached()
 	}
 }
 
+void Organiser::handlingEP()
+{
+	Car* assignCar = nullptr;
+	Request* eP = nullptr;
+	int x;
+	for (int i = 0; i < HospitalCount; i++)
+	{
+		while (HospitalList[i].canAssign()&&!waitEP.isEmpty())
+		{
+			waitEP.dequeue(eP, x);
+			assignCar = HospitalList[i].assiEP(eP);
+			linkCarToPatient(assignCar);
+		}
+	}
+	return;
+}
+
+void Organiser::serveRequests()
+{
+	Car* temp;
+	for (int i = 0; i < HospitalCount; i++)
+	{
+		while (HospitalList[i].checkEPatient(timestep))
+		{
+			temp = HospitalList[i].assiEP();
+			if (temp == nullptr)
+			{
+				HospitalList[i].EPtowait(waitEP, timestep);// should implement function that takes all the current EP that couldn't be assigned
+				break;
+			}
+			else
+			{
+				linkCarToPatient(temp);//here you need to assign car to the out and set return time
+			}
+		}
+	}
+	handlingEP();//handling the EP that couldn't be assigned
+	for (int i = 0; i < HospitalCount; i++)
+	{
+		while (HospitalList[i].checkSPatient(timestep))
+		{
+			temp = HospitalList[i].assiSP();
+			if (temp == nullptr)
+			{
+				break;
+			}
+			else
+			{
+				linkCarToPatient(temp);//here you need to assign car to the out and set return time
+			}
+		}
+		while (HospitalList[i].checkNPatient(timestep))
+		{
+			temp = HospitalList[i].assiNP();
+			if (temp == nullptr)
+			{
+				break;
+			}
+			else
+			{
+				linkCarToPatient(temp);//here you need to assign car to the out and set return time
+			}
+		}
+	}
+}
+
+int Organiser::CheckUpCarC()
+{
+  priQueue <Car*> ChechUpL = CheckupList;
+	int c = 0;
+	int s;
+	Car* car;
+	while (ChechUpL.dequeue(car, s))
+	{
+		c++;
+	}
+	return c;
+}
+
+void Organiser::CreateOutputFile()
+{
+	ofstream OutputFile("Output.txt");
+	if (OutputFile.is_open())
+	{
+		OutputFile << "FT     PID     QT     WT" << endl;
+		Request** FT = new Request * [FinishedRequestsCount];
+		LinkedQueue <Request*> FinishL = FinishList;
+		Request* r;
+		int np = 0, sp = 0, ep = 0;
+		for (int i = 0; i < FinishedRequestsCount; i++)
+		{
+			if (FinishL.dequeue(r))
+			{
+				FT[i] = r;
+				if (r->getType() == "NP")
+					np++;
+				else if (r->getType() == "SP")
+					sp++;
+				else
+					ep++;
+			}
+		}
+		for (int i = 0; i < FinishedRequestsCount - 1; i++)
+		{
+			for (int j = 0; j < FinishedRequestsCount - i - 1; j++)
+			{
+				if (FT[j]->getFT() > FT[j + 1]->getFT())
+				{
+					Request* temp = FT[j];
+					FT[j] = FT[j + 1];
+					FT[j + 1] = temp;
+				}
+			}
+		}
+		for (int i = 0; i < FinishedRequestsCount; i++)
+		{
+			OutputFile << FT[i]->getFT() << "    " << FT[i]->getpid() << "    " << FT[i]->getQT() << "    " << FT[i]->getWT() << endl;
+			OutputFile << "..............................." << endl;
+			OutputFile << "Patients: " << FinishedRequestsCount << "     " << "[NP: " << np << ",SP: " << sp << ",EP: " << ep << "]" << endl;
+
+		}
+	}
+	else
+		cout << "Error loading file" << endl;
+}
+
 Organiser::~Organiser()
 {
 	delete[] HospitalList, HospitalsDistances;
 }
-
-
-
