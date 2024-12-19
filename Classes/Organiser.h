@@ -28,6 +28,7 @@ private:
 	LeavableQueue AllRequests;
 	LeavablePriQueue OutCars;
 	priQueue<Car*> BackCars;
+	priQueue<Car*> FailedBackCars;
 	LinkedQueue<Request*> FinishList;
 	LinkedQueue<CancelRequest*> CancellationRequests;
 	priQueue <Request*>  waitEP; //used for handling EP that couldn't be handled in there timestep
@@ -39,9 +40,9 @@ public:
 	void ReadInputFile(); //reads file contents
 	void sendRequests(); //sends requests at current timestep to suitable hospital
 	void Simulation();
-	Car* CarFailure(int);
-	void OutCarFailureAction(Car*);
-	void BackCarFailureAction(Car*);
+	Car* CarFailure(int , int &t);
+	void OutCarFailureAction(Car*, int t);
+	void BackCarFailureAction(Car*, int t);
 	void ReturnRepairedCars();
 	void linkCarToPatient( Car*& Car);
 	void linkCarToPatient(Request*& Patient, Car*& Car);
