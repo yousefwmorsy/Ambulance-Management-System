@@ -167,7 +167,7 @@ void Organiser::ReturnRepairedCars()
 
 void Organiser::linkCarToPatient(Car*& Car)
 {
-	Request* Patient = Car->getPatient();
+	Request * Patient = Car->getPatient();
 	int timeToReach = ((Patient->getDistance()) / Car->getSpeed());
 	int pickupTime = timestep + timeToReach;
 	OutCars.enqueue(Car, -1 * pickupTime); //add to outcars, priority is the absolute reach time [timestep + distance/speed]
@@ -228,17 +228,6 @@ void Organiser::checkBackCarsReached()
 		carReachedHospital(Car);
 	}
 }
-
-//void Organiser::linkCarToPatient( Car*& Car)
-//{
-//	Request* Patient = Car->getPatient();
-//	int timeToReach = ((Patient->getDistance()) / Car->getSpeed());
-//	int pickupTime = timestep + timeToReach;
-//	OutCars.enqueue(Car, -1 * pickupTime); //add to outcars, priority is the absolute reach time [timestep + distance/speed]
-//	Patient->setAT(timestep); //sets the assignment time of patient to current timestep
-//	Car->setPatient(Patient); //links patient to car and sets status as "Assigned"
-//	Car->incBusyTime(timeToReach); //increments busy time
-//}
 
 void Organiser::handlingEP()
 {

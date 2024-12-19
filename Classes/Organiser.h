@@ -44,12 +44,13 @@ public:
 	void BackCarFailureAction(Car*);
 	void ReturnRepairedCars();
 	void linkCarToPatient( Car*& Car);
+	void linkCarToPatient(Request*& Patient, Car*& Car);
 	void finishRequest(Request*& Patient);
 	void carReachedPatient(Car*& Car);
 	void carReachedHospital(Car*& Car);
+	void checkCancelRequests();
 	void checkOutCarsReached();
 	void checkBackCarsReached();
-	void checkCancelRequests();
 	void handlingEP();
 	void serveRequests();
 	int CheckUpCarC();

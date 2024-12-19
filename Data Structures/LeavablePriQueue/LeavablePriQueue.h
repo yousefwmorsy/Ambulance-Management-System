@@ -6,6 +6,6 @@ class LeavablePriQueue :
     public priQueue<Car*>
 {
 public:
-    bool LeaveQueue(Car* &Removed, int PID);
+    bool LeaveQueue(Car* &Removed, int timetoreach, int PID);
 };
 

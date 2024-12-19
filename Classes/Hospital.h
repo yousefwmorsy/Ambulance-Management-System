@@ -34,6 +34,7 @@ public:
 	int getNcars();
 	int getScars();
 	int getHospitalID();
+
 	//assign patient to car if it is not avalible it will return null ptr;
 	Car* assiNP();
 	Car* assiSP();
@@ -46,6 +47,9 @@ public:
 	const bool checkSPatient(int& timestep);
 
 	void EPtowait(priQueue<Request*>& pr, int timestep);
+
+
+	bool checkCancel(Request*& Patient, int timestep); //returns true if patient cancelled request is found
 
 	void printEP();
 	void printSP();
