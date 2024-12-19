@@ -37,9 +37,19 @@ void Request::setFT(int x)
 	FT = x;
 }
 
+int Request::getFT()
+{
+	return FT;
+}
+
 int Request::getQT()
 {
 	return QT;
+}
+
+int Request::getWT()
+{
+	return WT;
 }
 
 int Request::getpid()

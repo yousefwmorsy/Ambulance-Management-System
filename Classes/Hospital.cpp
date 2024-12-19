@@ -186,6 +186,31 @@ void Hospital::printNP()
 }
 
 
+int Hospital::CarNCount()
+{
+	LinkedQueue <Car*> Ncar = carN;
+	int c = 0;
+	Car* car;
+	while (Ncar.dequeue(car))
+	{
+		c++;
+	}
+	return c;
+}
+
+int Hospital::CarSCount()
+{
+	LinkedQueue <Car*> SCar = carS;
+	int c = 0;
+	Car* car;
+	while (SCar.dequeue(car))
+	{
+		c++;
+	}
+	return c;
+}
+
+
 bool Hospital::canAssign()
 {
 	Car* assiCar = nullptr;
@@ -328,6 +353,7 @@ void Hospital::SetFailurePatient(Request* R)
 		emergencyRequest.enqueue(R, ((EPRequest*)R)->getSeverity());
 	}
 }
+
 
 ostream& operator<<(ostream& out,  Hospital& h)
 {

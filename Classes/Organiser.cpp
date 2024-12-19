@@ -3,6 +3,7 @@
 #include "time.h"
 #include "random"
 #include "UI.h"
+#include <fstream>
 using namespace std;
 
 Organiser::Organiser()
@@ -35,6 +36,14 @@ void Organiser::sendRequests()
 
 void Organiser::Simulation(){
 	ReadInputFile();
+	cout << "Select Mode: " << endl;
+	cout << "Type ""i"" for Interactive Mode" << endl;
+	cout << "Type ""s"" for Silent Mode" << endl;
+	bool m = I.SelectMode();
+	if (!m)
+	{
+		I.PrintSilent();
+	}
 	Car* C; int i;
 	int EnteredRequests = 0;
 
@@ -83,10 +92,17 @@ void Organiser::Simulation(){
 			C->SetCarToFail(false);
 			HospitalList[C->GetHospitalID() - 1].addCar(C);
 		}
-
-		incTime();
+		if (m)
+		{
+			for (int i = 0; i < HospitalCount; i++)
+			{
+				I.PrintInteractive(HospitalList[i], timestep, FinishList, FinishedRequestsCount, OCarCount, BCarCount, OutCars, BackCars, CheckUpCarC(), CheckupList);
+				cin.ignore();
+			}
+		}
+		timestep++;
 	}
-
+	CreateOutputFile();
 }
 
 Car* Organiser::CarFailure(int x)
@@ -277,6 +293,66 @@ void Organiser::serveRequests()
 			}
 		}
 	}
+}
+
+int Organiser::CheckUpCarC()
+{
+	priQueue <Car*> ChechUpL = CheckupList;
+	int c = 0;
+	int s;
+	Car* car;
+	while (ChechUpL.dequeue(car, s))
+	{
+		c++;
+	}
+	return c;
+}
+
+void Organiser::CreateOutputFile()
+{
+	ofstream OutputFile("Output.txt");
+	if (OutputFile.is_open())
+	{
+		OutputFile << "FT     PID     QT     WT" << endl;
+		Request** FT = new Request * [FinishedRequestsCount];
+		LinkedQueue <Request*> FinishL = FinishList;
+		Request* r;
+		int np = 0, sp = 0, ep = 0;
+		for (int i = 0; i < FinishedRequestsCount; i++)
+		{
+			if (FinishL.dequeue(r))
+			{
+				FT[i] = r;
+				if (r->getType() == "NP")
+					np++;
+				else if (r->getType() == "SP")
+					sp++;
+				else
+					ep++;
+			}
+		}
+		for (int i = 0; i < FinishedRequestsCount - 1; i++)
+		{
+			for (int j = 0; j < FinishedRequestsCount - i - 1; j++)
+			{
+				if (FT[j]->getFT() > FT[j + 1]->getFT())
+				{
+					Request* temp = FT[j];
+					FT[j] = FT[j + 1];
+					FT[j + 1] = temp;
+				}
+			}
+		}
+		for (int i = 0; i < FinishedRequestsCount; i++)
+		{
+			OutputFile << FT[i]->getFT() << "    " << FT[i]->getpid() << "    " << FT[i]->getQT() << "    " << FT[i]->getWT() << endl;
+			OutputFile << "..............................." << endl;
+			OutputFile << "Patients: " << FinishedRequestsCount << "     " << "[NP: " << np << ",SP: " << sp << ",EP: " << ep << "]" << endl;
+
+		}
+	}
+	else
+		cout << "Error loading file" << endl;
 }
 
 Organiser::~Organiser()

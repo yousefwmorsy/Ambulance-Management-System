@@ -32,6 +32,7 @@ void Organiser::sendRequests()
 	}
 }
 
+
 int Organiser::getTime()  //WHY?
 {
 	return timestep; 
@@ -110,7 +111,7 @@ void Organiser::Simulation(){
 		}
 		CheckupList = temp;
 
-		incTime();
+		timestep++;
 	}
 
 }
@@ -303,3 +304,16 @@ Organiser::~Organiser()
 
 
 
+ostream& operator<<(ostream& out, const Car& c)
+{
+	if (c.isSpecial)
+	{
+		out << "S" << c.carID << "_H" << c.hospitalID << "_P" << *c.ptr;
+	}
+	else
+	{
+		out << "N" << c.carID << "_H" << c.hospitalID << "_P" << *c.ptr;
+	}
+	return out;
+	// TODO: insert return statement here
+}

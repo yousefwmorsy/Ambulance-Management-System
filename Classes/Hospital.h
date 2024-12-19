@@ -5,6 +5,7 @@
 #include"..//Data Structures/Queue/LinkedQueue.h"
 #include "..//Data Structures/PriQueue/priQueue.h"
 #include "..//Data Structures/LeavableQueue/LeavableQueue.h"
+#include "..//Data Structures/LeavablePriQueue/LeavablePriQueue.h"
 
 class Hospital
 {private:
@@ -53,6 +54,8 @@ public:
 	void printEP();
 	void printSP();
 	void printNP();
+	int CarNCount();
+	int CarSCount();
 	void SetFailurePatient(Request*);
 };
 
