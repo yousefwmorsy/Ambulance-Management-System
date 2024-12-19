@@ -100,6 +100,7 @@ void Organiser::Simulation(){
 				cin.ignore();
 			}
 		}
+		timestep++;
 	}
 	CreateOutputFile();
 }
