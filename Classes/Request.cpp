@@ -8,7 +8,6 @@ ostream& operator<<(ostream& out, const Request& r)
 	return out;
 }
 
-
 Request::Request(string t, int q, int p, int hi, int d)
 {
 	type = t;
@@ -16,10 +15,10 @@ Request::Request(string t, int q, int p, int hi, int d)
 	Pid = p;
 	nearestHid = hi;
 	distance = d;
-	AT = 0;
-	FT = 0;
-	WT = 0;
-	PT = 0;
+	AT = 0; //Assign time
+	FT = 0; //Finish time
+	WT = 0; //Waiting time
+	PT = 0; //Pick-Up time
 }
 
 void Request::setAT(int x)

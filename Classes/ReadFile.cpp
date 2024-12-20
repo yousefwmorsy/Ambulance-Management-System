@@ -16,7 +16,7 @@ CID: Car ID
 
 void Organiser::ReadInputFile() {
 	fstream inputFile;
-	inputFile.open("Input&Output//Requests.txt");
+	inputFile.open("Input&Output//SimRequest.txt");
 	//If there exist a problem when reading the file 
 	if (inputFile.fail()) {
 		cout << "Can't read the file........!";
@@ -46,7 +46,7 @@ void Organiser::ReadInputFile() {
 	}
 	int NumS = 0, NumN = 0;
 	
-	//Geting the number of cars of each type to its hospial
+	//Getting the number of cars of each type to its hospital
 	HospitalList = new Hospital[HospitalCount];
 	for (int i = 0; i < HospitalCount; i++) {
 		inputFile >> NumS >> NumN;
@@ -88,11 +88,16 @@ void Organiser::ReadInputFile() {
 	inputFile >> NumOfReqCancellation;
 	for (int i = 0; i < NumOfReqCancellation; i++) {
 		CancelRequest* CancelR = new CancelRequest;
-		inputFile >> CancelR->CancelTime >> CancelR->PID, CancelR->HID;
+		inputFile >> CancelR->CancelTime >> CancelR->PID >> CancelR->HID;
 		CancellationRequests.enqueue(CancelR);
 	}
 
 	// Reading Failure probability:
+	/*string temp = "0";
+	getline(inputFile, temp);
+	OutCarsFailureProbability = stoi(temp);
+	getline(inputFile, temp);
+	BackCarsFailureProbability = stoi(temp);*/
 	inputFile >> OutCarsFailureProbability;
 	inputFile >> BackCarsFailureProbability;
 }

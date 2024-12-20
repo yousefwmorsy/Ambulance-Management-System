@@ -27,7 +27,7 @@ private:
 	Hospital* HospitalList;
 	LeavableQueue AllRequests;
 	LeavablePriQueue OutCars;
-	priQueue<Car*> BackCars;
+	LeavablePriQueue BackCars;
 	priQueue<Car*> FailedBackCars;
 	LinkedQueue<Request*> FinishList;
 	LinkedQueue<CancelRequest*> CancellationRequests;
