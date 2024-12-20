@@ -16,7 +16,7 @@ void UI::PrintInteractive(Hospital H, int timeStep, LinkedQueue<Request*> F, int
 	OCars.print();
 	cout << endl << BCarC << " <== Back cars: ";
 	BCars.print();
-	cout << endl << CheckUpC << " === Check Up cars: ";
+	cout << endl << CheckUpC << " === Check Up cars: " << endl;
 	CheckUpL.print();
 	cout << endl << "-------------------------------------------------------------------" << endl;
 	cout << FinishRCount << " finished patients: ";
