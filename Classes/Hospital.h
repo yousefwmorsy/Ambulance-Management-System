@@ -52,7 +52,7 @@ public:
 	const bool checkSPatient(int& timestep);
 
 	void EPtowait(priQueue<Request*>& pr, int timestep);
-
+	void addEPfromDiffHospital(Request* ptr);
 
 	bool checkCancel(Request*& Patient, int timestep); //returns true if patient cancelled request is found
 

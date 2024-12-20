@@ -62,6 +62,11 @@ int Request::getpid()
 	return Pid;
 }
 
+void Request::setdistance(int x)
+{
+	distance = x;
+}
+
 
 string Request::getType()
 {

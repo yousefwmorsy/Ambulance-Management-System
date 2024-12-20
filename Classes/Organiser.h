@@ -45,7 +45,6 @@ public:
 	void BackCarFailureAction(Car*, int t);
 	void ReturnRepairedCars();
 	void linkCarToPatient( Car*& Car);
-	void linkCarToPatient(Request*& Patient, Car*& Car);
 	void finishRequest(Request*& Patient);
 	void carReachedPatient(Car*& Car);
 	void carReachedHospital(Car*& Car);
@@ -54,6 +53,7 @@ public:
 	void checkBackCarsReached();
 	void handlingEP();
 	void serveRequests();
+	bool thereIsHospitalCanServe();
 	int CheckUpCarC();
 	void CreateOutputFile();
 	~Organiser();

@@ -24,6 +24,7 @@ public:
 	int getWT();
 	int getAT(); //Getting Assign Time
 	int getpid();
+	void setdistance(int x);
 	string getType();
 	void setHospitalID(int); //only used for EP 
 	int getHospitalID();

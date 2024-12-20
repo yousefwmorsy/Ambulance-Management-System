@@ -47,9 +47,9 @@ public:
     priQueue() : head(nullptr) {}
 
     ~priQueue() {
-        T tmp;
+        /*T tmp;
         int p;
-        while (dequeue(tmp,p));
+        while (dequeue(tmp,p));*/
     }
 
     //insert the new node in its correct position according to its priority

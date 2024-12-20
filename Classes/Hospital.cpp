@@ -238,7 +238,7 @@ const bool Hospital::checkEPatient(int& timestep)
 {
 	Request* temp = nullptr;
 	int x;
-	if (emergencyRequest.peek(temp, x) && timestep <= temp->getQT())
+	if (emergencyRequest.peek(temp, x) && timestep >= temp->getQT())
 	{
 		return true;
 	}
@@ -249,7 +249,7 @@ const bool Hospital::checkNPatient(int& timestep)
 {
 	Request* temp = nullptr; //Hospital 2
 	bool b = normalRequest.peek(temp);
-	if (b && timestep <= temp->getQT())
+	if (b && timestep >= temp->getQT())
 	{
 		return true;
 	}
@@ -260,7 +260,7 @@ const bool Hospital::checkSPatient(int& timestep)
 {
 	Request* temp = nullptr;
 	bool b = specialRequest.peek(temp);
-	if (b && timestep <= temp->getQT())
+	if (b && timestep >= temp->getQT())
 	{
 		return true;
 	}
@@ -274,6 +274,7 @@ void Hospital::EPtowait(priQueue<Request*>& pr,int timestep )
 	while (checkEPatient(timestep))
 	{
 		emergencyRequest.dequeue(temp, severity);
+		ERCount--;
 		pr.enqueue(temp, severity);
 	}
 	return;
@@ -329,7 +330,10 @@ Car* Hospital::assiEP()
 
 Car* Hospital::assiEP(Request* pt)
 {
-	pt->setHospitalID(hospitalID);
+	if (pt->getpid() == 100)
+	{
+		cout << "!!!!!!!!!!!!!!!!!!!!!EL7a2ONA";
+	}
 	int x;
 	Car* assiCar = nullptr;
 	if (carN.peek(assiCar))
@@ -355,6 +359,7 @@ void Hospital::SetFailurePatient(Request* R)
 			temp.enqueue(R);
 		}
 		normalRequest = temp;
+		NRCount++;
 	}
 	else if (R->getType() == "SP") {
 		LinkedQueue <Request*> temp;
@@ -363,9 +368,20 @@ void Hospital::SetFailurePatient(Request* R)
 			temp.enqueue(R);
 		}
 		specialRequest = temp;
+		SRCount++;
 	}
 	else {
 		emergencyRequest.enqueue(R, ((EPRequest*)R)->getSeverity()); //Logical Error
+		ERCount++;
+	}
+}
+
+void Hospital::addEPfromDiffHospital(Request* ptr)
+{
+	if (ptr != nullptr)
+	{
+		emergencyRequest.enqueue(ptr, ((EPRequest*)ptr)->getSeverity());
+		ERCount++;
 	}
 }
 
