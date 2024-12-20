@@ -365,7 +365,7 @@ void Hospital::SetFailurePatient(Request* R)
 		specialRequest = temp;
 	}
 	else {
-		emergencyRequest.enqueue(R, ((EPRequest*)R)->getSeverity());
+		emergencyRequest.enqueue(R, ((EPRequest*)R)->getSeverity()); //Logical Error
 	}
 }
 

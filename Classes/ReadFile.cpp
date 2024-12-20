@@ -7,7 +7,7 @@ using namespace std;
 /*Abbreviation list:
 NCSpeed: Normal car speed
 SCSpeed: Special car speed
-NumOfRrequests: Number of entered requests
+NumOfRequests: Number of entered requests
 NumOfCancellation: Number of Cancellation requests
 NumS: Number of special cars
 NumN: Number of normal cars
@@ -16,7 +16,7 @@ CID: Car ID
 
 void Organiser::ReadInputFile() {
 	fstream inputFile;
-	inputFile.open("Input&Output//SimRequest.txt");
+	inputFile.open("Input&Output//Input//SimRequest.txt");
 	//If there exist a problem when reading the file 
 	if (inputFile.fail()) {
 		cout << "Can't read the file........!";
@@ -29,7 +29,7 @@ void Organiser::ReadInputFile() {
 	inputFile >> NCSpeed >> SCSpeed;
 	Car::setSpeed(SCSpeed, NCSpeed);
 
-	//Creating Matrex to sotre distances of hospitals
+	//Creating Matrix to store distances of hospitals
 	HospitalsDistances = new int* [HospitalCount];
 
 	//Allocate the Matrix

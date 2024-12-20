@@ -51,6 +51,12 @@ int Request::getWT()
 	return WT;
 }
 
+int Request::getAT()
+{
+	//Getting Assign Time
+	return AT;
+}
+
 int Request::getpid()
 {
 	return Pid;

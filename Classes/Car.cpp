@@ -95,11 +95,23 @@ ostream& operator<<(ostream& out, const Car& c)
 {
 	if (c.isSpecial)
 	{
-		out << "S" << c.carID << "_H" << c.hospitalID << "_P" << *c.ptr;
+		out << "S" << c.carID << "_H" << c.hospitalID << "_P";
+		if (c.ptr) {
+			out << *c.ptr;
+		}
+		else {
+			out << "X";
+		}
 	}
 	else
 	{
-		out << "N" << c.carID << "_H" << c.hospitalID << "_P" << *c.ptr;
+		out << "N" << c.carID << "_H" << c.hospitalID << "_P";
+		if (c.ptr) {
+			out << *c.ptr;
+		}
+		else {
+			out << "X";
+		}
 	}
 	return out;
 	// TODO: insert return statement here

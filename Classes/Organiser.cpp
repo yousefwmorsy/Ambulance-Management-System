@@ -45,8 +45,8 @@ void Organiser::Simulation(){
 	int EnteredRequests = 0;
 
 	while (notEnd()) {
-		Request* R = new Request;
-		Car* FailedCar = NULL;
+		//Request* R = new Request;
+		//Car* FailedCar = NULL;
 		//Step1: Send each request to it's hospital at it's request time
 		sendRequests();
 
@@ -57,20 +57,21 @@ void Organiser::Simulation(){
 		
 		if (!OutCars.isEmpty()) {
 			int t = 0;
-			FailedCar = CarFailure(1, t); //After this point OutCars set t NULL
+			Car* FailedCar = CarFailure(1, t); //After this point OutCars set t NULL
 			if (FailedCar) {
 				OutCarFailureAction(FailedCar, t); 
-				cout << "\nCar failed id: " << FailedCar->GetCarID() << endl;
+				cout << "\nCar failed id: " << FailedCar->GetCarID() << " " << t << endl;
 			}
 		}
-
+		OutCars;
+		BackCars;
 		//Step5: If the car reached the patient put it in BackCars from OutCars
 		checkOutCarsReached();
 
 		//Step6: Random on BackCars for choose a car and start BackCar failure Action
 		if (!BackCars.isEmpty()) {
 			int t = 0;
-			FailedCar = CarFailure(0, t);
+			Car* FailedCar = CarFailure(0, t);
 			if (FailedCar) {
 				BackCarFailureAction(FailedCar, t); //Not Finished
 			}
@@ -109,40 +110,39 @@ Car* Organiser::CarFailure(int x, int &t)
 	make a copy of the OutCars and Generate a number within the num of OutCars
 	then Bick the car from the list; 
 	*/
+
+	//&t .....
 	srand(time(0));
-	int FailureProbability, CarsCount;  Car* RandCar = nullptr;
+	Car* RandCar = nullptr;
 	if (x) {   // 1: OutCars, 0: BackCars;
-		FailureProbability = OutCarsFailureProbability;
-		CarsCount = OCarCount;
 		LeavablePriQueue Temp = OutCars;
 		int randProb = rand() % 100 + 1;
-		if (randProb <= FailureProbability) {
-			int x = rand() % CarsCount, y;
+		if (randProb <= OutCarsFailureProbability) {
+			int x = rand() % OCarCount, y;
 			for (int i = 0; i <= x; i++) {
 				Temp.dequeue(RandCar, y);
 			}
 			RandCar->SetCarToFail(true);
 
-			t = y;
+			t = y; //Logic Error 
 			LeavablePriQueue ReArrangeCars;
-			Car* C; int tempint  = 0;
+			Car* C; int tempint = 0;
 			while (OutCars.dequeue(C, tempint)) {
 				if (RandCar->GetCarID() != C->GetCarID()) {
 					ReArrangeCars.enqueue(C, tempint);
 				}
 			}
 			OutCars = ReArrangeCars;
+			t = timestep - RandCar->getPatient()->getAT();
 			return RandCar;
 		}
 	}
 
 	else {
-		FailureProbability = BackCarsFailureProbability;
-		CarsCount = BCarCount;
 		LeavablePriQueue Temp = BackCars;
 		int randProb = rand() % 100 + 1;
-		if (randProb <= FailureProbability) {
-			int x = rand() % CarsCount, y;
+		if (randProb <= BackCarsFailureProbability) {
+			int x = rand() % BCarCount, y;
 			for (int i = 0; i <= x; i++) {
 				Temp.dequeue(RandCar, y);
 			}
@@ -164,12 +164,13 @@ Car* Organiser::CarFailure(int x, int &t)
 }
 
 void Organiser::OutCarFailureAction(Car* C, int t)
-{
-	int p, id = C->GetCarID();
+{// t negative - timestep = - int -> enqueue in BackCars 
+	int id = C->GetCarID();
 	Request* R = C->getPatient();
-	int TimeToBack = t - timestep; // Get the time to return to the hospital
-	HospitalList[C->GetHospitalID() - 1].SetFailurePatient(R); //Return the request to the hospital
-	BackCars.enqueue(C,t); // Put the car in the BackCars from its frailer position
+	int TimeToBack = t + timestep; // Get the time to return to the hospital
+	R = C->dropPatient();
+	//HospitalList[C->GetHospitalID() - 1].SetFailurePatient(R); //Return the request to the hospital
+	BackCars.enqueue(C, -1*TimeToBack); // Put the car in the BackCars from its frailer position
 	OCarCount--;
 	BCarCount++;
 }
@@ -343,7 +344,7 @@ int Organiser::CheckUpCarC()
 
 void Organiser::CreateOutputFile()
 {
-	ofstream OutputFile("Output.txt");
+	ofstream OutputFile("Input&Output//Output//Output.txt");
 	if (OutputFile.is_open())
 	{
 		OutputFile << "FT     PID     QT     WT" << endl;
