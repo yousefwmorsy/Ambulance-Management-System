@@ -15,6 +15,11 @@ class Hospital
 	int SRCount;
 	int NRCount;
 	int ERCount;
+	////////////////////
+	int SRCountPrint; int SRIDPrint[100]; // Temp
+	int NRCountPrint; int NRIDPrint[100]; // Temp
+	int ERCountPrint; int ERIDPrint[100]; // Temp
+	////////////////////
 	LinkedQueue <Car*> carN;
 	LinkedQueue <Car*> carS;
 	LinkedQueue <Request*> specialRequest;
@@ -57,5 +62,6 @@ public:
 	int CarNCount();
 	int CarSCount();
 	void SetFailurePatient(Request*);
+
 };
 

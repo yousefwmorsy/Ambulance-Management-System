@@ -13,14 +13,11 @@ Organiser::Organiser()
 	BCarCount = 0;
 }
 
-
 bool Organiser::notEnd()
 {
 	//checks if all requests were served
 	return (FinishedRequestsCount != TotalRequestsCount);
 }
-
-
 
 void Organiser::sendRequests()
 {
@@ -33,8 +30,8 @@ void Organiser::sendRequests()
 	}
 }
 
-
 void Organiser::Simulation(){
+	LeavablePriQueue temp;
 	ReadInputFile();
 	cout << "Select Mode: " << endl;
 	cout << "Type ""i"" for Interactive Mode" << endl;
@@ -48,50 +45,49 @@ void Organiser::Simulation(){
 	int EnteredRequests = 0;
 
 	while (notEnd()) {
-		Request* R = new Request;
-		Car* FailedCar;
+		//Request* R = new Request;
+		//Car* FailedCar = NULL;
 		//Step1: Send each request to it's hospital at it's request time
 		sendRequests();
 
 		//Step2: Assigns Hospitals' patients to it's APPROPRIATE FREE cars
-		for (int i = 0; i < HospitalCount; i++)
-		{
-		/*
-		Looping at each timestep on all patients
-		and Assign Cars to
-		its patient "IF HOSPITAL HAS THE APPROPRIATE CAR OF THE REQUEST" -> ASSSIGN FUNCTIONS
-		*/
-		}
+		serveRequests();
 		
-		//Step3: Random on OutCats for choose a car and start OutCar failure Action
+		//Step4: Random on OutCats for choose a car and start OutCar failure Action
+		
 		if (!OutCars.isEmpty()) {
-			FailedCar = CarFailure(1);
+			int t = 0;
+			Car* FailedCar = CarFailure(1, t); //After this point OutCars set t NULL
 			if (FailedCar) {
-				OutCarFailureAction(FailedCar); 
+				OutCarFailureAction(FailedCar, t); 
+				cout << "\nCar failed id: " << FailedCar->GetCarID() << " " << t << endl;
 			}
 		}
-		
-		//Step4: If the car reached the patient put it in BackCars from OutCars
+		OutCars;
+		BackCars;
+		//Step5: If the car reached the patient put it in BackCars from OutCars
 		checkOutCarsReached();
-		
-		//Step5: Random on BackCars for choose a car and start BackCar failure Action
+
+		//Step6: Random on BackCars for choose a car and start BackCar failure Action
 		if (!BackCars.isEmpty()) {
-			FailedCar = CarFailure(0);
+			int t = 0;
+			Car* FailedCar = CarFailure(0, t);
 			if (FailedCar) {
-				BackCarFailureAction(FailedCar); //Not Finished
+				BackCarFailureAction(FailedCar, t); //Not Finished
 			}
 		}
 		
-		//Step6: When the time of reaching car to its hospital comes,
+		//Step7: When the time of reaching car to its hospital comes,
 		//the car should return to its Hospital and drop the patient.
 		checkBackCarsReached();
 
-		//Step7: Check for returned cars from the checkup list
+		//Step8: Check for returned cars from the checkup list
 		while (CheckupList.peek(C,i) && -1*i == timestep) {
 			CheckupList.dequeue(C, i);
 			C->SetCarToFail(false);
 			HospitalList[C->GetHospitalID() - 1].addCar(C);
 		}
+    
 		if (m)
 		{
 			for (int i = 0; i < HospitalCount; i++)
@@ -100,65 +96,101 @@ void Organiser::Simulation(){
 				cin.ignore();
 			}
 		}
+
+
 		timestep++;
 	}
 	CreateOutputFile();
 }
 
-Car* Organiser::CarFailure(int x)
+Car* Organiser::CarFailure(int x, int &t)
 {
 	/*
 	Generate a number and chick if the number is within the Failure Probability
 	make a copy of the OutCars and Generate a number within the num of OutCars
 	then Bick the car from the list; 
 	*/
-	int FailurePropability, CarsCount;
-	LeavablePriQueue Temp;
-	if (x) {   // 1: OutCars, 0: BackCars = 1;
-		FailurePropability = OutCarsFailureProbability;
-		CarsCount = OCarCount;
-		Temp = OutCars;
-	}
-	else {
-		FailurePropability = BackCarsFailureProbability;
-		CarsCount = BCarCount;
-		priQueue<Car*> Temp = BackCars;
-	}
+
+	//&t .....
 	srand(time(0));
-	int randProb = rand() % 100 + 1;
 	Car* RandCar = nullptr;
-	if (randProb < FailurePropability) {
-		int x = rand() % CarsCount, y;
-		for (int i = 0; i <= x; i++) {
-			Temp.dequeue(RandCar, y);
+	if (x) {   // 1: OutCars, 0: BackCars;
+		LeavablePriQueue Temp = OutCars;
+		int randProb = rand() % 100 + 1;
+		if (randProb <= OutCarsFailureProbability) {
+			int x = rand() % OCarCount, y;
+			for (int i = 0; i <= x; i++) {
+				Temp.dequeue(RandCar, y);
+			}
+			RandCar->SetCarToFail(true);
+
+			t = y; //Logic Error 
+			LeavablePriQueue ReArrangeCars;
+			Car* C; int tempint = 0;
+			while (OutCars.dequeue(C, tempint)) {
+				if (RandCar->GetCarID() != C->GetCarID()) {
+					ReArrangeCars.enqueue(C, tempint);
+				}
+			}
+			OutCars = ReArrangeCars;
+			t = timestep - RandCar->getPatient()->getAT();
+			return RandCar;
 		}
-		RandCar->SetCarToFail(true);
-		return RandCar;
 	}
+
+	else {
+		LeavablePriQueue Temp = BackCars;
+		int randProb = rand() % 100 + 1;
+		if (randProb <= BackCarsFailureProbability) {
+			int x = rand() % BCarCount, y;
+			for (int i = 0; i <= x; i++) {
+				Temp.dequeue(RandCar, y);
+			}
+			RandCar->SetCarToFail(true);
+			t = y;
+			Car* C; int tempint = 0;
+			LeavablePriQueue ReArrangeCars;
+			while (BackCars.peek(C, tempint)) {
+				if (C->GetCarID() != RandCar->GetCarID()) {
+					ReArrangeCars.enqueue(C, tempint);
+				}
+			}
+			BackCars = ReArrangeCars;
+			return RandCar;
+		}
+	}
+
 	return RandCar;
 }
 
+void Organiser::OutCarFailureAction(Car* C, int t)
+{// t negative - timestep = - int -> enqueue in BackCars 
+	int id = C->GetCarID();
+	Request* R = C->getPatient();
+	int TimeToBack = t + timestep; // Get the time to return to the hospital
+	R = C->dropPatient();
+	//HospitalList[C->GetHospitalID() - 1].SetFailurePatient(R); //Return the request to the hospital
+	BackCars.enqueue(C, -1*TimeToBack); // Put the car in the BackCars from its frailer position
+	OCarCount--;
+	BCarCount++;
+}
 //NOT FINISHED
-void Organiser::OutCarFailureAction(Car* C)
+void Organiser::BackCarFailureAction(Car*C, int t)
 {
-	int p, id = C->GetCarID();
-	LeavablePriQueue Temp;
-	Car* CarOUT;
-	while (OutCars.dequeue(CarOUT,p)) {
-		if (id == CarOUT->GetCarID()) {
-			BackCars.enqueue(CarOUT, -1 * p);
-			HospitalList[CarOUT->GetHospitalID() - 1].SetFailurePatient(CarOUT->dropPatient());
-		}
-		else {
-			Temp.enqueue(CarOUT,p);
+	FailedBackCars.enqueue(C,t);
+	Car* FBC; int StopedBackTime;
+	int CarsCount = HospitalList[C->GetHospitalID() - 1].getNcars() + HospitalList[C->GetHospitalID() - 1].getScars();
+	if (CarsCount) {
+		//Assign new car from the same hospital to pick the patient and come with the car
+		// Waiting for Assigns functions.....
+		if (/*Assigning is */true) {
+			// Set the Car to BackCars
 		}
 	}
-	OutCars = Temp;
-}
-
-void Organiser::BackCarFailureAction(Car*)
-{
-
+	while (FailedBackCars.dequeue(FBC, StopedBackTime)) {
+		StopedBackTime--;
+		FailedBackCars.enqueue(FBC, StopedBackTime);
+	}
 }
 
 void Organiser::ReturnRepairedCars()
@@ -171,6 +203,7 @@ void Organiser::linkCarToPatient(Car*& Car)
 	int timeToReach = ((Patient->getDistance()) / Car->getSpeed());
 	int pickupTime = timestep + timeToReach;
 	OutCars.enqueue(Car, -1 * pickupTime); //add to outcars, priority is the absolute reach time [timestep + distance/speed]
+	OCarCount++;
 	Patient->setAT(timestep); //sets the assignment time of patient to current timestep
 	Car->setPatient(Patient); //links patient to car and sets status as "Assigned"
 	Car->incBusyTime(timeToReach); //increments busy time
@@ -190,10 +223,9 @@ void Organiser::carReachedPatient(Car*& Car)
 	Patient->setPT(timestep); //sets the pickup time of patient to current timestep
 	Car->setStatus("Loaded"); //sets status of car to "Loaded"
 	Car->incBusyTime(timeToReach); //increments busy time
+	BCarCount++;
 	BackCars.enqueue(Car, -1 * returnTime); //add to backcars, priority is absolute reach time
 }
-
-
 
 void Organiser::carReachedHospital(Car*& Car)
 {
@@ -202,9 +234,10 @@ void Organiser::carReachedHospital(Car*& Car)
 		return;
 	}
 	Request* Patient = Car->dropPatient();//car drops patient and status set to free
-	HospitalList[Car->GetHospitalID()].addCar(Car); //car is added to free list of hospital
+	HospitalList[Car->GetHospitalID() - 1].addCar(Car); //car is added to free list of hospital
 	Patient->setFT(timestep); //finish time is set to current timestep
 	finishRequest(Patient); //patient sent to finished request list
+	BCarCount--;
 }
 
 void Organiser::checkOutCarsReached()
@@ -214,6 +247,7 @@ void Organiser::checkOutCarsReached()
 	while (OutCars.peek(Car, priority) && timestep == priority*-1)
 	{
 		OutCars.dequeue(Car, priority);
+		OCarCount--;
 		carReachedPatient(Car);
 	}
 }
@@ -297,7 +331,7 @@ void Organiser::serveRequests()
 
 int Organiser::CheckUpCarC()
 {
-	priQueue <Car*> ChechUpL = CheckupList;
+  priQueue <Car*> ChechUpL = CheckupList;
 	int c = 0;
 	int s;
 	Car* car;
@@ -310,7 +344,7 @@ int Organiser::CheckUpCarC()
 
 void Organiser::CreateOutputFile()
 {
-	ofstream OutputFile("Output.txt");
+	ofstream OutputFile("Input&Output//Output//Output.txt");
 	if (OutputFile.is_open())
 	{
 		OutputFile << "FT     PID     QT     WT" << endl;

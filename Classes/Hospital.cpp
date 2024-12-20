@@ -7,7 +7,9 @@ Hospital::Hospital(int HID, int SpecialCarCount, int NormalCarCount) {
 		NRCount = 0;
 		SRCount = 0;
 		ERCount = 0;
-
+		NRCountPrint = 0;
+		SRCountPrint = 0;
+		ERCountPrint = 0;
 }
 
 void Hospital::addCar(Car* ptr)
@@ -27,15 +29,21 @@ void Hospital::setRequest(Request* rq)
 	if(rq->getType() == "SP") { // the function need to implemented in request file
 		specialRequest.enqueue(rq);
 		SRCount++;
+		SRIDPrint[SRCountPrint] = rq->getpid();
+		SRCountPrint++;
 	}
 	else if(rq->getType() == "NP")
 	{
 		normalRequest.enqueue(rq);
 		NRCount++;
+		NRIDPrint[NRCountPrint] = rq->getpid();
+		NRCountPrint++;
 	}
 	else {
 		emergencyRequest.enqueue(rq, ((EPRequest*)rq)->getSeverity());
 		ERCount++;
+		ERIDPrint[ERCountPrint] = rq->getpid();
+		ERCountPrint++;
 	}
 	return;
 }
@@ -130,39 +138,41 @@ void Hospital::printEP()
 {
 	Request* R;
 	priQueue <Request*> Temp; int X = 0;
-	int E = ERCount;
-	cout << ERCount << " EP requests: ";
+	int E = ERCountPrint;
+	cout << E << " EP requests: ";
 	for (int i = 0; i < E; i++)
 	{
-		emergencyRequest.dequeue(R, X);
+		/*emergencyRequest.dequeue(R, X);
 		cout << *R;
 		if (i != E - 1)
 		{
 			cout << ", ";
 		}
-		Temp.enqueue(R, X);
+		Temp.enqueue(R, X);*/
+		cout << ERIDPrint[i] << ", ";
 
 	}
-	while (Temp.dequeue(R, X)) {
+	/*while (Temp.dequeue(R, X)) {
 		emergencyRequest.enqueue(R, X);
-	}
+	}*/
 	cout << endl;
 }
 
 void Hospital::printSP()
 {
 	Request* R;
-	int S = SRCount;
-	cout << SRCount << " SP requests: ";
+	int S = SRCountPrint;
+	cout << S << " SP requests: ";
 	for (int i = 0; i < S; i++)
 	{
-		specialRequest.dequeue(R);
+		/*specialRequest.dequeue(R);
 		cout << *R;
 		if (i != S - 1)
 		{
 			cout << ", ";
 		}
-		specialRequest.enqueue(R);
+		specialRequest.enqueue(R);*/
+		cout << SRIDPrint[i] << ", ";
 	}
 	cout << endl;
 }
@@ -170,17 +180,19 @@ void Hospital::printSP()
 void Hospital::printNP()
 {
 	Request* R;
-	int N = NRCount;
-	cout << NRCount << " NP requests: ";
+	int N = NRCountPrint;
+	cout << N << " NP requests: ";
 	for (int i = 0; i < N; i++)
 	{
-		normalRequest.dequeue(R);
+		/*normalRequest.dequeue(R);
 		cout << *R;
 		if (i != N - 1)
 		{
 			cout << ", ";
 		}
-		normalRequest.enqueue(R);
+		normalRequest.enqueue(R);*/
+
+		cout << NRIDPrint[i] << ", ";
 	}
 	cout << endl;
 }
@@ -224,10 +236,9 @@ bool Hospital::canAssign()
 
 const bool Hospital::checkEPatient(int& timestep)
 {
-	Request* temp;
+	Request* temp = nullptr;
 	int x;
-	emergencyRequest.peek(temp, x);
-	if (timestep <= temp->getQT())
+	if (emergencyRequest.peek(temp, x) && timestep <= temp->getQT())
 	{
 		return true;
 	}
@@ -236,9 +247,9 @@ const bool Hospital::checkEPatient(int& timestep)
 
 const bool Hospital::checkNPatient(int& timestep)
 {
-	Request* temp;
-	normalRequest.peek(temp);
-	if (timestep <= temp->getQT())
+	Request* temp = nullptr; //Hospital 2
+	bool b = normalRequest.peek(temp);
+	if (b && timestep <= temp->getQT())
 	{
 		return true;
 	}
@@ -247,9 +258,9 @@ const bool Hospital::checkNPatient(int& timestep)
 
 const bool Hospital::checkSPatient(int& timestep)
 {
-	Request* temp;
-	specialRequest.peek(temp);
-	if (timestep <= temp->getQT())
+	Request* temp = nullptr;
+	bool b = specialRequest.peek(temp);
+	if (b && timestep <= temp->getQT())
 	{
 		return true;
 	}
@@ -272,6 +283,7 @@ Car* Hospital::assiNP()
 {
 	Request* pt = nullptr;
 	normalRequest.dequeue(pt);
+	NRCount--;
 	Car* assiCar = nullptr;
 	if (carN.peek(assiCar))
 	{
@@ -285,14 +297,14 @@ Car* Hospital::assiSP()
 {
 	Request* pt = nullptr;
 	specialRequest.dequeue(pt);
+	SRCount--;
 	Car* assiCar = nullptr;
 	if (carS.peek(assiCar))
 	{
 		carS.dequeue(assiCar);
 		assiCar->setPatient(pt);
 	}
-	return nullptr;
-
+	return assiCar;
 }
 
 Car* Hospital::assiEP()
@@ -300,6 +312,7 @@ Car* Hospital::assiEP()
 	Request* pt = nullptr;
 	int x;
 	emergencyRequest.dequeue(pt, x);
+	ERCount--;
 	Car* assiCar = nullptr;
 	if (carN.peek(assiCar))
 	{
@@ -338,22 +351,23 @@ void Hospital::SetFailurePatient(Request* R)
 	if (R->getType() == "NP") {
 		LeavableQueue temp;
 		temp.enqueue(R);
-		while (normalRequest.dequeue(R)) {
+		while (NRCount && normalRequest.dequeue(R)) {
 			temp.enqueue(R);
 		}
+		normalRequest = temp;
 	}
 	else if (R->getType() == "SP") {
 		LinkedQueue <Request*> temp;
 		temp.enqueue(R);
-		while (specialRequest.dequeue(R)) {
+		while (SRCount && specialRequest.dequeue(R)) {
 			temp.enqueue(R);
 		}
+		specialRequest = temp;
 	}
 	else {
-		emergencyRequest.enqueue(R, ((EPRequest*)R)->getSeverity());
+		emergencyRequest.enqueue(R, ((EPRequest*)R)->getSeverity()); //Logical Error
 	}
 }
-
 
 ostream& operator<<(ostream& out,  Hospital& h)
 {
