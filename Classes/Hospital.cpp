@@ -247,7 +247,7 @@ const bool Hospital::checkEPatient(int& timestep)
 
 const bool Hospital::checkNPatient(int& timestep)
 {
-	Request* temp = nullptr; //Hospital 2
+	Request* temp = nullptr; 
 	bool b = normalRequest.peek(temp);
 	if (b && timestep >= temp->getQT())
 	{
@@ -355,7 +355,7 @@ void Hospital::SetFailurePatient(Request* R)
 	if (R->getType() == "NP") {
 		LeavableQueue temp;
 		temp.enqueue(R);
-		while (NRCount && normalRequest.dequeue(R)) {
+		while (normalRequest.dequeue(R)) {
 			temp.enqueue(R);
 		}
 		normalRequest = temp;
@@ -364,7 +364,7 @@ void Hospital::SetFailurePatient(Request* R)
 	else if (R->getType() == "SP") {
 		LinkedQueue <Request*> temp;
 		temp.enqueue(R);
-		while (SRCount && specialRequest.dequeue(R)) {
+		while (specialRequest.dequeue(R)) {
 			temp.enqueue(R);
 		}
 		specialRequest = temp;

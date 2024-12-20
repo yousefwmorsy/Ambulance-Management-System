@@ -75,9 +75,20 @@ int Car::GetBusyTime()
 	return busyTime;
 }
 
+void Car::SetTimeToBack(int t)
+{
+	TimeToBack = t;
+}
+
+int Car::GetTimeToBack()
+{
+	return TimeToBack;
+}
+
 
 Car::Car()
 {
+	TimeToBack = 0;
 	isFail = false;
 }
 

@@ -11,6 +11,7 @@ Organiser::Organiser()
 	timestep = 0;
 	OCarCount = 0;
 	BCarCount = 0;
+	CheckUpTime = 0;
 }
 
 bool Organiser::notEnd()
@@ -68,6 +69,7 @@ void Organiser::Simulation(){
 		//Step5: If the car reached the patient put it in BackCars from OutCars
 		checkOutCarsReached();
 
+
 		//Step6: Random on BackCars for choose a car and start BackCar failure Action
 		if (!BackCars.isEmpty()) {
 			int t = 0;
@@ -80,6 +82,8 @@ void Organiser::Simulation(){
 		//Step7: When the time of reaching car to its hospital comes,
 		//the car should return to its Hospital and drop the patient.
 		checkBackCarsReached();
+
+		//checkCancelRequests();
 
 		//Step8: Check for returned cars from the checkup list
 		while (CheckupList.peek(C,i) && -1*i == timestep) {
@@ -115,47 +119,23 @@ Car* Organiser::CarFailure(int x, int &t)
 	srand(time(0));
 	Car* RandCar = nullptr;
 	if (x) {   // 1: OutCars, 0: BackCars;
-		LeavablePriQueue Temp = OutCars;
 		int randProb = rand() % 100 + 1;
 		if (randProb <= OutCarsFailureProbability) {
-			int x = rand() % OCarCount, y;
-			for (int i = 0; i <= x; i++) {
-				Temp.dequeue(RandCar, y);
-			}
+			int x = rand() % OCarCount;
+			OutCars.GetNext(RandCar, x);
 			RandCar->SetCarToFail(true);
-
-			t = y; //Logic Error 
-			LeavablePriQueue ReArrangeCars;
-			Car* C; int tempint = 0;
-			while (OutCars.dequeue(C, tempint)) {
-				if (RandCar->GetCarID() != C->GetCarID()) {
-					ReArrangeCars.enqueue(C, tempint);
-				}
-			}
-			OutCars = ReArrangeCars;
 			t = timestep - RandCar->getPatient()->getAT();
 			return RandCar;
 		}
 	}
 
 	else {
-		LeavablePriQueue Temp = BackCars;
 		int randProb = rand() % 100 + 1;
 		if (randProb <= BackCarsFailureProbability) {
-			int x = rand() % BCarCount, y;
-			for (int i = 0; i <= x; i++) {
-				Temp.dequeue(RandCar, y);
-			}
+			int x = rand() % BCarCount;
+			BackCars.GetNext(RandCar, x);
 			RandCar->SetCarToFail(true);
-			t = y;
-			Car* C; int tempint = 0;
-			LeavablePriQueue ReArrangeCars;
-			while (BackCars.peek(C, tempint)) {
-				if (C->GetCarID() != RandCar->GetCarID()) {
-					ReArrangeCars.enqueue(C, tempint);
-				}
-			}
-			BackCars = ReArrangeCars;
+			t = RandCar->GetTimeToBack();
 			return RandCar;
 		}
 	}
@@ -200,7 +180,8 @@ void Organiser::ReturnRepairedCars()
 void Organiser::linkCarToPatient(Car*& Car)
 {
 	Request * Patient = Car->getPatient();
-	int timeToReach = ((Patient->getDistance()) / Car->getSpeed());
+	int timeToReach = ceil((Patient->getDistance()) / Car->getSpeed());
+	Car->SetTimeToBack((2*timeToReach) + timestep); //Save the time to get patient from request point to the hospital.
 	int pickupTime = timestep + timeToReach;
 	OutCars.enqueue(Car, -1 * pickupTime); //add to outcars, priority is the absolute reach time [timestep + distance/speed]
 	OCarCount++;
@@ -231,7 +212,8 @@ void Organiser::carReachedPatient(Car*& Car)
 void Organiser::carReachedHospital(Car*& Car)
 {
 	if (Car->GetFailingCondition()) {
-		CheckupList.enqueue(Car, -1*(timestep + 10));
+		CheckupList.enqueue(Car,-1*(timestep + CheckUpTime));
+		BCarCount--;
 		return;
 	}
 	if (Car->getPatient())
@@ -465,6 +447,35 @@ void Organiser::CreateOutputFile()
 	}
 	else
 		cout << "Error loading file" << endl;
+}
+
+void Organiser::checkCancelRequests()
+{
+	CancelRequest* CancelReq;
+	Request* Patient = nullptr;
+	Car* Car = nullptr;
+	while (CancellationRequests.peek(CancelReq) && timestep == CancelReq->CancelTime)
+	{
+		CancellationRequests.dequeue(CancelReq);
+		Request* Patient;
+		int timetoreach = 0;
+		for (int i = 0; i < HospitalCount; i++) //loops on hospitals and check np list
+		{
+			while (HospitalList[i].checkCancel(Patient, timestep)) {
+				finishRequest(Patient); //patient sent to finished request list
+			}
+		}
+		if (OutCars.LeaveQueue(Car, timetoreach, CancelReq->PID)) {
+			Patient = Car->dropPatient();
+			int timetoreturn = timestep + ceil((Patient->getDistance()) / Car->getSpeed()) - (timetoreach - timestep);
+			BackCars.enqueue(Car, -1 * timetoreturn);
+			BCarCount++;
+			finishRequest(Patient); //patient sent to finished request list
+		}
+		if (AllRequests.LeaveQueue(Patient, CancelReq->PID)) {
+			finishRequest(Patient); //patient sent to finished request list
+		}
+	}
 }
 
 Organiser::~Organiser()

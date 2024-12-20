@@ -7,5 +7,6 @@ class LeavablePriQueue :
 {
 public:
     bool LeaveQueue(Car* &Removed, int timetoreach, int PID);
+    bool GetNext(Car*, int);
 };
 

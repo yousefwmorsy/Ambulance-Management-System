@@ -24,6 +24,7 @@ private:
 	int BackCarsFailureProbability;
 	int OCarCount;
 	int BCarCount;
+	int CheckUpTime;
 	Hospital* HospitalList;
 	LeavableQueue AllRequests;
 	LeavablePriQueue OutCars;

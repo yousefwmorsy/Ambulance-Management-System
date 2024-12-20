@@ -16,3 +16,16 @@ bool LeavablePriQueue::LeaveQueue(Car* &Removed, int timetoreach, int PID)
 	}
 	return false;
 }
+
+bool LeavablePriQueue::GetNext(Car*randCar, int randPlace)
+{
+	priNode<Car*>* kyle_walker = head;
+	if (kyle_walker) {
+		for (int i = 0; i < randPlace; i++) {
+			kyle_walker = kyle_walker->getNext();
+		}
+		randCar = kyle_walker->getItem(randPlace); 
+		return true;
+	}
+	return false;
+}

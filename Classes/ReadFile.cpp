@@ -16,7 +16,7 @@ CID: Car ID
 
 void Organiser::ReadInputFile() {
 	fstream inputFile;
-	inputFile.open("Input&Output//Input//file3cancel.txt");
+	inputFile.open("Input&Output//Input//Requests.txt");
 	//If there exist a problem when reading the file 
 	if (inputFile.fail()) {
 		cout << "Can't read the file........!";
@@ -91,6 +91,9 @@ void Organiser::ReadInputFile() {
 		inputFile >> CancelR->CancelTime >> CancelR->PID >> CancelR->HID;
 		CancellationRequests.enqueue(CancelR);
 	}
+
+
 	inputFile >> OutCarsFailureProbability;
 	inputFile >> BackCarsFailureProbability;
+	inputFile >> CheckUpTime;
 }

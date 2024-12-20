@@ -16,6 +16,7 @@ private:
 	string carStatus;
 	bool isSpecial;
 	bool isFail;
+	int TimeToBack;
 	Request* ptr; //pointer for the patient	
 public:
 	Car();
@@ -35,6 +36,8 @@ public:
 	void SetCarToFail(bool fail);
 	int GetBusyTime();
 	void SetBusyTime(int t);
+	void SetTimeToBack(int t);
+	int GetTimeToBack();
 	friend ostream& operator << (ostream& out, const Car& c);
 
 	/*void SetRTimeToReq(int n);

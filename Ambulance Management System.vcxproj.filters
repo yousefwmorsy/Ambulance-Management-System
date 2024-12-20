@@ -37,6 +37,9 @@
     <Filter Include="Classes\Request">
       <UniqueIdentifier>{9b45509a-14f5-4a62-a0c0-005006a871a2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Data Structures\InsertableQueue">
+      <UniqueIdentifier>{eda062fc-3d6a-4527-89d8-87bc95ec0ffc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Data Structures\Stack\StackADT.h">
@@ -74,6 +77,9 @@
     </ClInclude>
     <ClInclude Include="Classes\UI.h">
       <Filter>Classes\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="InsertableQueue.h">
+      <Filter>Data Structures\InsertableQueue</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

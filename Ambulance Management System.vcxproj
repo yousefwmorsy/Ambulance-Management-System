@@ -139,6 +139,7 @@
     <ClInclude Include="Classes\UI.h" />
     <ClInclude Include="Data Structures\LeavablePriQueue\LeavablePriQueue.h" />
     <ClInclude Include="Data Structures\LeavableQueue\LeavableQueue.h" />
+    <ClInclude Include="InsertableQueue.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Classes\Car.cpp" />
