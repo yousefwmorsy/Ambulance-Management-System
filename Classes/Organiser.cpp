@@ -46,7 +46,7 @@ void Organiser::Simulation(){
 
 	while (notEnd()) {
 		Request* R = new Request;
-		Car* FailedCar;
+		Car* FailedCar = NULL;
 		//Step1: Send each request to it's hospital at it's request time
 		sendRequests();
 
@@ -55,15 +55,15 @@ void Organiser::Simulation(){
 		
 		//Step4: Random on OutCats for choose a car and start OutCar failure Action
 		
-		//if (!OutCars.isEmpty()) {
-		//	int t = 0;
-		//	FailedCar = CarFailure(1, t); //After this point OutCars set t NULL
-		//	if (FailedCar) {
-		//		OutCarFailureAction(FailedCar, t); 
-		//		cout << "\nCar failed id: " << FailedCar->GetCarID() << endl;
-		//	}
-		//}
-		
+		if (!OutCars.isEmpty()) {
+			int t = 0;
+			FailedCar = CarFailure(1, t); //After this point OutCars set t NULL
+			if (FailedCar) {
+				OutCarFailureAction(FailedCar, t); 
+				cout << "\nCar failed id: " << FailedCar->GetCarID() << endl;
+			}
+		}
+
 		//Step5: If the car reached the patient put it in BackCars from OutCars
 		checkOutCarsReached();
 
@@ -122,17 +122,16 @@ Car* Organiser::CarFailure(int x, int &t)
 				Temp.dequeue(RandCar, y);
 			}
 			RandCar->SetCarToFail(true);
+
 			t = y;
+			LeavablePriQueue ReArrangeCars;
 			Car* C; int tempint  = 0;
 			while (OutCars.dequeue(C, tempint)) {
-				if (C->GetCarID() == RandCar->GetCarID()) {
-
-				}
-				else {
-					Temp.enqueue(C, tempint);
+				if (RandCar->GetCarID() != C->GetCarID()) {
+					ReArrangeCars.enqueue(C, tempint);
 				}
 			}
-			OutCars = Temp;
+			OutCars = ReArrangeCars;
 			return RandCar;
 		}
 	}
@@ -150,15 +149,13 @@ Car* Organiser::CarFailure(int x, int &t)
 			RandCar->SetCarToFail(true);
 			t = y;
 			Car* C; int tempint = 0;
+			LeavablePriQueue ReArrangeCars;
 			while (BackCars.peek(C, tempint)) {
-				if (C->GetCarID() == RandCar->GetCarID()) {
-					BackCars.dequeue(C, tempint);
-				}
-				else {
-					Temp.enqueue(C, tempint);
+				if (C->GetCarID() != RandCar->GetCarID()) {
+					ReArrangeCars.enqueue(C, tempint);
 				}
 			}
-			BackCars = Temp;
+			BackCars = ReArrangeCars;
 			return RandCar;
 		}
 	}

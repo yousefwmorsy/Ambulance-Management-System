@@ -63,6 +63,5 @@ public:
 	int CarSCount();
 	void SetFailurePatient(Request*);
 
-	int AssignRequests(int t, LeavablePriQueue &OCars);
 };
 

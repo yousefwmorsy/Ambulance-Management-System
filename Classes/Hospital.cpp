@@ -304,8 +304,7 @@ Car* Hospital::assiSP()
 		carS.dequeue(assiCar);
 		assiCar->setPatient(pt);
 	}
-	return nullptr;
-
+	return assiCar;
 }
 
 Car* Hospital::assiEP()
@@ -369,28 +368,6 @@ void Hospital::SetFailurePatient(Request* R)
 		emergencyRequest.enqueue(R, ((EPRequest*)R)->getSeverity());
 	}
 }
-
-int Hospital::AssignRequests(int t, LeavablePriQueue &Ocars){
-	int OutCars = 0;
-	Car* C = nullptr;
-	while (checkEPatient(t) && (CarSCount() || CarNCount() )) {
-		C = assiEP();
-		Ocars.enqueue(C, C->GetBusyTime() / 2);
-		OutCars++;
-	}
-	while (checkSPatient(t) && (CarSCount())) {
-		C = assiSP();
-		Ocars.enqueue(C, C->GetBusyTime() / 2);
-		OutCars++;
-	}
-	while (checkNPatient(t) && (CarNCount())) {
-		C = assiNP();
-		Ocars.enqueue(C, C->GetBusyTime() / 2);
-		OutCars++;
-	}
-	return OutCars;
-}
-
 
 ostream& operator<<(ostream& out,  Hospital& h)
 {
