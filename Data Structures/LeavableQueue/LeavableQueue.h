@@ -5,5 +5,6 @@ class LeavableQueue : public LinkedQueue<Request*>
 {
 public:
 	bool LeaveQueue(Request* &Removed, int PID);
+	void InsertAtBegin(Request*R);
 };
 

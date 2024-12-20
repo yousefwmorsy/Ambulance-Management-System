@@ -16,19 +16,17 @@ public:
 		}
 	} 
 
-	bool InsertAtPlace(int place, Request* R) {
+	bool InsertAtBegin(Request* R) {
 		Node<Request*>* newElement = new Node<Request*>;
 		newElement->setItem(R);
 		newElement->setNext(NULL);
 		if (place == 0) {
-			if (isEmpty()) {
+		if (isEmpty()) {
 				enqueue(R);
-			}
-			else {
-				GetBeforeLast()->setNext(newElement);
-				frontPtr = newElement;//back->1->2->3->4()->NULL
-				
-			}
+		}
+		else {
+			newElement->setNext(frontPtr);
+			frontPtr = newElement;
 		}
 	}
 	~MyClass();

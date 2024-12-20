@@ -16,7 +16,7 @@ CID: Car ID
 
 void Organiser::ReadInputFile() {
 	fstream inputFile;
-	inputFile.open("Input&Output//Input//Requests.txt");
+	inputFile.open("Input&Output//Input//file2dmar.txt");
 	//If there exist a problem when reading the file 
 	if (inputFile.fail()) {
 		cout << "Can't read the file........!";

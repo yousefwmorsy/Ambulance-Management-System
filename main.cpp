@@ -8,5 +8,7 @@ int main() {
 	pOrg->Simulation();
 	
 	delete pOrg;
-	while (true) {}
+	//while (true) {}
+	int x;
+	cin >> x;
 }

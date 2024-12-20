@@ -124,11 +124,28 @@ int Hospital::getHospitalID()
 	return hospitalID;
 }
 
+Car* Hospital::SendCarToRescue()
+{
+	Car* C;
+	if (numNcars) {
+		carN.dequeue(C);
+		numNcars--;
+		return C;
+	}
+	if (numScars) {
+		carS.dequeue(C);
+		numScars--;
+		return C;
+	}
+	return nullptr;
+}
+
 bool Hospital::checkCancel(Request*& Patient, int timestep)
 {
 	if (normalRequest.peek(Patient) && Patient->getQT() == timestep)
 	{
 		normalRequest.dequeue(Patient);
+		NRCount--;
 		return true;
 	}
 	return false;
@@ -138,62 +155,64 @@ void Hospital::printEP()
 {
 	Request* R;
 	priQueue <Request*> Temp; int X = 0;
-	int E = ERCountPrint;
+	int E = ERCount;
 	cout << E << " EP requests: ";
-	for (int i = 0; i < E; i++)
-	{
-		/*emergencyRequest.dequeue(R, X);
-		cout << *R;
-		if (i != E - 1)
-		{
-			cout << ", ";
-		}
-		Temp.enqueue(R, X);*/
-		cout << ERIDPrint[i] << ", ";
-
-	}
-	/*while (Temp.dequeue(R, X)) {
-		emergencyRequest.enqueue(R, X);
-	}*/
+	//for (int i = 0; i < E; i++)
+	//{
+	//	emergencyRequest.dequeue(R, X);
+	///*	cout << *R;
+	//	if (i != E - 1)
+	//	{
+	//		cout << ", ";
+	//	}
+	//	Temp.enqueue(R, X);*/
+	//	cout << ERIDPrint[i] << ", ";
+	//}
+	//while (Temp.dequeue(R, X)) {
+	//	emergencyRequest.enqueue(R, X);
+	//}
+	emergencyRequest.print();
 	cout << endl;
 }
 
 void Hospital::printSP()
 {
 	Request* R;
-	int S = SRCountPrint;
+	int S = SRCount;
 	cout << S << " SP requests: ";
-	for (int i = 0; i < S; i++)
-	{
-		/*specialRequest.dequeue(R);
-		cout << *R;
-		if (i != S - 1)
-		{
-			cout << ", ";
-		}
-		specialRequest.enqueue(R);*/
-		cout << SRIDPrint[i] << ", ";
-	}
+	//for (int i = 0; i < S; i++)
+	//{
+	//	/*specialRequest.dequeue(R);
+	//	cout << *R;
+	//	if (i != S - 1)
+	//	{
+	//		cout << ",	";
+	//	}
+	//	specialRequest.enqueue(R);*/
+	//	cout << SRIDPrint[i] << ", ";
+	//}
+	specialRequest.print();
 	cout << endl;
 }
 
 void Hospital::printNP()
 {
 	Request* R;
-	int N = NRCountPrint;
+	int N = NRCount;
 	cout << N << " NP requests: ";
-	for (int i = 0; i < N; i++)
-	{
-		/*normalRequest.dequeue(R);
-		cout << *R;
-		if (i != N - 1)
-		{
-			cout << ", ";
-		}
-		normalRequest.enqueue(R);*/
+	//for (int i = 0; i < N; i++)
+	//{
+	//	/*normalRequest.dequeue(R);
+	//	cout << *R;
+	//	if (i != N - 1)
+	//	{
+	//		cout << ", ";
+	//	}
+	//	normalRequest.enqueue(R);*/
 
-		cout << NRIDPrint[i] << ", ";
-	}
+	//	cout << NRIDPrint[i] << ", ";
+	//}
+	normalRequest.print();
 	cout << endl;
 }
 
@@ -330,10 +349,6 @@ Car* Hospital::assiEP()
 
 Car* Hospital::assiEP(Request* pt)
 {
-	if (pt->getpid() == 100)
-	{
-		cout << "!!!!!!!!!!!!!!!!!!!!!EL7a2ONA";
-	}
 	int x;
 	Car* assiCar = nullptr;
 	if (carN.peek(assiCar))
@@ -353,21 +368,11 @@ Car* Hospital::assiEP(Request* pt)
 void Hospital::SetFailurePatient(Request* R)
 {
 	if (R->getType() == "NP") {
-		LeavableQueue temp;
-		temp.enqueue(R);
-		while (normalRequest.dequeue(R)) {
-			temp.enqueue(R);
-		}
-		normalRequest = temp;
+		normalRequest.InsertAtBegin(R);
 		NRCount++;
 	}
 	else if (R->getType() == "SP") {
-		LinkedQueue <Request*> temp;
-		temp.enqueue(R);
-		while (specialRequest.dequeue(R)) {
-			temp.enqueue(R);
-		}
-		specialRequest = temp;
+		specialRequest.InsertAtBegin(R);
 		SRCount++;
 	}
 	else {

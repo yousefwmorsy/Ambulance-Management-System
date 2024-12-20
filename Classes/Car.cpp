@@ -85,11 +85,22 @@ int Car::GetTimeToBack()
 	return TimeToBack;
 }
 
+void Car::setToResqeu(bool c)
+{
+	toRescue = c;
+}
+
+bool Car::isToResque()
+{
+	return toRescue;
+}
+
 
 Car::Car()
 {
 	TimeToBack = 0;
 	isFail = false;
+	toRescue = false;
 }
 
 Car::Car(int hid, int cid, bool isS) {
@@ -100,6 +111,7 @@ Car::Car(int hid, int cid, bool isS) {
 	busyTime = 0;
 	ptr = nullptr;
 	isFail = false;
+	toRescue = false;
 }
 
 ostream& operator<<(ostream& out, const Car& c)

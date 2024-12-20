@@ -15,3 +15,16 @@ bool LeavableQueue::LeaveQueue(Request*& Removed, int PID)
     }
     return false;
 }
+
+void LeavableQueue::InsertAtBegin(Request* R){
+    Node<Request*>* newElement = new Node<Request*>;
+    newElement->setItem(R);
+    newElement->setNext(NULL);
+    if (isEmpty()) {
+       enqueue(R);
+    }
+    else {
+       newElement->setNext(frontPtr);
+       frontPtr = newElement;
+    }
+}

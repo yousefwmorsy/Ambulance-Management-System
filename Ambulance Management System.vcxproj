@@ -129,6 +129,7 @@
   <ItemGroup>
     <ClInclude Include="Classes\Car.h" />
     <ClInclude Include="Classes\EPRequest.h" />
+    <ClInclude Include="Data Structures\InsertableQueue\InsertableQueue.h" />
     <ClInclude Include="Data Structures\PriQueue\priQueue.h" />
     <ClInclude Include="Data Structures\Queue\LinkedQueue.h" />
     <ClInclude Include="Data Structures\Stack\ArrayStack.h" />
@@ -139,7 +140,6 @@
     <ClInclude Include="Classes\UI.h" />
     <ClInclude Include="Data Structures\LeavablePriQueue\LeavablePriQueue.h" />
     <ClInclude Include="Data Structures\LeavableQueue\LeavableQueue.h" />
-    <ClInclude Include="InsertableQueue.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Classes\Car.cpp" />
