@@ -261,7 +261,7 @@ const bool Hospital::checkEPatient(int& timestep)
 	{
 		return true;
 	}
-	return false;
+  	return false;
 }
 
 const bool Hospital::checkNPatient(int& timestep)
@@ -302,26 +302,29 @@ void Hospital::EPtowait(priQueue<Request*>& pr,int timestep )
 Car* Hospital::assiNP()
 {
 	Request* pt = nullptr;
-	normalRequest.dequeue(pt);
-	NRCount--;
+	normalRequest.peek(pt);
 	Car* assiCar = nullptr;
 	if (carN.peek(assiCar))
 	{
+		normalRequest.dequeue(pt);
 		carN.dequeue(assiCar);
 		assiCar->setPatient(pt);
+		NRCount--;
 	}
 	return assiCar;
 }
 
+
 Car* Hospital::assiSP()
 {
 	Request* pt = nullptr;
-	specialRequest.dequeue(pt);
-	SRCount--;
+	specialRequest.peek(pt);
 	Car* assiCar = nullptr;
 	if (carS.peek(assiCar))
 	{
 		carS.dequeue(assiCar);
+		specialRequest.dequeue(pt);
+		SRCount--;
 		assiCar->setPatient(pt);
 	}
 	return assiCar;
@@ -331,16 +334,19 @@ Car* Hospital::assiEP()
 {
 	Request* pt = nullptr;
 	int x;
-	emergencyRequest.dequeue(pt, x);
-	ERCount--;
+	emergencyRequest.peek(pt, x);
 	Car* assiCar = nullptr;
 	if (carN.peek(assiCar))
 	{
+		emergencyRequest.dequeue(pt, x);
+		ERCount--;
 		carN.dequeue(assiCar);
 		assiCar->setPatient(pt);
 	}
 	else if (carS.peek(assiCar))
 	{
+		emergencyRequest.dequeue(pt, x);
+		ERCount--;
 		carS.dequeue(assiCar);
 		assiCar->setPatient(pt);
 	}

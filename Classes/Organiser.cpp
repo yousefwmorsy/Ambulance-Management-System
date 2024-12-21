@@ -46,6 +46,7 @@ void Organiser::Simulation(){
 	Car* C; int i;
 	int EnteredRequests = 0;
 	int countf = 0;
+	int countl = 0;
 	while (notEnd()) {
 		//Step1: Send each request to it's hospital at it's request time
 		sendRequests();
@@ -54,9 +55,9 @@ void Organiser::Simulation(){
 		serveRequests();
 
 		//Check the canceled requests
-		/*checkCancelRequests();*/
+		checkCancelRequests();
 
-		//step5: Random on OutCats for choose a car and start OutCar failure Action
+		/*step5: Random on OutCats for choose a car and start OutCar failure Action*/
 		if (!OutCars.isEmpty()) {
 			int t = 0;
 			Car* FailedCar = CarFailure(1, t, countf); //After this point OutCars set t NULL
@@ -86,6 +87,7 @@ void Organiser::Simulation(){
 			CheckupList.dequeue(C, i);
 			C->SetCarToFail(false);
 			HospitalList[C->GetHospitalID() - 1].addCar(C);
+			CheckCarCount--;
 		}
 
 		//Step10: Print all hospital's informations
@@ -93,15 +95,17 @@ void Organiser::Simulation(){
 		{
 			for (int i = 0; i < HospitalCount; i++)
 			{
-				I.PrintInteractive(HospitalList[i], timestep, FinishList, FinishedRequestsCount, OCarCount, BCarCount, OutCars, BackCars, CheckUpCarC(), CheckupList);
+				I.PrintInteractive(HospitalList[i], timestep, FinishList, FinishedRequestsCount, OCarCount, BCarCount, OutCars, BackCars, CheckCarCount, CheckupList);
 				cout << "\n Failed Count: " << countf << endl;
 				cin.ignore();
 			}
 		}
 		timestep++;
+		cout << "\n Loop " << countl;
+		countl++;
 	}
 	CreateOutputFile();
-
+	
 }
 
 Car* Organiser::CarFailure(int x, int &t, int &c)
@@ -243,6 +247,7 @@ void Organiser::carReachedHospital(Car* Car)
 {
 	if (Car->GetFailingCondition()) {
 		CheckupList.enqueue(Car,-1*(timestep + CheckUpTime));
+		CheckCarCount++;
 		BCarCount--;
 		return;
 	}
@@ -419,18 +424,18 @@ bool Organiser::thereIsHospitalCanServe()
 	return false;
 }
 
-int Organiser::CheckUpCarC()
-{
-  priQueue <Car*> ChechUpL = CheckupList;
-	int c = 0;
-	int s;
-	Car* car;
-	while (ChechUpL.dequeue(car, s))
-	{
-		c++;
-	}
-	return c;
-}
+//int Organiser::CheckUpCarC()
+//{
+//	priQueue <Car*> ChechUpL = CheckupList;
+//	int c = 0;
+//	int s;
+//	Car* car;
+//	while (ChechUpL.dequeue(car, s))
+//	{
+//		c++;
+//	}
+//	return c;
+//}
 
 void Organiser::CreateOutputFile()
 {

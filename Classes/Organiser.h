@@ -25,6 +25,7 @@ private:
 	int OCarCount;
 	int BCarCount;
 	int CheckUpTime;
+	int CheckCarCount;
 	Hospital* HospitalList;
 	LeavableQueue AllRequests;
 	LeavablePriQueue OutCars;
