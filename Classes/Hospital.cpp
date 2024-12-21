@@ -140,11 +140,27 @@ Car* Hospital::SendCarToRescue()
 	return nullptr;
 }
 
-bool Hospital::checkCancel(Request*& Patient, int timestep)
+int Hospital::GetTotalBusyTime()
 {
-	if (normalRequest.peek(Patient) && Patient->getQT() == timestep)
-	{
+	int Sum = 0;
+	Car* C;
+	while (carS.dequeue(C)) {
+		Sum += C->GetBusyTime();
+	}
+	while (carN.dequeue(C)) {
+		Sum += C->GetBusyTime();
+	}
+	return Sum;
+}
+
+bool Hospital::checkCancel(Request*& Patient, int timestep, int pid)
+{
+	if (NRCount == 1) {
 		normalRequest.dequeue(Patient);
+		return true;
+	}
+	if (normalRequest.LeaveQueue(Patient, pid))
+	{
 		NRCount--;
 		return true;
 	}

@@ -6,7 +6,7 @@
 #include "..//Data Structures/PriQueue/priQueue.h"
 #include "..//Data Structures/LeavableQueue/LeavableQueue.h"
 #include "..//Data Structures/LeavablePriQueue/LeavablePriQueue.h"
-#include "..//Data Structures/InsertableQueue/InsertableQueue.h"
+
 
 class Hospital
 {private:
@@ -41,6 +41,7 @@ public:
 	int getScars(); // Get the number of special cars
 	int getHospitalID(); // Get the hospital's id
 	Car* SendCarToRescue();
+	int GetTotalBusyTime();
 
 	//assign patient to car if it is not available it will return null ptr;
 	Car* assiNP();
@@ -58,7 +59,7 @@ public:
 	void EPtowait(priQueue<Request*>& pr, int timestep); 
 	void addEPfromDiffHospital(Request* ptr);
 
-	bool checkCancel(Request*& Patient, int timestep); //returns true if patient cancelled request is found
+	bool checkCancel(Request*& Patient, int timestep, int); //returns true if patient cancelled request is found
 
 	//Print requests
 	void printEP();

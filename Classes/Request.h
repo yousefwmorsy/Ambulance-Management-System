@@ -22,8 +22,10 @@ public:
 	int getFT();
 	int getQT();
 	int getWT();
+	int getPT();
 	int getAT(); //Getting Assign Time
 	int getpid();
+	void setWT(int);
 	void setdistance(int x);
 	string getType();
 	void setHospitalID(int); //only used for EP 

@@ -4,6 +4,7 @@
 #include "random"
 #include "UI.h"
 #include <fstream>
+#include <iomanip>
 using namespace std;
 
 Organiser::Organiser()
@@ -12,6 +13,9 @@ Organiser::Organiser()
 	OCarCount = 0;
 	BCarCount = 0;
 	CheckUpTime = 0;
+	CarsCount = 0;
+	SCarCount = 0;
+	NCarCount = 0;
 }
 
 bool Organiser::notEnd()
@@ -55,7 +59,7 @@ void Organiser::Simulation(){
 		serveRequests();
 
 		//Check the canceled requests
-		checkCancelRequests();
+		//checkCancelRequests();
 
 		/*step5: Random on OutCats for choose a car and start OutCar failure Action*/
 		if (!OutCars.isEmpty()) {
@@ -96,13 +100,13 @@ void Organiser::Simulation(){
 			for (int i = 0; i < HospitalCount; i++)
 			{
 				I.PrintInteractive(HospitalList[i], timestep, FinishList, FinishedRequestsCount, OCarCount, BCarCount, OutCars, BackCars, CheckCarCount, CheckupList);
-				cout << "\n Failed Count: " << countf << endl;
+				//cout << "\n Failed Count: " << countf << endl;
 				cin.ignore();
 			}
 		}
 		timestep++;
-		cout << "\n Loop " << countl;
-		countl++;
+		//cout << "\n Loop " << countl;
+		//countl++;
 	}
 	CreateOutputFile();
 	
@@ -198,7 +202,6 @@ void Organiser::linkCarToPatient(Car* Car, Request* R = nullptr, int t = 0)
 		Patient = Car->getPatient();
 		timeToReach = ceil((Patient->getDistance()) / Car->getSpeed());
 	}
-	
 	Car->SetTimeToBack((2*timeToReach) + timestep); //Save the time to get patient from request point to the hospital.
 	int pickupTime = timestep + timeToReach;
 	OutCars.enqueue(Car, -1 * pickupTime); //add to outcars, priority is the absolute reach time [timestep + distance/speed]
@@ -210,6 +213,8 @@ void Organiser::linkCarToPatient(Car* Car, Request* R = nullptr, int t = 0)
 
 void Organiser::finishRequest(Request* Patient)
 {
+	Patient->setFT(timestep);
+	Patient->setWT(Patient->getPT() - Patient->getQT());
 	FinishList.enqueue(Patient);
 	FinishedRequestsCount++;
 }
@@ -267,13 +272,14 @@ void Organiser::checkCancelRequests()
 	Request* Patient = nullptr;
 	Car* Car = nullptr;
 	while (CancellationRequests.peek(CancelReq) && timestep == CancelReq->CancelTime)
-	{
+	{ 
 		CancellationRequests.dequeue(CancelReq);
-		Request* Patient;
+		Request* Patient = nullptr;
 		int timetoreach = 0;
 		for (int i = 0; i < HospitalCount; i++) //loops on hospitals and check np list
 		{
-			while (HospitalList[i].checkCancel(Patient, timestep)) {
+			while (HospitalList[i].checkCancel(Patient, timestep, CancelReq->PID)) {
+				Patient->setPT(timestep);
 				finishRequest(Patient); //patient sent to finished request list
 			}
 		}
@@ -283,14 +289,15 @@ void Organiser::checkCancelRequests()
 			BackCars.enqueue(Car, -1 * timetoreturn);
 			OCarCount--;
 			BCarCount++;
+			Patient->setPT(timestep);
 			finishRequest(Patient); //patient sent to finished request list
 		}
-		if (AllRequests.LeaveQueue(Patient, CancelReq->PID)) {
-			finishRequest(Patient); //patient sent to finished request list
-		}
+		//if (AllRequests.LeaveQueue(Patient, CancelReq->PID)) {
+		//	Patient->setPT(timestep);
+		//	finishRequest(Patient); //patient sent to finished request list
+		//}
 	}
 }
-
 void Organiser::checkOutCarsReached()
 {
 	Car* Car;
@@ -442,7 +449,7 @@ void Organiser::CreateOutputFile()
 	ofstream OutputFile("Input&Output//Output//Output.txt");
 	if (OutputFile.is_open())
 	{
-		OutputFile << "FT     PID     QT     WT" << endl;
+		OutputFile << "FT     PID     QT     WT" << endl << string(30, '-') << endl;
 		Request** FT = new Request * [FinishedRequestsCount];
 		LinkedQueue <Request*> FinishL = FinishList;
 		Request* r;
@@ -472,13 +479,22 @@ void Organiser::CreateOutputFile()
 				}
 			}
 		}
+
 		for (int i = 0; i < FinishedRequestsCount; i++)
 		{
-			OutputFile << FT[i]->getFT() << "    " << FT[i]->getpid() << "    " << FT[i]->getQT() << "    " << FT[i]->getWT() << endl;
-			OutputFile << "..............................." << endl;
-			OutputFile << "Patients: " << FinishedRequestsCount << "     " << "[NP: " << np << ",SP: " << sp << ",EP: " << ep << "]" << endl;
+			OutputFile << setw(2) << FT[i]->getFT() << setw(8) << FT[i]->getpid() << setw(8) << FT[i]->getQT() << setw(8) << FT[i]->getWT() << endl;
 
+			
 		}
+		int SumBusyTime = 0;
+		for (int i = 0; i < HospitalCount; i++) {
+			SumBusyTime += HospitalList[i].GetTotalBusyTime();
+		}
+		OutputFile << "..............................." << endl;
+		OutputFile << "Patients: " << FinishedRequestsCount << "       [NP: " << np << ",SP: " << sp << ",EP: " << ep << "]" << endl;
+		OutputFile << "Hospitals: " << HospitalCount << endl << "Cars: " << CarsCount << "      [Scars: " << SCarCount << ",NCars: " << NCarCount << "]" << endl;
+		OutputFile << "Avg busy time = " << ceil(SumBusyTime / CarsCount) << endl << "Avg Utilization = " << (int)((ceil(SumBusyTime / CarsCount)) / timestep * 100) << "%" << endl;
+
 	}
 	else
 		cout << "Error loading file" << endl;

@@ -2,15 +2,17 @@
 
 bool LeavableQueue::LeaveQueue(Request*& Removed, int PID)
 {
+    Node<Request*>* prevptr = backPtr;
     Node<Request*>* ptr = frontPtr;
-    int x;
-    while (ptr && ptr->getNext() && ptr->getNext()->getItem()->getpid() != PID) {
+    while (ptr && prevptr && ptr->getItem()->getpid() != PID)
+    {
+        prevptr = prevptr->getNext();
         ptr = ptr->getNext();
-    } //traversal until it reaches null or ptr before the one to be deleted
-    if (ptr && ptr->getNext() && ptr->getNext()->getItem()->getpid() == PID) {
-        Node<Request*>* temp = ptr->getNext();//sets temp to ptr to be removed
-        Removed = temp->getItem(); //pointer assigned to the removed car
-        ptr->setNext(temp->getNext()); //sets the next of ptr to the next of deleted 
+    }
+    if (ptr && prevptr)
+    {
+        Removed = ptr->getItem();
+        prevptr->setNext(ptr->getNext());
         return true;
     }
     return false;

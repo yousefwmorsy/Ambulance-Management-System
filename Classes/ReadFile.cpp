@@ -16,7 +16,7 @@ CID: Car ID
 
 void Organiser::ReadInputFile() {
 	fstream inputFile;
-	inputFile.open("Input&Output//Input//file5.txt");
+	inputFile.open("Input&Output//Input//file1.txt");
 	//If there exist a problem when reading the file 
 	if (inputFile.fail()) {
 		cout << "Can't read the file........!";
@@ -62,7 +62,11 @@ void Organiser::ReadInputFile() {
 			HospitalList[i].addCar(C);
 			CID++;
 		}
+		SCarCount += NumS;
+		NCarCount += NumN;
+		CarsCount += (NumS + NumN);
 	}
+	
 
 	//Geting the number of requests
 	inputFile >> NumOfRequests;

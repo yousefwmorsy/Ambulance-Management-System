@@ -51,6 +51,11 @@ int Request::getWT()
 	return WT;
 }
 
+int Request::getPT()
+{
+	return PT;
+}
+
 int Request::getAT()
 {
 	//Getting Assign Time
@@ -60,6 +65,11 @@ int Request::getAT()
 int Request::getpid()
 {
 	return Pid;
+}
+
+void Request::setWT(int t)
+{
+	WT = t;
 }
 
 void Request::setdistance(int x)
