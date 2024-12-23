@@ -18,14 +18,11 @@ Organiser::Organiser()
 	NCarCount = 0;
 }
 
-
 bool Organiser::notEnd()
 {
 	//checks if all requests were served
 	return ((FinishedRequestsCount != TotalRequestsCount));
 }
-
-
 
 void Organiser::sendRequests()
 {
@@ -41,7 +38,6 @@ void Organiser::sendRequests()
 void Organiser::Simulation(){
 	srand(time(0));
 	LeavablePriQueue temp;
-
 	ReadInputFile();
 	cout << "Select Mode: " << endl;
 	cout << "Type ""i"" for Interactive Mode" << endl;
@@ -69,9 +65,8 @@ void Organiser::Simulation(){
 		if (!OutCars.isEmpty()) {
 			int t = 0;
 			Car* FailedCar = CarFailure(1, t, countf); //After this point OutCars set t NULL
-
 			if (FailedCar) {
-				OutCarFailureAction(FailedCar);
+				OutCarFailureAction(FailedCar, t); 
 			}
 		}
 
@@ -93,7 +88,6 @@ void Organiser::Simulation(){
 
 		//Step9: Check for returned cars from the checkup list
 		while (CheckupList.peek(C,i) && -1*i == timestep) {
-
 			CheckupList.dequeue(C, i);
 			C->SetCarToFail(false);
 			HospitalList[C->GetHospitalID() - 1].addCar(C);
@@ -101,7 +95,6 @@ void Organiser::Simulation(){
 		}
 
 		//Step10: Print all hospital's informations
-
 		if (m)
 		{
 			for (int i = 0; i < HospitalCount; i++)
@@ -119,13 +112,12 @@ void Organiser::Simulation(){
 	
 }
 
-
 Car* Organiser::CarFailure(int x, int &t, int &c)
 {
 	/*
 	Generate a number and chick if the number is within the Failure Probability
 	make a copy of the OutCars and Generate a number within the num of OutCars
-	then Bick the car from the list;
+	then Bick the car from the list; 
 	*/
 
 	//&t .....
@@ -174,9 +166,8 @@ void Organiser::OutCarFailureAction(Car* C, int t)
 	BCarCount++;
 }
 
-
 //NOT FINISHED
-void Organiser::OutCarFailureAction(Car* C)
+void Organiser::BackCarFailureAction(Car*C, int t)
 {
 	Car* FBC; int StopedBackTime;
 	if (C) {
@@ -188,12 +179,10 @@ void Organiser::OutCarFailureAction(Car* C)
 			return;
 		}
 	}
-	OutCars = Temp;
-}
-
-void Organiser::BackCarFailureAction(Car*)
-{
-
+	while (FailedBackCars.dequeue(FBC, StopedBackTime)) {
+		StopedBackTime--;
+		FailedBackCars.enqueue(FBC, StopedBackTime);
+	}
 }
 
 
@@ -313,7 +302,7 @@ void Organiser::checkOutCarsReached()
 {
 	Car* Car;
 	int priority;
-	while (OutCars.peek(Car, priority) && timestep == priority * -1)
+	while (OutCars.peek(Car, priority) && timestep == priority*-1)
 	{
 		OutCars.dequeue(Car, priority);
 		carReachedPatient(Car,0);
@@ -330,8 +319,6 @@ void Organiser::checkBackCarsReached()
 		carReachedHospital(Car);
 	}
 }
-
-
 
 void Organiser::handlingEP()
 {
