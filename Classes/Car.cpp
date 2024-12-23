@@ -75,10 +75,32 @@ int Car::GetBusyTime()
 	return busyTime;
 }
 
+void Car::SetTimeToBack(int t)
+{
+	TimeToBack = t;
+}
+
+int Car::GetTimeToBack()
+{
+	return TimeToBack;
+}
+
+void Car::setToResqeu(bool c)
+{
+	toRescue = c;
+}
+
+bool Car::isToResque()
+{
+	return toRescue;
+}
+
 
 Car::Car()
 {
+	TimeToBack = 0;
 	isFail = false;
+	toRescue = false;
 }
 
 Car::Car(int hid, int cid, bool isS) {
@@ -89,17 +111,30 @@ Car::Car(int hid, int cid, bool isS) {
 	busyTime = 0;
 	ptr = nullptr;
 	isFail = false;
+	toRescue = false;
 }
 
 ostream& operator<<(ostream& out, const Car& c)
 {
 	if (c.isSpecial)
 	{
-		out << "S" << c.carID << "_H" << c.hospitalID << "_P" << *c.ptr;
+		out << "S" << c.carID << "_H" << c.hospitalID << "_P";
+		if (c.ptr) {
+			out << *c.ptr;
+		}
+		else {
+			out << "X";
+		}
 	}
 	else
 	{
-		out << "N" << c.carID << "_H" << c.hospitalID << "_P" << *c.ptr;
+		out << "N" << c.carID << "_H" << c.hospitalID << "_P";
+		if (c.ptr) {
+			out << *c.ptr;
+		}
+		else {
+			out << "X";
+		}
 	}
 	return out;
 	// TODO: insert return statement here

@@ -24,10 +24,17 @@ private:
 	int BackCarsFailureProbability;
 	int OCarCount;
 	int BCarCount;
+	int CheckUpTime;
+	int CheckCarCount;
+	int SCarCount;
+	int NCarCount;
+	int CarsCount;
 	Hospital* HospitalList;
 	LeavableQueue AllRequests;
 	LeavablePriQueue OutCars;
-	priQueue<Car*> BackCars;
+
+	LeavablePriQueue BackCars;
+	LeavablePriQueue FailedBackCars;
 	LinkedQueue<Request*> FinishList;
 	LinkedQueue<CancelRequest*> CancellationRequests;
 	priQueue <Request*>  waitEP; //used for handling EP that couldn't be handled in there timestep
@@ -39,20 +46,23 @@ public:
 	void ReadInputFile(); //reads file contents
 	void sendRequests(); //sends requests at current timestep to suitable hospital
 	void Simulation();
-	Car* CarFailure(int);
-	void OutCarFailureAction(Car*);
-	void BackCarFailureAction(Car*);
+	Car* CarFailure(int , int &t, int &c);
+	void OutCarFailureAction(Car*, int t);
+	void BackCarFailureAction(Car*, int t);
 	void ReturnRepairedCars();
-	void linkCarToPatient(Car*& Car);
-	void finishRequest(Request*& Patient);
-	void carReachedPatient(Car*& Car);
-	void carReachedHospital(Car*& Car);
+	void linkCarToPatient(Car* Car, Request* R, int t);
+	void finishRequest(Request* Patient);
+	void carReachedPatient(Car* Car, int t);
+	void carReachedHospital(Car* Car);
+	void checkCancelRequests();
 	void checkOutCarsReached();
 	void checkBackCarsReached();
 	void checkCancelRequests();
 	void handlingEP();
 	void serveRequests();
+	bool thereIsHospitalCanServe();
 	int CheckUpCarC();
 	void CreateOutputFile();
+	void rescueFailedCar(Car*C);
 	~Organiser();
 };

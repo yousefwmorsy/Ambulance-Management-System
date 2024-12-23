@@ -93,7 +93,7 @@ void Node<T>::setNext(Node<T>* nextNodePtr)
 template < typename T>
 T Node<T>::getItem() const
 {
-	return item;
+ 	return item;
 } 
 
 template < typename T>
@@ -237,7 +237,7 @@ inline void LinkedQueue<T>::print()
 		Node<T>* current = frontPtr;
 		while (current != nullptr)
 		{
-			cout << current->getItem() << endl;
+			cout << *current->getItem() << ", ";
 			current = current->getNext();
 		}
 	}

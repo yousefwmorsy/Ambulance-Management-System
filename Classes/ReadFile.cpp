@@ -7,7 +7,7 @@ using namespace std;
 /*Abbreviation list:
 NCSpeed: Normal car speed
 SCSpeed: Special car speed
-NumOfRrequests: Number of entered requests
+NumOfRequests: Number of entered requests
 NumOfCancellation: Number of Cancellation requests
 NumS: Number of special cars
 NumN: Number of normal cars
@@ -16,7 +16,7 @@ CID: Car ID
 
 void Organiser::ReadInputFile() {
 	fstream inputFile;
-	inputFile.open("Input&Output//Requests.txt");
+	inputFile.open("Input&Output//Input//file1.txt");
 	//If there exist a problem when reading the file 
 	if (inputFile.fail()) {
 		cout << "Can't read the file........!";
@@ -29,7 +29,7 @@ void Organiser::ReadInputFile() {
 	inputFile >> NCSpeed >> SCSpeed;
 	Car::setSpeed(SCSpeed, NCSpeed);
 
-	//Creating Matrex to sotre distances of hospitals
+	//Creating Matrix to store distances of hospitals
 	HospitalsDistances = new int* [HospitalCount];
 
 	//Allocate the Matrix
@@ -46,7 +46,7 @@ void Organiser::ReadInputFile() {
 	}
 	int NumS = 0, NumN = 0;
 	
-	//Geting the number of cars of each type to its hospial
+	//Getting the number of cars of each type to its hospital
 	HospitalList = new Hospital[HospitalCount];
 	for (int i = 0; i < HospitalCount; i++) {
 		inputFile >> NumS >> NumN;
@@ -62,7 +62,11 @@ void Organiser::ReadInputFile() {
 			HospitalList[i].addCar(C);
 			CID++;
 		}
+		SCarCount += NumS;
+		NCarCount += NumN;
+		CarsCount += (NumS + NumN);
 	}
+	
 
 	//Geting the number of requests
 	inputFile >> NumOfRequests;
@@ -88,11 +92,12 @@ void Organiser::ReadInputFile() {
 	inputFile >> NumOfReqCancellation;
 	for (int i = 0; i < NumOfReqCancellation; i++) {
 		CancelRequest* CancelR = new CancelRequest;
-		inputFile >> CancelR->CancelTime >> CancelR->PID, CancelR->HID;
+		inputFile >> CancelR->CancelTime >> CancelR->PID >> CancelR->HID;
 		CancellationRequests.enqueue(CancelR);
 	}
 
-	// Reading Failure probability:
+
 	inputFile >> OutCarsFailureProbability;
 	inputFile >> BackCarsFailureProbability;
+	inputFile >> CheckUpTime;
 }

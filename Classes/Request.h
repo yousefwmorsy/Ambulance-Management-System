@@ -22,13 +22,16 @@ public:
 	int getFT();
 	int getQT();
 	int getWT();
+	int getPT();
+	int getAT(); //Getting Assign Time
 	int getpid();
+	void setWT(int);
+	void setdistance(int x);
 	string getType();
 	void setHospitalID(int); //only used for EP 
 	int getHospitalID();
 	int getDistance();
-	friend ostream& operator << (ostream& out, const Request& r);
-
+	friend ostream& operator << (ostream& out,const Request& r);
 	//Make operator (=) overloading
 };
 
