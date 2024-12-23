@@ -32,6 +32,7 @@ private:
 	Hospital* HospitalList;
 	LeavableQueue AllRequests;
 	LeavablePriQueue OutCars;
+
 	LeavablePriQueue BackCars;
 	LeavablePriQueue FailedBackCars;
 	LinkedQueue<Request*> FinishList;
@@ -56,6 +57,7 @@ public:
 	void checkCancelRequests();
 	void checkOutCarsReached();
 	void checkBackCarsReached();
+	void checkCancelRequests();
 	void handlingEP();
 	void serveRequests();
 	bool thereIsHospitalCanServe();
@@ -64,4 +66,3 @@ public:
 	void rescueFailedCar(Car*C);
 	~Organiser();
 };
-
