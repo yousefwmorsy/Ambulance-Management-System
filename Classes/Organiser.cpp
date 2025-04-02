@@ -59,7 +59,7 @@ void Organiser::Simulation(){
 		serveRequests();
 
 		//Check the canceled requests
-		//checkCancelRequests();
+		checkCancelRequests();
 
 		/*step5: Random on OutCats for choose a car and start OutCar failure Action*/
 		if (!OutCars.isEmpty()) {
@@ -274,14 +274,10 @@ void Organiser::checkCancelRequests()
 	while (CancellationRequests.peek(CancelReq) && timestep == CancelReq->CancelTime)
 	{ 
 		CancellationRequests.dequeue(CancelReq);
-		Request* Patient = nullptr;
 		int timetoreach = 0;
-		for (int i = 0; i < HospitalCount; i++) //loops on hospitals and check np list
-		{
-			while (HospitalList[i].checkCancel(Patient, timestep, CancelReq->PID)) {
-				Patient->setPT(timestep);
-				finishRequest(Patient); //patient sent to finished request list
-			}
+		if (HospitalList[CancelReq->HID - 1].checkCancel(Patient, timestep, CancelReq->PID)) {
+			Patient->setPT(timestep);
+			finishRequest(Patient); //patient sent to finished request list
 		}
 		if (OutCars.LeaveQueue(Car, timetoreach, CancelReq->PID)) {
 			Patient = Car->dropPatient();
@@ -292,10 +288,10 @@ void Organiser::checkCancelRequests()
 			Patient->setPT(timestep);
 			finishRequest(Patient); //patient sent to finished request list
 		}
-		//if (AllRequests.LeaveQueue(Patient, CancelReq->PID)) {
-		//	Patient->setPT(timestep);
-		//	finishRequest(Patient); //patient sent to finished request list
-		//}
+		if (AllRequests.LeaveQueue(Patient, CancelReq->PID)) {
+			Patient->setPT(timestep);
+			finishRequest(Patient); //patient sent to finished request list
+		}
 	}
 }
 void Organiser::checkOutCarsReached()

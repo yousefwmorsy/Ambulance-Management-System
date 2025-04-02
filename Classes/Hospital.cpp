@@ -157,6 +157,7 @@ bool Hospital::checkCancel(Request*& Patient, int timestep, int pid)
 {
 	if (NRCount == 1) {
 		normalRequest.dequeue(Patient);
+		NRCount--;
 		return true;
 	}
 	if (normalRequest.LeaveQueue(Patient, pid))

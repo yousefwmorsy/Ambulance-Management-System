@@ -2,17 +2,22 @@
 
 bool LeavableQueue::LeaveQueue(Request*& Removed, int PID)
 {
-    Node<Request*>* prevptr = backPtr;
     Node<Request*>* ptr = frontPtr;
-    while (ptr && prevptr && ptr->getItem()->getpid() != PID)
+    Node<Request*>* prevPtr = frontPtr;
+    while (ptr && ptr->getItem()->getpid() != PID)
     {
-        prevptr = prevptr->getNext();
+        if (ptr != frontPtr) {
+            prevPtr = prevPtr->getNext();
+        }
         ptr = ptr->getNext();
     }
-    if (ptr && prevptr)
+    if (ptr)
     {
         Removed = ptr->getItem();
-        prevptr->setNext(ptr->getNext());
+        if (ptr == prevPtr) frontPtr = frontPtr->getNext();
+        prevPtr->setNext(ptr->getNext());
+        ptr->setNext(nullptr);
+        if (ptr == backPtr) backPtr = prevPtr;
         return true;
     }
     return false;

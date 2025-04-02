@@ -1,13 +1,15 @@
 #include "LeavablePriQueue.h"
 
-bool LeavablePriQueue::LeaveQueue(Car*& Removed, int timetoreach, int PID)
+bool LeavablePriQueue::LeaveQueue(Car*& Removed, int &timetoreach, int PID)
 {
-	priNode<Car*>* prevptr = NULL;
+	priNode<Car*>* prevptr = head;
 	priNode<Car*>* ptr = head;
 	int x;
 	while (ptr && ptr->getItem(x)->getPatient()->getpid() != PID)
 	{
-		prevptr = ptr;
+		if (ptr != head) {
+			prevptr = prevptr->getNext();
+		}
 		ptr = ptr->getNext();
 	}
 	if (ptr) {
